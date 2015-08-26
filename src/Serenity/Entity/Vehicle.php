@@ -6,7 +6,7 @@ class Vehicle
     /**
      * @var array list of valid vehicle types
      */
-    private $validVehicleTypes = array(
+    private static $validVehicleTypes = array(
         'caravans',
         'motorhomes',
         'awningrange',
@@ -92,8 +92,13 @@ class Vehicle
 
     public function setType($type)
     {
-        if (!in_array($type, $this->validVehicleTypes)) {
-            throw new Exception('Type ' . $type . ' not a valid vehicle type');
+        if (!in_array($type, self::$validVehicleTypes)) {
+            throw new \InvalidArgumentException(sprintf(
+                '%s: expects a value of {%s}.  Value of "%s" passed',
+                __METHOD__,
+                implode(',', self::$validVehicleTypes),
+                $type
+            ));
         }
         $this->type = $type;
         return $this;
@@ -204,9 +209,29 @@ class Vehicle
     }
 
     /**
+     * Set the created datetime
+     * @param \DateTime the datetime created
+     * @return Vehicle
+     */
+    public function setCreated(\DateTime $created)
+    {
+        $this->created = $created;
+        return $this;
+    }
+
+    /**
+     * Get the create datetime object
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
      * Set the modified datetime
      * @param DateTime the modified datetime object
-     * @return Admin
+     * @return Vehicle
      */
     public function setModified(\DateTime $modified)
     {

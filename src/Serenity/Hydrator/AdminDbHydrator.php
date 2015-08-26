@@ -16,9 +16,9 @@ class AdminDbHydrator extends AbstractDbHydrator
         }
 
         return array(
-            'admin_id' => (int) $admin->getAdminId(),
-            'username' => (string) $admin->getUsername(),
-            'passwd'   => (string) $admin->getPasswd(),
+            'admin_id' => $admin->getAdminId(),
+            'username' => $admin->getUsername(),
+            'passwd'   => $admin->getPasswd(),
             'created'  => $admin->getCreated()->format(self::MYSQL_FORMAT),
             'modified' => $admin->getModified()->format(self::MYSQL_FORMAT)
         );

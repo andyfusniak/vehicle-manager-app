@@ -46,5 +46,6 @@ class VehicleMapper
         unset($data['modified']);
 
         $stmt->execute($data);
+        return $this->pdo->lastInsertId();
     }
 }
