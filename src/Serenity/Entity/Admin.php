@@ -14,12 +14,17 @@ class Admin
     protected $username;
 
     /**
+     * @var string passwd of the administrator
+     */
+    protected $passwd;
+
+    /**
      * @var \DateTime created datetime object
      */
     protected $created;
-   
+
     /**
-     * @var \DateTime
+     * @var \DateTime last modified datetime object
      */
     protected $modified;
 
@@ -43,6 +48,17 @@ class Admin
     public function getUsername()
     {
         return $this->username;
+    }
+
+    public function setPasswd($passwd)
+    {
+        $this->passwd = $passwd;
+        return $this;
+    }
+
+    public function getPasswd()
+    {
+        return $this->passwd;
     }
 
     /**

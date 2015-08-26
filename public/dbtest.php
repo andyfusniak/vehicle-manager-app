@@ -1,10 +1,17 @@
 <?php
+chdir(dirname(__DIR__));
+
+// Setup autoloading
+require_once './vendor/autoload.php';
 require_once 'config.php';
-require_once 'src/Serenity/Entity/Admin.php';
-require_once 'src/Serenity/Mapper/AdminMapper.php';
-require_once 'src/Serenity/Hydrator/AdminDbHydrator.php';
+#require_once 'src/Serenity/Entity/Admin.php';
+#require_once 'src/Serenity/Mapper/AdminMapper.php';
+#require_once 'src/Serenity/Hydrator/AbstractDbHydrator.php';
+#require_once 'src/Serenity/Hydrator/AdminDbHydrator.php';
 
 //print_r(PDO::getAvailableDrivers());
+
+use Serenity\Entity\Admin;
 
 try {
     $pdo = new PDO(
@@ -20,12 +27,15 @@ try {
 $serverTimeZone = new \DateTimeZone($config['system']['timezones']['server']);
 $serverDt = new \DateTime('now', $serverTimeZone);
 
-$adminObject = new Serenity\Entity\Admin();
+$adminObject = new Admin();
 $adminObject->setAdminId(null)
             ->setUsername('joe')
+            ->setPasswd('hashcode')
             ->setCreated($serverDt)
             ->setModified($serverDt);
 
 $adminHydrator = new Serenity\Hydrator\AdminDbHydrator();
 $adminMapper = new Serenity\Mapper\AdminMapper($pdo, $adminHydrator);
-$adminMapper->insert($adminObject);
+$i = $adminMapper->insert($adminObject);
+
+var_dump($i);

@@ -30,10 +30,10 @@ class AdminMapper
      * @param Admin $admin the admin object to persist
      * @return int the last insert id from the db
      */
-    public function insert(Admin $admin)
+    public function insert($admin)
     {
         $stmt = $this->pdo->prepare(
-            'INSERT INTO admins (admin_id, username, created, modified) VALUES (null, :username, NOW(), NOW())'
+            'INSERT INTO admins (admin_id, username, passwd, created, modified) VALUES (null, :username, :passwd, NOW(), NOW())'
         );
 
         $data = $this->hydrator->extract($admin);
@@ -42,6 +42,7 @@ class AdminMapper
         unset($data['modified']);
 
         $stmt->execute($data);
+        return $this->pdo->lastInsertId();
     }
 
     public function fetchAll()

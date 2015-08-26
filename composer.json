@@ -4,7 +4,6 @@
     },
     "autoload": {
         "psr-4": {
-            "Serenity": "src/"
-        }
+            "Serenity\\": "src/Serenity/"}
     }
 }
