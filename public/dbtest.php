@@ -38,28 +38,38 @@ $serverDt = new \DateTime('now', $serverTimeZone);
 
 // vehicle test
 
-$vehicle = new Vehicle();
-$vehicle->setVehicleId(null)
-        ->setType('caravans')
-        ->setVisible(true)
-        ->setSold(false)
-        ->setUrl('my-new-car')
-        ->setPrice(2795)
-        ->setMetaKeywords('a,b,c,d,e,f')
-        ->setMetaDesc('A wonderful caravan for sale')
-        ->setPageTitle('ABC Caravan Model XYZ')
-        ->setMarkdown('# My caravan etc etc')
-        ->setPageHtml('<h1>My caravan etc etc</h1>')
-        ->setCreated($serverDt)
-        ->setModified($serverDt);
+//$vehicle = new Vehicle();
+//$vehicle->setVehicleId(null)
+//        ->setType('caravans')
+//        ->setVisible(true)
+//        ->setSold(false)
+//        ->setUrl('my-new-car')
+//        ->setPrice(2795)
+//        ->setMetaKeywords('a,b,c,d,e,f')
+//        ->setMetaDesc('A wonderful caravan for sale')
+//        ->setPageTitle('ABC Caravan Model XYZ')
+//        ->setMarkdown('# My caravan etc etc')
+//        ->setPageHtml('<h1>My caravan etc etc</h1>')
+//        ->setCreated($serverDt)
+//        ->setModified($serverDt);
 
-var_dump($vehicle);
+//var_dump($vehicle);
+
 
 $vehicleDbHydrator = new Serenity\Hydrator\VehicleDbHydrator();
 
-$vehicleDbHydrator->extract($vehicle);
+//$vehicleDbHydrator->extract($vehicle);
 $vehicleMapper = new Serenity\Mapper\VehicleMapper($pdo, $vehicleDbHydrator);
 
-$i = $vehicleMapper->insert($vehicle);
-var_dump($i);
+//$i = $vehicleMapper->insert($vehicle);
+//var_dump($i);
 //var_dump($vehicle);
+
+$v = $vehicleMapper->fetchByVehicleId(6);
+
+$v->setSold(true);
+$v->setVisible(false);
+$v->setPrice(1000);
+
+$vehicleMapper->update($v);
+//var_dump($v);

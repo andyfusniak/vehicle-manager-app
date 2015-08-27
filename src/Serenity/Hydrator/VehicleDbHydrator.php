@@ -32,7 +32,25 @@ class VehicleDbHydrator extends AbstractDbHydrator
         );
     }
 
-    public function hydrate(array $data, $object)
+    public function hydrate(array $data, $vehicle)
     {
+        $vehicle->setVehicleId((int) $data['vehicle_id'])
+                ->setType($data['type'])
+                ->setVisible(((int) $data['visible'] === 1) ? true : false)
+                ->setSold(((int) $data['sold'] === 1) ? true : false)
+                ->setUrl($data['url'])
+                ->setPrice((int) $data['price'])
+                ->setMetaKeywords($data['meta_keywords'])
+                ->setMetaDesc($data['meta_desc'])
+                ->setPageTitle($data['page_title'])
+                ->setMarkdown($data['markdown'])
+                ->setPageHtml($data['page_html'])
+                ->setCreated(\DateTime::createFromFormat(self::MYSQL_FORMAT,
+                                                         $data['created'],
+                                                         $this->utcTimeZone))
+                ->setModified(\DateTime::createFromFormat(self::MYSQL_FORMAT,
+                                                          $data['modified'],
+                                                          $this->utcTimeZone));
+        return $vehicle;
     }
 }
