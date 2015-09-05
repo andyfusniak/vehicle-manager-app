@@ -1,9 +1,12 @@
 {
     "require": {
-        "monolog/monolog": "^1.16"
+        "monolog/monolog": "^1.16",
+        "zendframework/zend-view": "2.4.7"
     },
     "autoload": {
         "psr-4": {
-            "Serenity\\": "src/Serenity/"}
+            "Serenity\\": "src/Serenity/",
+            "Nitrogen\\": "src/Nitrogen/"
+        }
     }
 }
