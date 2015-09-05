@@ -72,18 +72,14 @@ class VehicleMapper
 
     public function update(Vehicle $vehicle)
     {
-        $sql = '
+        $statement = $this->pdo->prepare('
         UPDATE vehicles
         SET type = :type, url = :url, visible = :visible, sold = :sold,
             price = :price, meta_keywords = :meta_keywords,
             meta_desc = :meta_desc, page_title = :page_title, modified = NOW()
         WHERE vehicle_id = :vehicle_id
-        ';
-
-        $statement = $this->pdo->prepare($sql);
-
+        ');
         $data = $this->hydrator->extract($vehicle);
-
         $statement->bindValue(':type', $data['type'], \PDO::PARAM_STR);
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
         $statement->bindValue(':visible', $data['visible'], \PDO::PARAM_INT);
@@ -93,9 +89,6 @@ class VehicleMapper
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
         $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
-
-        var_dump($statement);
-        //die();
         $statement->execute();
     }
 }
