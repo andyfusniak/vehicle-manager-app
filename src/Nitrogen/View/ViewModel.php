@@ -4,10 +4,21 @@ namespace Nitrogen\View;
 class ViewModel
 {
     /**
-     * View parameters
+     * Parent model capture to
+     */
+    protected $captureTo;
+
+    /**
+     * Child models
      * @var array
      */
-    protected $parameters;
+    protected $children = array();
+
+    /**
+     * View variables
+     * @var array
+     */
+    protected $variables;
 
     /**
      * Template to use when rendering this model
@@ -16,12 +27,35 @@ class ViewModel
      */
     protected $template;
 
-    public function __construct($parameters = null)
+    public function __construct($variables = array())
     {
-        if ($parameters === null) {
-            $this->parameters = array();
+        if ($variables === null) {
+            $this->variables = array();
         }
-        $this->parameters = $parameters;
+        $this->variables = $variables;
+    }
+
+    /**
+     * Set view variable
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @return ViewModel
+     */
+    public function setVariable($name, $value)
+    {
+        $this->variables[(string) $name] = $value;
+        return $this;
+    }
+
+    /**
+     * Get the view variables
+     *
+     * @return array
+     */
+    public function getVariables()
+    {
+        return $this->variables;
     }
 
     /**
@@ -44,5 +78,48 @@ class ViewModel
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    public function addChild(ViewModel $child)
+    {
+        $this->children[] = $child;
+        return $this;
+    }
+
+    /**
+     * Return all children
+     *
+     * @return array
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function hasChildren()
+    {
+        return (count($this->children) > 0);
+    }
+
+    /**
+     * Set the name of the variable to capture this model to, if it is a child model
+     *
+     * @param  string $capture
+     * @return ViewModel
+     */
+    public function setCaptureTo($capture)
+    {
+        $this->captureTo = (string) $capture;
+        return $this;
+    }
+
+    /**
+     * Get the name of the variable to which to capture this model
+     *
+     * @return string
+     */
+    public function captureTo()
+    {
+        return $this->captureTo;
     }
 }

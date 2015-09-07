@@ -7,17 +7,38 @@ require_once './vendor/autoload.php';
 use Nitrogen\View\View;
 use Nitrogen\View\ViewModel;
 use Nitrogen\View\PhpRenderer;
+use Nitrogen\View\HelperPluginManager;
+use Nitrogen\View\Helper;
 
-$viewModel = new ViewModel(array(
-    'form' => '<div>test</div>'
+$helperPluginManager = new HelperPluginManager();
+
+$layoutModel = new ViewModel(array(
+    'content' => 'layout content',
+    'a' => phpversion()
 ));
-$viewModel->setTemplate('view/add-edit-vehicle/add-edit.phtml');
+$layoutModel->setTemplate('view/layout/layout.phtml');
+
+$modelA = new ViewModel(array(
+    'form' => '<div>test</div>',
+    'a'    => 'view model A',
+    'this' => 'splat'
+));
+$modelA->setTemplate('view/add-edit-vehicle/add-edit.phtml')
+       ->setCaptureTo('content');
+
+$menu = new ViewModel(array(
+    'b' => '<ul><li>My menu</li></ul>'
+));
+$menu->setTemplate('view/layout/menu.phtml')
+     ->setCaptureTo('menu');
+
+$layoutModel->addChild($modelA)
+            ->addChild($menu);
 
 $renderer = new PhpRenderer();
+$renderer->setHelperPluginManager($helperPluginManager);
 
 $view = new View();
 $view->setRenderer($renderer);
 
-$content = $view->render($viewModel);
-
-echo $content;
+echo $view->render($layoutModel);

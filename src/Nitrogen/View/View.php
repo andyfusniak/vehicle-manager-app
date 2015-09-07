@@ -30,6 +30,23 @@ class View
             ));
         }
 
+        if ($viewModel->hasChildren()) {
+            $this->renderChildren($viewModel);
+        }
+
         return $this->renderer->render($viewModel);
+    }
+
+    public function renderChildren(ViewModel $viewModel)
+    {
+        foreach ($viewModel->getChildren() as $child) {
+            $result = $this->render($child);
+
+            $captureTo = $child->captureTo();
+
+            if ($captureTo !== null) {
+                $viewModel->setVariable($captureTo, $result);
+            }
+        }
     }
 }
