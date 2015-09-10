@@ -10,6 +10,13 @@ use Nitrogen\View\PhpRenderer;
 use Nitrogen\View\HelperPluginManager;
 use Nitrogen\View\Helper;
 
+use Nitrogen\Form\Form;
+use Nitrogen\Form\Element;
+
+// FORM
+$form = new Form();
+
+// VIEW
 $helperPluginManager = new HelperPluginManager();
 
 $layoutModel = new ViewModel(array(
