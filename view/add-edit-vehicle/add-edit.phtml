@@ -2,10 +2,10 @@
 
 <?php //var_dump(get_defined_vars()); ?>
 <?php //var_dump($this); ?>
-<?php var_dump($form); ?>
+<?php //var_dump($form); ?>
 
 
-<?php echo $this->escapeHtml('<span>'); ?>
+<?php //echo $this->escapeHtml('<span>'); ?>
 <hr>
 
 <form method="post" name="add-edit-vehicle">
@@ -16,6 +16,16 @@
     echo $this->formInput($username);
 ?>
 </div>
+
+
+<div class="question">
+<label for="vehicletype">Vehicle Type</label>
+<?php
+    $vehicleType = $form->get('vehicle-type');
+    echo $this->formSelect($vehicleType);
+?>
+</div>
+
 </form>
 
 <hr>

@@ -15,7 +15,17 @@ class VehicleForm extends Form
         $passwordElement = new Element\Password('passwd');
         $passwordElement->setValue('apples');
 
+        $vehicleType = new Element\Select('vehicle-type');
+        $vehicleType->setValueOptions(array(
+            'caravans'    => 'Caravans aaa',
+            'motorhomes'  => 'Motorhomes',
+            'awningrange' => 'Awning Range',
+            'accessories' => 'Accessories',
+            'cars'        => 'Cars'
+        ))->setEmptyOption('--select--');
+
         $this->add($username)
+             ->add($vehicleType)
              ->add($passwordElement);
     }
 }

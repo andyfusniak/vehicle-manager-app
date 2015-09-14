@@ -37,7 +37,7 @@ class Form implements FormInterface
     public function get($name)
     {
         if (!array_key_exists($name, $this->elements)) {
-            throw new Exception\InvalidElementException(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 'Element name "%s" not found',
                 $name
             ));
