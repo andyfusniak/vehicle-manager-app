@@ -50,14 +50,6 @@ abstract class AbstractPluginManager
         return null;
     }
 
-    private function doCreate($canonicalName)
-    {
-        if (isset($this->invokableClasses[$canonicalName])) {
-            $instance = $this->createFromInvokable($canonicalName);
-        }
-        return $instance;
-    }
-
     private function createFromInvokable($canonicalName)
     {
         $invokable = $this->invokableClasses[$canonicalName];
@@ -68,7 +60,12 @@ abstract class AbstractPluginManager
                 $invokable
             ));
         }
-        return new $invokable;
+
+        // store a copy of the helper plugin manager on board each component
+        // because the escape helper is needed for form element
+        $invokable = new $invokable;
+        $invokable->setHelperPluginManager($this);
+        return $invokable;
     }
 
 }

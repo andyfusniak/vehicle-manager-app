@@ -19,6 +19,7 @@ use Serenity\Form\VehicleForm;
 $vehicleForm = new VehicleForm();
 
 // VIEW
+$view = new View();
 $helperPluginManager = new HelperPluginManager();
 
 $layoutModel = new ViewModel(array(

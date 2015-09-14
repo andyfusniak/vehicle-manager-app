@@ -26,6 +26,14 @@
 ?>
 </div>
 
+<div class="question">
+<label for="meta-keywords">Meta Keywords</label>
+<?php
+    $metaKeywords = $form->get('meta-keywords');
+    echo $this->formTextarea($metaKeywords);
+?>
+</div>
+
 </form>
 
 <hr>

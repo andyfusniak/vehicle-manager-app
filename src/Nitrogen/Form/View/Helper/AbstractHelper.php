@@ -1,21 +1,59 @@
 <?php
 namespace Nitrogen\Form\View\Helper;
 
+use Nitrogen\View\Helper\AbstractHelper as BaseHelper;
 use Nitrogen\Form\ElementInterface;
+use Nitrogen\View\Helper\EscapeHtml;
+use Nitrogen\View\Helper\EscapeHtmlAttr;
 
-abstract class AbstractHelper
+abstract class AbstractHelper extends BaseHelper
 {
-    abstract public function render(ElementInterface $element);
+    /**
+     * @var EscapeHtml
+     */
+    protected $escapeHtmlHelper;
+
+    /**
+     * @var EscapeHtmlAttr
+     */
+    protected $escapeHtmlAttrHelper;
+
+    /**
+     * Retrieve the escapeHtml helper
+     *
+     * @return EscapeHtml
+     */
+    protected function getEscapeHtmlHelper()
+    {
+        if ($this->escapeHtmlHelper) {
+            return $this->escapeHtmlHelper;
+        }
+        return $this->escapeHtmlHelper = $this->helperPluginManager->get('escapehtml');
+    }
+
+    /**
+     * Retrieve the escapeHtmlAttr helper
+     *
+     * @return EscapeHtmlAttr
+     */
+    protected function getEscapeHtmlAttrHelper()
+    {
+        if ($this->escapeHtmlAttrHelper) {
+            return $this->escapeHtmlAttrHelper;
+        }
+        return $this->escapeHtmlAttrHelper = $this->helperPluginManager->get('escapehtmlattr');
+    }
 
     protected function renderName($name)
     {
-        // TODO: needs escaping which requires the HelperPluginManager
-        return 'name="' . $name . '"';
+        $escapeHtmlAttrHelper = $this->getEscapeHtmlAttrHelper();
+        return 'name="' . $escapeHtmlAttrHelper($name) . '"';
     }
 
     protected function renderType($type)
     {
-        return ' type="' . $type . '"';
+        $escapeHtmlAttrHelper = $this->getEscapeHtmlAttrHelper();
+        return ' type="' . $escapeHtmlAttrHelper($type) . '"';
     }
 
     protected function renderAttributes(array $attributes)
@@ -25,7 +63,9 @@ abstract class AbstractHelper
 
     protected function renderValue($value)
     {
-        // TODO: needs escaping
-        return ' value="' . $value . '"';
+        $escapeHtmlAttrHelper = $this->getEscapeHtmlAttrHelper();
+        return ' value="' . $escapeHtmlAttrHelper($value) . '"';
     }
+
+    abstract public function render(ElementInterface $element);
 }

@@ -9,11 +9,8 @@ class VehicleForm extends Form
     public function __construct()
     {
         $username = new Element\Text();
-        $username->setName('username');
-                 //->setValue('andy@greycatmedia.co.uk');
-
-        $passwordElement = new Element\Password('passwd');
-        $passwordElement->setValue('apples');
+        $username->setName('username')
+                 ->setValue('andy@greycatmedia.co.uk');
 
         $vehicleType = new Element\Select('vehicle-type');
         $vehicleType->setValueOptions(array(
@@ -24,8 +21,11 @@ class VehicleForm extends Form
             'cars'        => 'Cars'
         ))->setEmptyOption('--select--');
 
+        $metaKeywords = new Element\Textarea('meta-keywords');
+        $metaKeywords->setValue('<span>');
+
         $this->add($username)
              ->add($vehicleType)
-             ->add($passwordElement);
+             ->add($metaKeywords);
     }
 }

@@ -21,6 +21,11 @@ class View
         $this->renderer = $renderer;
     }
 
+    public function getRenderer()
+    {
+        return $this->renderer;
+    }
+
     public function render(ViewModel $viewModel)
     {
         if (!$this->renderer instanceof PhpRenderer) {
