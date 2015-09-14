@@ -3,7 +3,7 @@ namespace Nitrogen\Form\View\Helper;
 
 use Nitrogen\Form\ElementInterface;
 
-class FormInput extends AbstractHelper
+class FormText extends AbstractHelper
 {
     public function __invoke(ElementInterface $element)
     {

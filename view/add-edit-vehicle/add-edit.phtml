@@ -10,19 +10,50 @@
 
 <form method="post" name="add-edit-vehicle">
 <div class="question">
-<label for="username">Username</label>
 <?php
-    $username = $form->get('username');
-    echo $this->formInput($username);
+    $vehicleId = $form->get('vehicle-id');
+    echo $this->formHidden($vehicleId);
 ?>
 </div>
 
 
 <div class="question">
-<label for="vehicletype">Vehicle Type</label>
+<label for="type">Vehicle Type</label>
 <?php
-    $vehicleType = $form->get('vehicle-type');
-    echo $this->formSelect($vehicleType);
+    $type = $form->get('type');
+    echo $this->formSelect($type);
+?>
+</div>
+
+<div>
+<label for="visible">Visible</label>
+<?php
+    $visible = $form->get('visible');
+    echo $this->formSelect($visible);
+?>
+</div>
+
+<div>
+<label for="sold">Sold</label>
+<?php
+    $sold = $form->get('sold');
+    echo $this->formSelect($sold);
+?>
+</div>
+
+<div>
+<label for="url">URL</label>
+<?php
+    $url = $form->get('url');
+    echo $this->formText($url);
+?>
+</div>
+
+<div>
+<label for="price">Price</label>
+<?php
+    $price = $form->get('price');
+    echo $this->formText($price);
 ?>
 </div>
 
@@ -34,6 +65,31 @@
 ?>
 </div>
 
+<div class="question">
+<label for="meta-desc">Meta Description</label>
+<?php
+    $metaDesc = $form->get('meta-desc');
+    echo $this->formTextarea($metaDesc);
+?>
+</div>
+
+<div>
+<label for="page-title">Page Title</label>
+<?php
+    $pageTitle = $form->get('page-title');
+    echo $this->formText($pageTitle);
+?>
+</div>
+
+<div class="question">
+<label for="markdown">Markdown</label>
+<?php
+    $markdown = $form->get('markdown');
+    echo $this->formTextarea($markdown);
+?>
+</div>
+
+<button>Save</button>
 </form>
 
 <hr>

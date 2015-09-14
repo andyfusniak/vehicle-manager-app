@@ -8,24 +8,50 @@ class VehicleForm extends Form
 {
     public function __construct()
     {
-        $username = new Element\Text();
-        $username->setName('username')
-                 ->setValue('andy@greycatmedia.co.uk');
-
-        $vehicleType = new Element\Select('vehicle-type');
-        $vehicleType->setValueOptions(array(
-            'caravans'    => 'Caravans aaa',
+        $vehicleId = new Element\Hidden('vehicle-id');
+        $type = new Element\Select('type');
+        $type->setValueOptions(array(
+            'caravans'    => 'Caravans',
             'motorhomes'  => 'Motorhomes',
             'awningrange' => 'Awning Range',
             'accessories' => 'Accessories',
             'cars'        => 'Cars'
         ))->setEmptyOption('--select--');
 
-        $metaKeywords = new Element\Textarea('meta-keywords');
-        $metaKeywords->setValue('<span>');
+        $visible = new Element\Select('visible');
+        $visible->setValueOptions(array(
+            '1' => 'Yes',
+            '0' => 'No'
+        ));
 
-        $this->add($username)
-             ->add($vehicleType)
-             ->add($metaKeywords);
+        $sold = new Element\Select('sold');
+        $sold->setValueOptions(array(
+            '0' => 'No',
+            '1' => 'Yes',
+        ));
+
+        $url = new Element\Text('url');
+
+        $price = new Element\Text('price');
+
+        $metaKeywords = new Element\Textarea('meta-keywords');
+        $metaDesc = new Element\Textarea('meta-desc');
+
+        $pageTitle = new Element\Text('page-title');
+
+        $markdown = new Element\Textarea('markdown');
+
+        $this->add([
+            $vehicleId,
+            $type,
+            $visible,
+            $sold,
+            $url,
+            $price,
+            $metaKeywords,
+            $metaDesc,
+            $pageTitle,
+            $markdown
+        ]);
     }
 }

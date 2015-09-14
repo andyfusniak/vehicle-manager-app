@@ -20,8 +20,21 @@ class Form implements FormInterface
         $this->name = (string) $name;
     }
 
-    public function add(Element $element)
+    /**
+     * Add an element or list of elements
+     *
+     * @param ElementInterface|array
+     * @return Form
+     */
+    public function add($element)
     {
+        if (is_array($element)) {
+            foreach ($element as $e) {
+                $this->add($e);
+            }
+            return $this;
+        }
+
         $name = $element->getName();
 
         if (($name === null) || ($name === '')) {
