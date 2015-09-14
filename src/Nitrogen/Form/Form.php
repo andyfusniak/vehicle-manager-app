@@ -13,7 +13,7 @@ class Form implements FormInterface
     /**
      * @var array
      */
-    protected $elements = array();
+    protected $elements = [];
 
     public function __construct($name)
     {

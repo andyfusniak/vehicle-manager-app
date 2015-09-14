@@ -6,12 +6,12 @@ abstract class AbstractPluginManager
     /**
      * lookup table of canonical names
      */
-    protected $canonicalNames = array();
+    protected $canonicalNames = [];
 
     /**
      * cached instances
      */
-    protected $instances = array();
+    protected $instances = [];
 
     public function __construct()
     {
@@ -21,7 +21,7 @@ abstract class AbstractPluginManager
     {
         // cache the value if it's not been seen before
         if (!isset($this->canonicalNames[$name])) {
-            $this->canonicalNames[$name] = strtolower(strtr($name, array('-' => '')));
+            $this->canonicalNames[$name] = strtolower(strtr($name, ['-' => '']));
         }
 
         return $this->canonicalNames[$name];

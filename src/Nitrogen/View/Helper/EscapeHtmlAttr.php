@@ -13,18 +13,18 @@ class EscapeHtmlAttr extends AbstractHelper
      *
      * @var array
      */
-    protected static $htmlNamedEntityMap = array(
+    protected static $htmlNamedEntityMap = [ 
         34 => 'quot',         // quotation mark
         38 => 'amp',          // ampersand
         60 => 'lt',           // less-than sign
         62 => 'gt',           // greater-than sign
-    );
+    ];
 
     protected $htmlAttrMatcher;
 
     public function __construct()
     {
-        $this->htmlAttrMatcher = array($this, 'htmlAttrMatcher');
+        $this->htmlAttrMatcher = [$this, 'htmlAttrMatcher'];
     }
 
     /**

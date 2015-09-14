@@ -12,7 +12,7 @@ class ViewModel
      * Child models
      * @var array
      */
-    protected $children = array();
+    protected $children = [];
 
     /**
      * View variables
@@ -27,10 +27,10 @@ class ViewModel
      */
     protected $template;
 
-    public function __construct($variables = array())
+    public function __construct($variables = [])
     {
         if ($variables === null) {
-            $this->variables = array();
+            $this->variables = [];
         }
         $this->variables = $variables;
     }
