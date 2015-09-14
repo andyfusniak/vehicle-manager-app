@@ -1,9 +1,21 @@
 <?php
-namespace Nitrogen\Element;
+namespace Nitrogen\Form;
 
-class Element
+class Element implements ElementInterface
 {
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var array
+     */
+    protected $attributes = [];
+
+    /**
+     * @var string
+     */
     protected $value;
 
     public function __construct($name = null)
@@ -20,6 +32,23 @@ class Element
     public function getName()
     {
         return $this->name;
+    }
+
+    //public function setType($type)
+    //{
+    //    $this->type = (string) $type;
+    //    return $this;
+    //}
+    //
+    public function getType()
+    {
+        $parts = explode('\\', get_class($this));
+        return strtolower($parts[count($parts) - 1]);
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 
     public function setValue($value)

@@ -41,9 +41,13 @@ abstract class AbstractPluginManager
             return $this->instances[$canonicalName];
         }
 
-        $instance = $this->doCreate($canonicalName);
-        $this->instances[$canonicalName] = $instance;
-        return $instance;
+        if (isset($this->invokableClasses[$canonicalName])) {
+            $instance = $this->createFromInvokable($canonicalName);
+            $this->instances[$canonicalName] = $instance;
+            return $instance;
+        }
+
+        return null;
     }
 
     private function doCreate($canonicalName)

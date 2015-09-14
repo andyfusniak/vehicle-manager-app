@@ -13,8 +13,10 @@ use Nitrogen\View\Helper;
 use Nitrogen\Form\Form;
 use Nitrogen\Form\Element;
 
+use Serenity\Form\VehicleForm;
+
 // FORM
-$form = new Form();
+$vehicleForm = new VehicleForm();
 
 // VIEW
 $helperPluginManager = new HelperPluginManager();
@@ -26,9 +28,7 @@ $layoutModel = new ViewModel(array(
 $layoutModel->setTemplate('view/layout/layout.phtml');
 
 $modelA = new ViewModel(array(
-    'form' => '<div>test</div>',
-    'a'    => 'view model A',
-    'this' => 'splat'
+    'form' => $vehicleForm
 ));
 $modelA->setTemplate('view/add-edit-vehicle/add-edit.phtml')
        ->setCaptureTo('content');
