@@ -20,6 +20,12 @@ class Element implements ElementInterface
 
     public function __construct($name = null)
     {
+        if (empty($name)) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s: constructor called without a unique name',
+                get_class($this)
+            ));
+        }
         $this->setName($name);
     }
 
@@ -34,16 +40,37 @@ class Element implements ElementInterface
         return $this->name;
     }
 
-    //public function setType($type)
-    //{
-    //    $this->type = (string) $type;
-    //    return $this;
-    //}
-    //
     public function getType()
     {
         $parts = explode('\\', get_class($this));
         return strtolower($parts[count($parts) - 1]);
+    }
+
+    /**
+     * Set an element attribute name value pair
+     *
+     * @param string $name html attribute name
+     * @param string|array $value html value
+     * @return Element
+     */
+    public function setAttribute($name, $value = '')
+    {
+        $this->attributes[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Get an html attribute by name
+     *
+     * @param string $name html attribute name
+     * @return string|null attribute value or null if not found
+     */
+    public function getAttribute($name)
+    {
+        if (isset($this->attributes[$name])) {
+            return $this->attributes[$name];
+        }
+        return null;
     }
 
     public function getAttributes()

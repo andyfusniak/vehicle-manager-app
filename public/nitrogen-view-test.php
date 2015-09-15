@@ -50,3 +50,5 @@ $view = new View();
 $view->setRenderer($renderer);
 
 echo $view->render($layoutModel);
+
+echo ceil((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000.0) . ' ms';
