@@ -20,7 +20,11 @@
 <div class="question">
 <label for="type">Vehicle Type</label>
 <?php
-    $type = $form->get('type');
+    $type = $form->get('type')
+                 ->setAttribute('id', 'vehicle-type')
+                 ->setAttribute('multiple', '')
+                 ->setAttribute('class', ['a', 'b', 'c'])
+                 ->setAttribute('disabled');
     echo $this->formSelect($type);
 ?>
 </div>

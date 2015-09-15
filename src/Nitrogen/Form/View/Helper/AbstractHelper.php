@@ -3,11 +3,22 @@ namespace Nitrogen\Form\View\Helper;
 
 use Nitrogen\View\Helper\AbstractHelper as BaseHelper;
 use Nitrogen\Form\ElementInterface;
+use Nitrogen\Form\Exception;
 use Nitrogen\View\Helper\EscapeHtml;
 use Nitrogen\View\Helper\EscapeHtmlAttr;
 
 abstract class AbstractHelper extends BaseHelper
 {
+    protected $booleanAttributes = [
+        'autofocus',
+        'checked',
+        'disabled',
+        'multiple',
+        'readonly',
+        'required',
+        'selected',
+    ];
+
     /**
      * @var EscapeHtml
      */
@@ -58,7 +69,39 @@ abstract class AbstractHelper extends BaseHelper
 
     protected function renderAttributes(array $attributes)
     {
-        return '';
+        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+        $escapeHtmlAttrHelper = $this->getEscapeHtmlAttrHelper();
+
+        $attributeStrings = [];
+
+        foreach ($attributes as $name => $value) {
+            if (!ctype_lower($name)) {
+                throw new Exception\DomainException(sprintf(
+                    '%s expects attribute names to be lowercase "%s" passed',
+                    __METHOD__,
+                    $name
+                ));
+            }
+
+            if (in_array($name, $this->booleanAttributes)) {
+                $attributeStrings[] = $escapeHtmlHelper($name);
+            } else {
+                if (is_array($value)) {
+                    $l = [];
+                    foreach ($value as $i) {
+                        $l[] = $escapeHtmlAttrHelper($i);
+                    }
+                    $value = implode(' ', $l);
+                }
+
+                $attributeStrings[] = sprintf(
+                    '%s="%s"',
+                    $escapeHtmlHelper($name),
+                    $escapeHtmlAttrHelper($value)
+                );
+            }
+        }
+        return ' ' . implode(' ', $attributeStrings);
     }
 
     protected function renderValue($value)
