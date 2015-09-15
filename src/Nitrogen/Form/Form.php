@@ -6,19 +6,14 @@ use Nitrogen\Form\Element;
 class Form implements FormInterface
 {
     /**
-     * @var string name of the form
+     * @var array|null data to be validated
      */
-    protected $name;
+    protected $data;
 
     /**
      * @var array
      */
     protected $elements = [];
-
-    public function __construct($name)
-    {
-        $this->name = (string) $name;
-    }
 
     /**
      * Add an element or list of elements
@@ -56,5 +51,24 @@ class Form implements FormInterface
             ));
         }
         return $this->elements[$name];
+    }
+
+    /**
+     * Set the data to be validated
+     *
+     * @param array $data to be validated
+     * @return Form
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        // populate the values
+        foreach ($this->elements as $name => $element) {
+            if (array_key_exists($name, $data)) {
+                $element->setValue($data[$name]);
+            }
+        }
+        return $this;
     }
 }

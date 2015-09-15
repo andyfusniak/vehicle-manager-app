@@ -101,6 +101,9 @@ abstract class AbstractHelper extends BaseHelper
                 );
             }
         }
+        //if (empty($attributeStrings)) {
+        //    return '';
+        //}
         return ' ' . implode(' ', $attributeStrings);
     }
 

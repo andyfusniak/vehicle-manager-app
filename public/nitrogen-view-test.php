@@ -17,6 +17,11 @@ use Serenity\Form\VehicleForm;
 
 // FORM
 $vehicleForm = new VehicleForm();
+$vehicleForm->setData([
+    'url'       => 'camper-van-for-sale',
+    'price'     => '1235',
+    'meta-desc' => '<span>'
+]);
 
 // VIEW
 $view = new View();
@@ -48,6 +53,7 @@ $renderer->setHelperPluginManager($helperPluginManager);
 
 $view = new View();
 $view->setRenderer($renderer);
+
 
 echo $view->render($layoutModel);
 
