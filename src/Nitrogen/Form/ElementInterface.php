@@ -1,6 +1,8 @@
 <?php
 namespace Nitrogen\Form;
 
+use Nitrogen\Validator\ValidatorChain;
+
 interface ElementInterface
 {
     public function setName($name);
@@ -9,4 +11,14 @@ interface ElementInterface
     public function getAttributes();
     public function setValue($value);
     public function getValue();
+
+    /**
+     * @return bool
+     */
+    public function isValid();
+
+    /**
+     * @param ValidatorChain $validatorChain
+     */
+    public function setValidatorChain(ValidatorChain $validatorChain);
 }

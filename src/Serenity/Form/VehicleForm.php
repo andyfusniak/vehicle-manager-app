@@ -3,10 +3,12 @@ namespace Serenity\Form;
 
 use Nitrogen\Form\Form;
 use Nitrogen\Form\Element;
+use Nitrogen\ServiceManager\HelperPluginManager;
+use Nitrogen\Validator\ValidatorChain;
 
 class VehicleForm extends Form
 {
-    public function __construct()
+    public function __construct(HelperPluginManager $helperPluginManager)
     {
         $vehicleId = new Element\Hidden('vehicle-id');
         $type = new Element\Select('type');
@@ -33,6 +35,10 @@ class VehicleForm extends Form
         $url = new Element\Text('url');
 
         $price = new Element\Text('price');
+        $priceChain = new ValidatorChain($helperPluginManager);
+        $priceChain->attach('validatordigits')
+                   ->attach('validatorstringlength');
+        $price->setValidatorChain($priceChain);
 
         $metaKeywords = new Element\Textarea('meta-keywords');
         $metaDesc = new Element\Textarea('meta-desc');

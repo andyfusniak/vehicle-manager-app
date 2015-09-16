@@ -10,6 +10,7 @@ class HelperPluginManager extends AbstractPluginManager
         'formselect'            => 'Nitrogen\Form\View\Helper\FormSelect',
         'formtext'              => 'Nitrogen\Form\View\Helper\FormText',
         'formtextarea'          => 'Nitrogen\Form\View\Helper\FormTextarea',
+        'formelementerrors'      => 'Nitrogen\Form\View\Helper\FormElementErrors',
         'validatordigits'       => 'Nitrogen\Validator\Digits',
         'validatorstringlength' => 'Nitrogen\Validator\StringLength'
     ];

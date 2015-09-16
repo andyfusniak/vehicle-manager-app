@@ -22,12 +22,27 @@ class ValidatorChain implements ValidatorInterface
     protected $helperPluginManager;
 
     /**
+     * @param HelperPluginManager|null plugin manager or null if using only objects
+     */
+    public function __construct($helperPluginManager = null)
+    {
+       $this->helperPluginManager = $helperPluginManager;
+    }
+
+    /**
      * @param string|ValidatorInterface validator string for plugin manager or validator object
      * @return ValidatorChain
      */
     public function attach($validator)
     {
         if (is_string($validator)) {
+            if ($this->helperPluginManager === null) {
+                throw new \DomainException(sprintf(
+                    '%s passed a string "%s" but the plugin manager is not setup',
+                    __METHOD__,
+                    $validator
+                ));
+            }
             $object = $this->helperPluginManager->get($validator);
             if ($object === null) {
                 throw new \Exception(sprintf(

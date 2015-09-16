@@ -20,3 +20,5 @@ $priceChain->attach('validatordigits')
 
 var_dump($priceChain->isValid('abc'));
 var_dump($priceChain->getMessages());
+
+echo ceil((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000.0) . ' ms';

@@ -1,6 +1,8 @@
 <?php
 namespace Nitrogen\Form;
 
+use Nitrogen\Validator\ValidatorChain;
+
 class Element implements ElementInterface
 {
     /**
@@ -17,6 +19,11 @@ class Element implements ElementInterface
      * @var string
      */
     protected $value;
+
+    /**
+     * @var ValidatorChain
+     */
+    protected $validatorChain;
 
     public function __construct($name = null)
     {
@@ -87,5 +94,36 @@ class Element implements ElementInterface
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid()
+    {
+        // if there are no validators attached for this element
+        // then it is assumed to be valid
+        if ($this->validatorChain === null) {
+            return true;
+        }
+        return $this->validatorChain->isValid($this->value);
+    }
+
+    /**
+     * @return array associative array of name error messages
+     */
+    public function getMessages()
+    {
+        return $this->validatorChain->getMessages();
+    }
+
+    /**
+     * @param ValidatorChain $validatorChain chain of validators
+     * @return Element
+     */
+    public function setValidatorChain(ValidatorChain $validatorChain)
+    {
+        $this->validatorChain = $validatorChain;
+        return $this;
     }
 }

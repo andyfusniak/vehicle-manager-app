@@ -15,18 +15,23 @@ use Nitrogen\Form\Element;
 
 use Serenity\Form\VehicleForm;
 
-// FORM
-$vehicleForm = new VehicleForm();
+// Service Manager
+$helperPluginManager = new HelperPluginManager();
+
+// FORM with validation inside
+$vehicleForm = new VehicleForm($helperPluginManager);
 $vehicleForm->setData([
     'url'       => 'camper-van-for-sale',
-    'price'     => '1235',
+    'price'     => 'abc',
     'meta-desc' => '<span>'
 ]);
 
+var_dump($vehicleForm->isValid());
+var_dump($vehicleForm->get('price')->getMessages());
+
+
 // VIEW
 $view = new View();
-$helperPluginManager = new HelperPluginManager();
-
 $layoutModel = new ViewModel(array(
     'content' => 'layout content',
     'a' => phpversion()
@@ -47,15 +52,6 @@ $menu->setTemplate('view/layout/menu.phtml')
 
 $layoutModel->addChild($modelA)
             ->addChild($menu);
-
-
-// VALIDATION
-$validatorChain = new Nitrogen\Validator\ValidatorChain();
-$digitValidator = new Nitrogen\Validator\Digits();
-
-$validatorChain->attach($digitValidator);
-var_dump($validatorChain);
-
 
 $renderer = new PhpRenderer();
 $renderer->setHelperPluginManager($helperPluginManager);
