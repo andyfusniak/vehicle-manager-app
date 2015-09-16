@@ -2,6 +2,7 @@
 namespace Nitrogen\Validator;
 
 use Nitrogen\Validator\ValidatorInterface;
+use Nitrogen\ServiceManager\HelperPluginManager;
 
 class ValidatorChain implements ValidatorInterface
 {
@@ -15,9 +16,35 @@ class ValidatorChain implements ValidatorInterface
      */
     protected $messages;
 
-    public function attach(ValidatorInterface $validator)
+    /**
+     * @var HelperPluginManager
+     */
+    protected $helperPluginManager;
+
+    /**
+     * @param string|ValidatorInterface validator string for plugin manager or validator object
+     * @return ValidatorChain
+     */
+    public function attach($validator)
     {
-        $this->validators[] = $validator;
+        if (is_string($validator)) {
+            $object = $this->helperPluginManager->get($validator);
+            if ($object === null) {
+                throw new \Exception(sprintf(
+                    '%s failed to load validator plugin "%s"',
+                    __METHOD__,
+                    $validator
+                ));
+            }
+            $this->attach($object);
+        } else if ($validator instanceof ValidatorInterface) {
+            $this->validators[] = $validator;
+        } else {
+            throw new \Exception(sprintf(
+                '%s expects a string validator plugin or ValidatorInterface object',
+                __METHOD__
+            ));
+        }
         return $this;
     }
 
@@ -41,5 +68,11 @@ class ValidatorChain implements ValidatorInterface
     public function getMessages()
     {
         return $this->messages;
+    }
+
+    public function setHelperPluginManager(HelperPluginManager $helperPluginManager)
+    {
+        $this->helperPluginManager = $helperPluginManager;
+        return $this;
     }
 }

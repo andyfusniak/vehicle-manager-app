@@ -7,7 +7,7 @@ require_once './vendor/autoload.php';
 use Nitrogen\View\View;
 use Nitrogen\View\ViewModel;
 use Nitrogen\View\PhpRenderer;
-use Nitrogen\View\HelperPluginManager;
+use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\View\Helper;
 
 use Nitrogen\Form\Form;
@@ -47,6 +47,15 @@ $menu->setTemplate('view/layout/menu.phtml')
 
 $layoutModel->addChild($modelA)
             ->addChild($menu);
+
+
+// VALIDATION
+$validatorChain = new Nitrogen\Validator\ValidatorChain();
+$digitValidator = new Nitrogen\Validator\Digits();
+
+$validatorChain->attach($digitValidator);
+var_dump($validatorChain);
+
 
 $renderer = new PhpRenderer();
 $renderer->setHelperPluginManager($helperPluginManager);

@@ -1,7 +1,7 @@
 <?php
 namespace Nitrogen\View\Helper;
 
-use Nitrogen\View\HelperPluginManager;
+use Nitrogen\ServiceManager\HelperPluginManager;
 
 abstract class AbstractHelper
 {

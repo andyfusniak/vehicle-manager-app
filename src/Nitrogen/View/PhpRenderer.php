@@ -2,7 +2,7 @@
 namespace Nitrogen\View;
 
 use Nitrogen\View\ViewModel;
-use Nitrogen\View\HelperPluginManager;
+use Nitrogen\ServiceManager\HelperPluginManager;
 
 class PhpRenderer
 {
