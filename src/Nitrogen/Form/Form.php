@@ -16,6 +16,11 @@ class Form implements FormInterface
     protected $elements = [];
 
     /**
+     * @var array
+     */
+    protected $invalidElements;
+
+    /**
      * Add an element or list of elements
      *
      * @param ElementInterface|array
@@ -46,7 +51,7 @@ class Form implements FormInterface
     {
         if (!array_key_exists($name, $this->elements)) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Element name "%s" not found',
+                'Form element "%s" not found',
                 $name
             ));
         }
@@ -67,8 +72,40 @@ class Form implements FormInterface
         foreach ($this->elements as $name => $element) {
             if (array_key_exists($name, $data)) {
                 $element->setValue($data[$name]);
+            } else {
+                $element->setValue(null);
             }
         }
         return $this;
+    }
+
+    public function isValid()
+    {
+        $valid = true;
+        $this->invalidElements = [];
+
+        foreach ($this->elements as $name => $element) {
+            if (!array_key_exists($name, $this->data)) {
+                var_dump("Skipping " . $name);
+                continue;
+            }
+
+            if (!$element->isValid()) {
+                $this->invalidElements[$name] = $element;
+                $valid = false;
+            }
+        }
+
+        return $valid;
+    }
+
+    public function getMessages()
+    {
+        $messages = array();
+        foreach ($this->invalidElements as $name => $element) {
+            $messages[$name] = $element->getMessages();
+        }
+
+        return $messages;
     }
 }

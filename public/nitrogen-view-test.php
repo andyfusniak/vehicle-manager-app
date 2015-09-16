@@ -7,7 +7,7 @@ require_once './vendor/autoload.php';
 use Nitrogen\View\View;
 use Nitrogen\View\ViewModel;
 use Nitrogen\View\PhpRenderer;
-use Nitrogen\View\HelperPluginManager;
+use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\View\Helper;
 
 use Nitrogen\Form\Form;
@@ -15,18 +15,23 @@ use Nitrogen\Form\Element;
 
 use Serenity\Form\VehicleForm;
 
-// FORM
-$vehicleForm = new VehicleForm();
+// Service Manager
+$helperPluginManager = new HelperPluginManager();
+
+// FORM with validation inside
+$vehicleForm = new VehicleForm($helperPluginManager);
 $vehicleForm->setData([
     'url'       => 'camper-van-for-sale',
-    'price'     => '1235',
+    'price'     => 'abc',
     'meta-desc' => '<span>'
 ]);
 
+var_dump($vehicleForm->isValid());
+var_dump($vehicleForm->get('price')->getMessages());
+
+
 // VIEW
 $view = new View();
-$helperPluginManager = new HelperPluginManager();
-
 $layoutModel = new ViewModel(array(
     'content' => 'layout content',
     'a' => phpversion()

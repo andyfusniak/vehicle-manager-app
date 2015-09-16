@@ -1,5 +1,5 @@
 <?php
-namespace Nitrogen\View;
+namespace Nitrogen\ServiceManager;
 
 abstract class AbstractPluginManager
 {
@@ -64,7 +64,9 @@ abstract class AbstractPluginManager
         // store a copy of the helper plugin manager on board each component
         // because the escape helper is needed for form element
         $invokable = new $invokable;
-        $invokable->setHelperPluginManager($this);
+        if (method_exists($invokable, 'setHelperPluginManager')) {
+            $invokable->setHelperPluginManager($this);
+        }
         return $invokable;
     }
 

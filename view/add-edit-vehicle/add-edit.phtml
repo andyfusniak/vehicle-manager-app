@@ -21,10 +21,7 @@
 <label for="type">Vehicle Type</label>
 <?php
     $type = $form->get('type')
-                 ->setAttribute('id', 'vehicle-type')
-                 ->setAttribute('multiple', '')
-                 ->setAttribute('class', ['a', 'b', 'c'])
-                 ->setAttribute('disabled');
+                 ->setAttribute('id', 'vehicle-type');
     echo $this->formSelect($type);
 ?>
 </div>
@@ -58,6 +55,7 @@
 <?php
     $price = $form->get('price');
     echo $this->formText($price);
+    echo $this->formElementErrors($price);
 ?>
 </div>
 
