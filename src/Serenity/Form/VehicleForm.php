@@ -6,9 +6,13 @@ use Nitrogen\Form\Element;
 use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\Validator\ValidatorChain;
 
+use Serenity\Service\VehicleService;
+use Serenity\Validator\VehicleUrlTaken;
+
 class VehicleForm extends Form
 {
-    public function __construct(HelperPluginManager $helperPluginManager)
+    public function __construct(HelperPluginManager $helperPluginManager,
+                                VehicleService $vehicleService)
     {
         $vehicleId = new Element\Hidden('vehicle-id');
         //$vehicleIdChain = new ValidatorChain($helperPluginManager);
@@ -40,6 +44,10 @@ class VehicleForm extends Form
         ));
 
         $url = new Element\Text('url');
+        $urlChain = new ValidatorChain($helperPluginManager);
+        $urlChain->attach('validatornotempty')
+                 ->attach(new VehicleUrlTaken($vehicleService));
+        $url->setValidatorChain($urlChain);
 
         $price = new Element\Text('price');
         $priceChain = new ValidatorChain($helperPluginManager);

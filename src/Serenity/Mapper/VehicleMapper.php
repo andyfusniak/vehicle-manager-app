@@ -68,6 +68,19 @@ class VehicleMapper
         return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function isUrlTaken($url)
+    {
+        $statement = $this->pdo->prepare(
+            'SELECT url FROM vehicles WHERE url = :url'
+        );
+        $statement->bindValue(':url', (string) $url, \PDO::PARAM_STR);
+        $statement->execute();
+        if (is_array($statement->fetch(\PDO::FETCH_ASSOC))) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @param array $data associative array of data
      */
