@@ -19,7 +19,7 @@ use Serenity\Hydrator\VehicleFormHydrator;
 
 $application = Application::init($config);
 
-$vehicleForm = new VehicleForm($application->getHelperPluginManager());
+
 
 $pdoFactory = function() use ($config) {
     try {
@@ -48,6 +48,8 @@ $vehicleServiceFactory = function() use ($vehicleMapper) {
     return new VehicleService($vehicleMapper, new VehicleFormHydrator());
 };
 $vehicleService = $vehicleServiceFactory();
+
+$vehicleForm = new VehicleForm($application->getHelperPluginManager(), $vehicleService);
 
 $addEditController = new AddEditVehicleController($vehicleForm, $vehicleService);
 

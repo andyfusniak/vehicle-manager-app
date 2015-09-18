@@ -54,4 +54,13 @@ class VehicleService
         $vehicle = new Vehicle();
         $this->mapper->update($this->formHydrator->hydrate($data, $vehicle));
     }
+
+    /**
+     * @param string @url check url
+     * @return bool returns true or false
+     */
+    public function isUrlTaken($url)
+    {
+        return $this->mapper->isUrlTaken($url);
+    }
 }

@@ -33,6 +33,7 @@
 <?php
     $visible = $form->get('visible');
     echo $this->formSelect($visible);
+    echo $this->formElementErrors($visible);
 ?>
 </div>
 
@@ -41,6 +42,7 @@
 <?php
     $sold = $form->get('sold');
     echo $this->formSelect($sold);
+    echo $this->formElementErrors($sold);
 ?>
 </div>
 
@@ -49,6 +51,7 @@
 <?php
     $url = $form->get('url');
     echo $this->formText($url);
+    echo $this->formElementErrors($url);
 ?>
 </div>
 
@@ -66,6 +69,7 @@
 <?php
     $metaKeywords = $form->get('meta-keywords');
     echo $this->formTextarea($metaKeywords);
+    echo $this->formElementErrors($metaKeywords);
 ?>
 </div>
 
@@ -74,6 +78,7 @@
 <?php
     $metaDesc = $form->get('meta-desc');
     echo $this->formTextarea($metaDesc);
+    echo $this->formElementErrors($metaDesc);
 ?>
 </div>
 
@@ -82,6 +87,7 @@
 <?php
     $pageTitle = $form->get('page-title');
     echo $this->formText($pageTitle);
+    echo $this->formElementErrors($pageTitle);
 ?>
 </div>
 
@@ -90,6 +96,7 @@
 <?php
     $markdown = $form->get('markdown');
     echo $this->formTextarea($markdown);
+    echo $this->formElementErrors($markdown);
 ?>
 </div>
 
