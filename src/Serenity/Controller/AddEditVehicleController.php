@@ -43,7 +43,7 @@ class AddEditVehicleController
 
             if ($this->form->isValid()) {
                 $this->service->addVehicle($data);
-                die('added');
+                //die('added');
             } else {
                 var_dump("ERRORS");
             }

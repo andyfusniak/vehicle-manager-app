@@ -28,6 +28,7 @@ class FormSelect extends AbstractHelper
             $options = ['' => $emptyOption] + $options;
         }
 
+        var_dump($element->getValue());
         return sprintf(
             '<select %s%s>%s</select>',
             $this->renderName($element->getName()),
@@ -39,14 +40,13 @@ class FormSelect extends AbstractHelper
     public function renderOptions(array $options, $selectedOption)
     {
         $optionStrings = [];
-
         $template = '<option %s>%s</option>';
 
         // to do - needs escaping
         foreach ($options as $n => $v) {
             $optionStrings[] = sprintf(
                 $template,
-                'value="' . $n . '"',
+                'value="' . $n . '"' . ((strcmp($n, $selectedOption) === 0) ? ' selected' : ''),
                 $v
             );
         }
