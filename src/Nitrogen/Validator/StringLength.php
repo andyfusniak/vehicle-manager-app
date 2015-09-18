@@ -9,7 +9,7 @@ class StringLength extends AbstractValidator
 
     public function isValid($value)
     {
-        $this->messages[self::TOO_SHORT] = 'Way too short';
-        return false;
+        //$this->messages[self::TOO_SHORT] = 'Way too short';
+        return true;
     }
 }

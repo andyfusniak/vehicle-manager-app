@@ -1,5 +1,5 @@
 <?php
-namespace Serenity\Hydrator;
+namespace Nitrogen\Hydrator;
 
 interface HydratorInterface
 {

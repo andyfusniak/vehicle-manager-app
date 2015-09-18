@@ -3,7 +3,7 @@ chdir(dirname(__DIR__));
 
 // Setup autoloading
 require_once './vendor/autoload.php';
-require_once 'config.php';
+$config = require 'config.php';
 
 //print_r(PDO::getAvailableDrivers());
 

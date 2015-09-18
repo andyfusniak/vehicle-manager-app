@@ -1,6 +1,7 @@
 <?php
 namespace Serenity\Hydrator;
 
+use Nitrogen\Hydrator\AbstractDbHydrator;
 use Serenity\Entity\Admin;
 
 class AdminDbHydrator extends AbstractDbHydrator

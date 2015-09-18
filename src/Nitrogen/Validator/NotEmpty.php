@@ -1,11 +1,9 @@
 <?php
 namespace Nitrogen\Validator;
 
-use Nitrogen\Validator\Exception;
-
-class Digits extends AbstractValidator
+class NotEmpty extends AbstractValidator
 {
-    const NOT_DIGITS   = 'digitsNotDigits';
+    const IS_EMPTY = 'isEmpty';
 
     public function isValid($value)
     {
@@ -15,14 +13,13 @@ class Digits extends AbstractValidator
                 __METHOD__
             ));
         }
-
         $this->setValue($value);
 
-        if (ctype_digit($value)) {
-            return true;
+        if (strlen($value) < 1) {
+            $this->messages[self::IS_EMPTY] = 'This field is required';
+            return false;
         }
 
-        $this->messages[self::NOT_DIGITS] = 'The input must contain only digits';
-        return false;
+        return true;
     }
 }

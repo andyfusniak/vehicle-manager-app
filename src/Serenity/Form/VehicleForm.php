@@ -11,6 +11,10 @@ class VehicleForm extends Form
     public function __construct(HelperPluginManager $helperPluginManager)
     {
         $vehicleId = new Element\Hidden('vehicle-id');
+        //$vehicleIdChain = new ValidatorChain($helperPluginManager);
+        //$vehicleIdChain->attach('validatornotempty');
+        //$vehicleId->setValidatorChain($vehicleIdChain);
+
         $type = new Element\Select('type');
         $type->setValueOptions(array(
             'caravans'    => 'Caravans',
@@ -19,6 +23,9 @@ class VehicleForm extends Form
             'accessories' => 'Accessories',
             'cars'        => 'Cars'
         ))->setEmptyOption('--select--');
+        $typeChain = new ValidatorChain($helperPluginManager);
+        $typeChain->attach('validatornotempty');
+        $type->setValidatorChain($typeChain);
 
         $visible = new Element\Select('visible');
         $visible->setValueOptions(array(
