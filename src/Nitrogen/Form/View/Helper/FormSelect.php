@@ -28,7 +28,6 @@ class FormSelect extends AbstractHelper
             $options = ['' => $emptyOption] + $options;
         }
 
-        var_dump($element->getValue());
         return sprintf(
             '<select %s%s>%s</select>',
             $this->renderName($element->getName()),
