@@ -20,7 +20,7 @@ class FormElementErrors extends AbstractHelper
     {
         $messages = $element->getMessages();
 
-        if (empty($messages)) {
+        if (($messages === null) || (empty($messages))) {
             return '';
         }
 

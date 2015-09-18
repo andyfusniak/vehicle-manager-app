@@ -15,7 +15,7 @@ abstract class AbstractValidator implements ValidatorInterface
 
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = (string) $value;
         $this->messages = [];
     }
 

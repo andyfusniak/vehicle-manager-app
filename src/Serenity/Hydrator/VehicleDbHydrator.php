@@ -1,6 +1,7 @@
 <?php
 namespace Serenity\Hydrator;
 
+use Nitrogen\Hydrator\AbstractDbHydrator;
 use Serenity\Entity\Vehicle;
 
 class VehicleDbHydrator extends AbstractDbHydrator
@@ -16,19 +17,19 @@ class VehicleDbHydrator extends AbstractDbHydrator
         }
 
         return array(
-            'vehicle_id'    => $vehicle->getVehicleId(),
+            'vehicle_id'    => (string) $vehicle->getVehicleId(),
             'type'          => $vehicle->getType(),
-            'visible'       => $vehicle->getVisible(),
-            'sold'          => $vehicle->getSold(),
+            'visible'       => ($vehicle->getVisible() === true) ? '1' : '0',
+            'sold'          => ($vehicle->getSold() === true) ? '1' : '0',
             'url'           => $vehicle->getUrl(),
-            'price'         => $vehicle->getPrice(),
+            'price'         => (string) $vehicle->getPrice(),
             'meta_keywords' => $vehicle->getMetaKeywords(),
             'meta_desc'     => $vehicle->getMetaDesc(),
             'page_title'    => $vehicle->getPageTitle(),
             'markdown'      => $vehicle->getMarkdown(),
             'page_html'     => $vehicle->getPageHtml(),
-            'created'       => $vehicle->getCreated()->format(self::MYSQL_FORMAT),
-            'modified'      => $vehicle->getModified()->format(self::MYSQL_FORMAT)
+            'created'       => ($vehicle->getCreated() === null) ? null : $vehicle->getCreated()->format(self::MYSQL_FORMAT),
+            'modified'      => ($vehicle->getModified() === null) ? null : $vehicle->format(self::MYSQL_FORMAT)
         );
     }
 

@@ -1,16 +1,18 @@
 <?php
-/** Database **/
-$config['db'] = array(
-    'hostname' => 'localhost',
-    'database' => 'serenityleisure',
-    'username' => 'root',
-    'password' => 'mysql'
+return array(
+    // database
+    'db' => [
+        'hostname' => 'localhost',
+        'database' => 'serenityleisure',
+        'username' => 'root',
+        'password' => 'mysql'
+    ],
+    // time zone
+    'system' => [
+        'timezones' => [
+            'server' => 'UTC',
+            'local'  => 'Europe/London'
+        ]
+    ]
 );
 
-/** Timezone */
-$config['system'] = array(
-    'timezones' => array(
-        'server' => 'UTC',
-        'local'  => 'Europe/London'
-    )
-);

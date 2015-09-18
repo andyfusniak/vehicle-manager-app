@@ -22,7 +22,7 @@ $helperPluginManager = new HelperPluginManager();
 $vehicleForm = new VehicleForm($helperPluginManager);
 $vehicleForm->setData([
     'url'       => 'camper-van-for-sale',
-    'price'     => 'abc',
+    'price'     => '1234',
     'meta-desc' => '<span>'
 ]);
 

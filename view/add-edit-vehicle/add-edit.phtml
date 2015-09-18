@@ -8,11 +8,12 @@
 <?php //echo $this->escapeHtml('<span>'); ?>
 <hr>
 
-<form method="post" name="add-edit-vehicle">
+<form method="post" action="/nitrogen-controller-test.php">
 <div class="question">
 <?php
     $vehicleId = $form->get('vehicle-id');
     echo $this->formHidden($vehicleId);
+    echo $this->formElementErrors($vehicleId);
 ?>
 </div>
 
@@ -23,6 +24,7 @@
     $type = $form->get('type')
                  ->setAttribute('id', 'vehicle-type');
     echo $this->formSelect($type);
+    echo $this->formElementErrors($type);
 ?>
 </div>
 

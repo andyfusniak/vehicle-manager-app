@@ -1,5 +1,5 @@
 <?php
-namespace Serenity\Hydrator;
+namespace Nitrogen\Hydrator;
 
 abstract class AbstractDbHydrator implements HydratorInterface
 {

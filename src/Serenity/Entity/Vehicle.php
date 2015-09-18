@@ -122,7 +122,7 @@ class Vehicle
 
     public function setSold($sold)
     {
-        $this->sold = $sold;
+        $this->sold = (bool) $sold;
         return $this;
     }
 

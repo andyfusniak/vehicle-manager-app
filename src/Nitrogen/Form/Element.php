@@ -114,6 +114,9 @@ class Element implements ElementInterface
      */
     public function getMessages()
     {
+        if ($this->validatorChain === null) {
+            return null;
+        }
         return $this->validatorChain->getMessages();
     }
 

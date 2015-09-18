@@ -81,12 +81,20 @@ class Form implements FormInterface
 
     public function isValid()
     {
+        if ($this->data === null) {
+            throw new \DomainException(sprintf(
+                'You must set the data before calling %s',
+                __METHOD__
+            ));
+        }
+
         $valid = true;
         $this->invalidElements = [];
 
         foreach ($this->elements as $name => $element) {
             if (!array_key_exists($name, $this->data)) {
                 var_dump("Skipping " . $name);
+                die('skipping');
                 continue;
             }
 
@@ -95,7 +103,6 @@ class Form implements FormInterface
                 $valid = false;
             }
         }
-
         return $valid;
     }
 
