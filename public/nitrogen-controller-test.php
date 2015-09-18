@@ -9,6 +9,7 @@ use Nitrogen\Mvc\Application;
 use Nitrogen\EventManager\EventManager;
 use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\View\View;
+use Nitrogen\View\ViewModel;
 
 use Serenity\Controller\AddEditVehicleController;
 use Serenity\Form\VehicleForm;
@@ -18,7 +19,6 @@ use Serenity\Hydrator\VehicleDbHydrator;
 use Serenity\Hydrator\VehicleFormHydrator;
 
 $application = Application::init($config);
-
 
 
 $pdoFactory = function() use ($config) {
@@ -53,8 +53,11 @@ $vehicleForm = new VehicleForm($application->getHelperPluginManager(), $vehicleS
 
 $addEditController = new AddEditVehicleController($vehicleForm, $vehicleService);
 
-$viewModel = $addEditController->addEditAction($application->getRequest());
 
-echo $application->getView()->render($viewModel);
+// main layout
+$layoutModel = new ViewModel();
+$layoutModel->setTemplate('view/layout/layout.phtml');
+$layoutModel->addChild($addEditController->addEditAction($application->getRequest())->setCaptureTo('content'));
+echo $application->getView()->render($layoutModel);
 
 echo ceil((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000.0) . ' ms';
