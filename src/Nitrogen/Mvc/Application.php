@@ -56,6 +56,8 @@ class Application
         $this->helperPluginManager = $helperPluginManager;
         $this->view = $view;
         $this->request = Request::createFromGlobals();
+        $this->response = new Response();
+        $this->response->setProtocolVersion('1.1');
     }
 
     /**

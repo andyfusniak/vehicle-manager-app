@@ -17,12 +17,12 @@ class VehicleDbHydrator extends AbstractDbHydrator
         }
 
         return array(
-            'vehicle_id'    => (string) $vehicle->getVehicleId(),
+            'vehicle_id'    => $vehicle->getVehicleId(),
             'type'          => $vehicle->getType(),
-            'visible'       => ($vehicle->getVisible() === true) ? '1' : '0',
-            'sold'          => ($vehicle->getSold() === true) ? '1' : '0',
+            'visible'       => ($vehicle->getVisible() === true) ? 1 : 0,
+            'sold'          => ($vehicle->getSold() === true) ? 1 : 0,
             'url'           => $vehicle->getUrl(),
-            'price'         => (string) $vehicle->getPrice(),
+            'price'         => $vehicle->getPrice(),
             'meta_keywords' => $vehicle->getMetaKeywords(),
             'meta_desc'     => $vehicle->getMetaDesc(),
             'page_title'    => $vehicle->getPageTitle(),
@@ -46,12 +46,8 @@ class VehicleDbHydrator extends AbstractDbHydrator
                 ->setPageTitle($data['page_title'])
                 ->setMarkdown($data['markdown'])
                 ->setPageHtml($data['page_html'])
-                ->setCreated(\DateTime::createFromFormat(self::MYSQL_FORMAT,
-                                                         $data['created'],
-                                                         $this->utcTimeZone))
-                ->setModified(\DateTime::createFromFormat(self::MYSQL_FORMAT,
-                                                          $data['modified'],
-                                                          $this->utcTimeZone));
+                ->setCreated(mysqlTimeStampToDateTime($data['created']))
+                ->setModified(mysqlTimeStampToDateTime($data['modified']));
         return $vehicle;
     }
 }

@@ -18,6 +18,7 @@ class VehicleMapper
 
     /**
      * @param \PDO $pdo the database adapter
+     * @param VehicleDbHydrator $hydrator the hydrator object
      */
     public function __construct(\PDO $pdo, VehicleDbHydrator $hydrator)
     {
@@ -28,7 +29,7 @@ class VehicleMapper
     /**
      * Create a new vehicle row in the database
      *
-     * @param Vehicle vehicle details
+     * @param Vehicle $vehicle vehicle object
      * @return int the last insert id from the db
      */
     public function insert(Vehicle $vehicle)

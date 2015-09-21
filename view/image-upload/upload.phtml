@@ -1,0 +1,19 @@
+<form enctype="multipart/form-data" method="post" action="/nitrogen-controller-test.php">
+<input type="hidden" name="MAX_FILE_SIZE" value="5242880">
+<div>
+<?php
+    $filename = $form->get('filename')->setAttribute('multiple', 'multiple');//->setAttribute('accept', 'image/jpeg');
+    echo $this->formFile($filename);
+    echo $this->formElementErrors($filename);
+?>
+</div>
+
+<div>
+<?php
+    $caption = $form->get('caption');
+    echo $this->formText($caption);
+    echo $this->formElementErrors($caption);
+?>
+</div>
+<button>Upload</button>
+</form>

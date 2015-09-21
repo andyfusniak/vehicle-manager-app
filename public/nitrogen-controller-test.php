@@ -12,14 +12,18 @@ use Nitrogen\View\View;
 use Nitrogen\View\ViewModel;
 
 use Serenity\Controller\AddEditVehicleController;
+use Serenity\Controller\ImageUploadController;
 use Serenity\Form\VehicleForm;
+use Serenity\Form\ImageUploadForm;
+use Serenity\Mapper\ImageMapper;
 use Serenity\Mapper\VehicleMapper;
 use Serenity\Service\VehicleService;
+use Serenity\Service\ImageService;
 use Serenity\Hydrator\VehicleDbHydrator;
 use Serenity\Hydrator\VehicleFormHydrator;
+use Serenity\Hydrator\ImageDbHydrator;
 
 $application = Application::init($config);
-
 
 $pdoFactory = function() use ($config) {
     try {
@@ -38,26 +42,50 @@ $pdoFactory = function() use ($config) {
 $pdo = $pdoFactory();
 
 
+// vehicle mapper
 $vehicleMapperFactory = function() use ($pdo) {
     return new VehicleMapper($pdo, new VehicleDbHydrator());
 };
 $vehicleMapper = $vehicleMapperFactory();
 
 
+// image mapper
+$imageMapperFactory = function() use ($pdo) {
+    return new ImageMapper($pdo, new ImageDbHydrator());
+};
+$imageMapper = $imageMapperFactory();
+
+
+// vehicle service
 $vehicleServiceFactory = function() use ($vehicleMapper) {
     return new VehicleService($vehicleMapper, new VehicleFormHydrator());
 };
-$vehicleService = $vehicleServiceFactory();
+//$vehicleService = $vehicleServiceFactory();
 
-$vehicleForm = new VehicleForm($application->getHelperPluginManager(), $vehicleService);
 
-$addEditController = new AddEditVehicleController($vehicleForm, $vehicleService);
+// image service
+$imageServiceFactory = function() use ($config, $imageMapper) {
+    return new ImageService($config, $imageMapper);
+};
+$imageService = $imageServiceFactory();
 
+//$vehicleForm = new VehicleForm($application->getHelperPluginManager(), $vehicleService);
+
+$imageUploadForm = new ImageUploadForm($application->getHelperPluginManager());
+
+$imageService = new ImageService($config, $imageMapper);
+
+$controller = new ImageUploadController($imageUploadForm, $imageService);
+$viewModel = $controller->dispatch($application->getRequest(), $application->getResponse());
+$viewModel = $viewModel->setCaptureTo('content');
 
 // main layout
 $layoutModel = new ViewModel();
 $layoutModel->setTemplate('view/layout/layout.phtml');
-$layoutModel->addChild($addEditController->addEditAction($application->getRequest())->setCaptureTo('content'));
-echo $application->getView()->render($layoutModel);
+$layoutModel->addChild($viewModel);
+
+
+$application->getResponse()->setContent($application->getView()->render($layoutModel));
+$application->getResponse()->send();
 
 echo ceil((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000.0) . ' ms';
