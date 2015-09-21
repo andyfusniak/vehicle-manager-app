@@ -4,13 +4,13 @@ namespace Serenity\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Nitrogen\View\View;
 use Nitrogen\View\ViewModel;
+use Nitrogen\Mvc\Controller\AbstractController;
 
 use Serenity\Form\VehicleForm;
 use Serenity\Service\VehicleService;
 
-class AddEditVehicleController
+class AddEditVehicleController extends AbstractController
 {
     /**
      * @var VehicleForm
@@ -35,10 +35,10 @@ class AddEditVehicleController
      * @param Request $request http request
      * @return ViewModel
      */
-    public function addEditAction(Request $request)
+    public function addEditAction()
     {
-        if ($request->getMethod() === Request::METHOD_POST) {
-            $data = $request->request->all();
+        if ($this->request->getMethod() === Request::METHOD_POST) {
+            $data = $this->request->request->all();
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
@@ -47,10 +47,10 @@ class AddEditVehicleController
             }
         }
 
-        $modelA = new ViewModel(array(
+        $viewModel = new ViewModel([
             'form' => $this->form
-        ));
-        $modelA->setTemplate('view/add-edit-vehicle/add-edit.phtml');
-        return $modelA;
+        ]);
+        $viewModel->setTemplate('view/add-edit-vehicle/add-edit.phtml');
+        return $viewModel;
     }
 }

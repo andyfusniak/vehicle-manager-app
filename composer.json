@@ -4,7 +4,8 @@
         "zendframework/zend-escaper": "2.4.7",
         "zendframework/zend-form": "2.4.7",
         "zendframework/zend-servicemanager": "2.4.7",
-        "zendframework/zend-view": "2.4.7"
+        "zendframework/zend-view": "2.4.7",
+        "symfony/symfony": "2.7"
     },
     "autoload": {
         "psr-4": {

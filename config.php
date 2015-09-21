@@ -13,6 +13,8 @@ return array(
             'server' => 'UTC',
             'local'  => 'Europe/London'
         ]
+    ],
+    'serenitylesiure' => [
+        'upload_dir' => __DIR__ . '/uploads'
     ]
 );
-

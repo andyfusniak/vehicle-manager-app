@@ -1,8 +1,8 @@
 <?php
 namespace Nitrogen\Mvc\Controller;
 
-use Nitrogen\Http\Request;
-use Nitrogen\Http\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractController
 {
@@ -18,6 +18,8 @@ abstract class AbstractController
 
     public function dispatch(Request $request, Response $response)
     {
-
+        $this->request = $request;
+        $this->response = $response;
+        return $this->uploadAction();
     }
 }

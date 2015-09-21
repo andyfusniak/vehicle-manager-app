@@ -84,7 +84,7 @@ abstract class AbstractHelper extends BaseHelper
             }
 
             if (in_array($name, $this->booleanAttributes)) {
-                $attributeStrings[] = $escapeHtmlHelper($name);
+                $attributeStrings[] = $escapeHtmlAttrHelper($name);
             } else {
                 if (is_array($value)) {
                     $l = [];

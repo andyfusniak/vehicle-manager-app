@@ -13,7 +13,7 @@ class VehicleFormHydrator extends AbstractFormHydrator
             'vehicle-id' => (string) $vehicle->getVehicleId(),
             'type'       => $vehicle->getType(),
             'visible'    => (string) $vehicle->getVisible(),
-            // TODO
+            // TODO must return strings
         );
     }
 
