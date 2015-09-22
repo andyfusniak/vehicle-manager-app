@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Nitrogen\EventManager\EventManager;
 use Nitrogen\EventManager\Event;
+use Nitrogen\Mvc\RouteCollectionFactory;
 use Nitrogen\ServiceManager\ServiceLocator;
 use Nitrogen\ServiceManager\ServiceLocatorInterface;
 use Nitrogen\ServiceManager\HelperPluginManager;
@@ -31,12 +32,17 @@ class Application
     /**
      * @var ServiceLocatorInterace
      */
-    protected $serivceLocator;
+    protected $serviceLocator;
 
     /**
      * @var HelperPluginManager
      */
     protected $helperPluginManager;
+
+    /**
+     * @var Symfony\Component\Routing\RouteCollection
+     */
+    protected $routes;
 
     /**
      * @var View
@@ -60,6 +66,9 @@ class Application
                                 View $view)
     {
         $this->configuration = $configuration;
+        if (isset($configuration['routes']) && is_array($configuration)) {
+            $this->routes = RouteCollectionFactory::buildRoutes($configuration['routes']);
+        }
         $this->eventManager = $eventManager;
         $this->serviceLocator = $serviceLocator;
         $this->helperPluginManager = $helperPluginManager;
@@ -81,6 +90,7 @@ class Application
         $serviceLocator = new ServiceLocator();
         $serviceLocator->setService('config', $configuration);
         $serviceLocator->setService('Nitrogen\ServiceManager\HelperPluginManager', $helperPluginManager);
+        $serviceLocator->setService($configuration['factories']);
 
         $view = new View();
         $renderer = new PhpRenderer();
@@ -94,6 +104,14 @@ class Application
             $helperPluginManager,
             $view
         );
+    }
+
+    /**
+     * @return Symfony\Component\Routing\RouteCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
     }
 
     public function getRequest()
