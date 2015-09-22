@@ -5,6 +5,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Nitrogen\EventManager\EventManager;
 use Nitrogen\EventManager\Event;
+use Nitrogen\ServiceManager\ServiceLocator;
+use Nitrogen\ServiceManager\ServiceLocatorInterface;
 use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\View\View;
 use Nitrogen\View\PhpRenderer;
@@ -25,6 +27,11 @@ class Application
      * @var Event
      */
     protected $event;
+
+    /**
+     * @var ServiceLocatorInterace
+     */
+    protected $serivceLocator;
 
     /**
      * @var HelperPluginManager
@@ -48,11 +55,13 @@ class Application
 
     public function __construct($configuration,
                                 EventManager $eventManager,
+                                ServiceLocatorInterface $serviceLocator,
                                 HelperPluginManager $helperPluginManager,
                                 View $view)
     {
         $this->configuration = $configuration;
         $this->eventManager = $eventManager;
+        $this->serviceLocator = $serviceLocator;
         $this->helperPluginManager = $helperPluginManager;
         $this->view = $view;
         $this->request = Request::createFromGlobals();
@@ -69,6 +78,10 @@ class Application
     {
         $helperPluginManager = new HelperPluginManager();
 
+        $serviceLocator = new ServiceLocator();
+        $serviceLocator->setService('config', $configuration);
+        $serviceLocator->setService('Nitrogen\ServiceManager\HelperPluginManager', $helperPluginManager);
+
         $view = new View();
         $renderer = new PhpRenderer();
         $renderer->setHelperPluginManager($helperPluginManager);
@@ -77,6 +90,7 @@ class Application
         return new Application(
             $configuration,
             new EventManager(),
+            $serviceLocator,
             $helperPluginManager,
             $view
         );
@@ -98,6 +112,14 @@ class Application
     public function getHelperPluginManager()
     {
         return $this->helperPluginManager;
+    }
+
+    /**
+     * @return ServiceLocatorInterface
+     */
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
     }
 
     public function getView()
