@@ -13,25 +13,44 @@ use Nitrogen\View\ViewModel;
 
 use Serenity\Controller\AddEditVehicleController;
 use Serenity\Controller\ImageUploadController;
+use Symfony\Component\Routing;
 
 $application = Application::init($config);
 
 $serviceLocator = $application->getServiceLocator();
-$serviceLocator->setService($config['factories']);
 
-$controller = new ImageUploadController(
-    $serviceLocator->get('Serenity\Form\ImageUploadForm'),
-    $serviceLocator->get('Serenity\Service\ImageService')
-);
-$viewModel = $controller->dispatch($application->getRequest(), $application->getResponse());
-$viewModel = $viewModel->setCaptureTo('content');
+// MATCH THE ROUTE
+$request = $application->getRequest();
+$response = $application->getResponse();
 
-// main layout
-$layoutModel = new ViewModel();
-$layoutModel->setTemplate('view/layout/layout.phtml');
-$layoutModel->addChild($viewModel);
+try {
+    $context = new Routing\RequestContext();
+    $context->fromRequest($request);
+    $matcher = new Routing\Matcher\UrlMatcher($application->getRoutes(), $context);
+    $parameters = $matcher->match($request->getPathInfo());
 
-$application->getResponse()->setContent($application->getView()->render($layoutModel));
-$application->getResponse()->send();
+    list($service, $action) = split(':', $parameters['_controller']);
+
+    $controller = $serviceLocator->get($service);
+    $controller->setMatch($parameters);
+
+    $viewModel = $controller->dispatch($application->getRequest(), $response);
+    $viewModel = $viewModel->setCaptureTo('content');
+
+    // main layout
+    $layoutModel = new ViewModel();
+    $layoutModel->setTemplate('view/layout/layout.phtml');
+    $layoutModel->addChild($viewModel);
+
+    $response->setContent($application->getView()->render($layoutModel));
+} catch (Routing\Exception\ResourceNotFoundException $e) {
+    $response->setContent('Not Found');
+    $response->setStatusCode(404);
+} catch (Exception $e) {
+    $response->setContent('An error occurred');
+    $response->setStatusCode(500);
+}
+
+$response->send();
 
 echo ceil((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000.0) . ' ms';

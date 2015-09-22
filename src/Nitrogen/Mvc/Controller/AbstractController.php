@@ -16,10 +16,21 @@ abstract class AbstractController
      */
     protected $response;
 
+    /**
+     * @var array
+     */
+    protected $match;
+
+    public function setMatch(array $match)
+    {
+        $this->match = $match;
+    }
+
     public function dispatch(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
-        return $this->uploadAction();
+        list($service, $action) = split(':', $this->match['_controller']);
+        return $this->$action();
     }
 }
