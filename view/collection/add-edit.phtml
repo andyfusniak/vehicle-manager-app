@@ -1,0 +1,28 @@
+<form method="post" action="/add-edit-collection">
+<div>
+<?php
+    $collectionId = $form->get('collection-id');
+    echo $this->formHidden($collectionId);
+    echo $this->formElementErrors($collectionId);
+?>
+</div>
+
+<div>
+<label for="tagname">Tagname</label>
+<?php
+    $tagname = $form->get('tagname');
+    echo $this->formText($tagname);
+    echo $this->formElementErrors($tagname);
+?>
+</div>
+
+<div>
+<?php
+    $name = $form->get('name');
+    echo $this->formText($name);
+    echo $this->formElementErrors($name);
+?>
+</div>
+
+<button>Save</button>
+</form>

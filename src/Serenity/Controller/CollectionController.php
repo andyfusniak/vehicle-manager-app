@@ -7,26 +7,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Nitrogen\View\ViewModel;
 use Nitrogen\Mvc\Controller\AbstractController;
 
-use Serenity\Form\VehicleForm;
-use Serenity\Service\VehicleService;
+use Serenity\Form\CollectionForm;
+use Serenity\Service\CollectionService;
 
-class AddEditVehicleController extends AbstractController
+class CollectionController extends AbstractController
 {
     /**
-     * @var VehicleForm
+     * @var CollectionForm
      */
     protected $form;
 
     /**
-     * @var VehicleService
+     * @var CollectionService
      */
     protected $service;
 
     /**
-     * @param VehicleForm $form
-     * @param VehicleService $service
+     * @param CollectionForm $form
+     * @param CollectionService $service
      */
-    public function __construct(VehicleForm $form, VehicleService $service)
+    public function __construct(CollectionForm $form, CollectionService $service)
     {
         $this->form = $form;
         $this->service = $service;
@@ -42,15 +42,15 @@ class AddEditVehicleController extends AbstractController
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-                $this->service->addVehicle($data);
-                //die('added');
+                $this->service->addCollection($data);
+                die('added');
             }
         }
 
         $viewModel = new ViewModel([
             'form' => $this->form
         ]);
-        $viewModel->setTemplate('view/add-edit-vehicle/add-edit.phtml');
+        $viewModel->setTemplate('view/collection/add-edit.phtml');
         return $viewModel;
     }
 }

@@ -4,21 +4,21 @@ namespace Serenity\Factory;
 use Nitrogen\ServiceManager\FactoryInterface;
 use Nitrogen\ServiceManager\ServiceLocatorInterface;
 
-use Serenity\Form\VehicleForm;
+use Serenity\Form\CollectionForm;
 
-class VehicleFormFactory implements FactoryInterface
+class CollectionFormFactory implements FactoryInterface
 {
     /**
-     * Create a VehicleForm object
+     * Create a CollectionForm object
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @return VehicleForm
+     * @return CollectionForm
      */
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new VehicleForm(
+        return new CollectionForm(
             $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager'),
-            $serviceLocator->get('Serenity\Validator\VehicleUrlTakenValidator')
+            $serviceLocator->get('Serenity\Validator\CollectionTagnameTakenValidator')
         );
     }
 }

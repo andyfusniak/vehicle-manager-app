@@ -3,28 +3,28 @@ namespace Serenity\Validator;
 
 use Nitrogen\Validator\AbstractValidator;
 use Nitrogen\Validator\Exception;
-use Serenity\Service\VehicleService;
+use Serenity\Service\CollectionService;
 
-class VehicleUrlTaken extends AbstractValidator
+class CollectionTagnameTakenValidator extends AbstractValidator
 {
-    const VEHICLE_URL_TAKEN = 'vehicleUrlTaken';
+    const COLLECTION_TAGNAME_TAKEN = 'collectionTagnameTaken';
 
     /**
-     * @var VehicleService
+     * @var CollectionService
      */
     protected $service;
 
     /**
-     * @param VehicleService $vehicleService
+     * @param CollectionService $collectionService
      */
-    public function __construct(VehicleService $service)
+    public function __construct(CollectionService $service)
     {
         $this->service = $service;
     }
 
     /**
-     * @param string @value to validate
-     * @return bool if it is valid returns true
+     * @param string $value to validate
+     * @return bool true or false
      */
     public function isValid($value)
     {
@@ -37,8 +37,8 @@ class VehicleUrlTaken extends AbstractValidator
 
         $this->setValue($value);
 
-        if ($this->service->isUrlTaken($value)) {
-            $this->messages[self::VEHICLE_URL_TAKEN] = 'The url chosen is already in use';
+        if ($this->service->isTagnameTaken($value)) {
+            $this->messages[self::COLLECTION_TAGNAME_TAKEN] = 'This tagname is already in use';
             return false;
         }
         return true;
