@@ -1,0 +1,27 @@
+<table class="table table-striped table-hover">
+<tr class="info">
+    <th>Vehicle Id</th>
+    <th>Type</th>
+    <th>Visible</th>
+    <th>Sold</th>
+    <th>Price</th>
+    <th>Url</th>
+    <th>EDIT</th>
+</tr>
+<?php foreach ($vehicles as $v) : ?>
+<?php //var_dump($v); ?>
+<?php
+$vehicleId = $v->getVehicleId();
+$visible = $v->getVisible();
+?>
+<tr<?php echo ($visible === false) ? ' class="danger"' : '' ?>>
+    <td><?php echo $this->escapeHtml($vehicleId); ?></td>
+    <td><?php echo $this->escapeHtml($v->getType()); ?></td>
+    <td><?php echo $this->escapeHtml($visible); ?></td>
+    <td><?php echo $this->escapeHtml($v->getSold()); ?></td>
+    <td><?php echo $this->escapeHtml($v->getPrice()); ?></td>
+    <td><kbd><?php echo $this->escapeHtml($v->getUrl()); ?></kbd></td>
+    <td><a href="/add-edit-vehicle/<?php echo $this->escapeHtml($vehicleId); ?>"><button type="button" class="btn-sm btn-link">Edit</button></a></td>
+</tr>
+<?php endforeach; ?>
+</table>

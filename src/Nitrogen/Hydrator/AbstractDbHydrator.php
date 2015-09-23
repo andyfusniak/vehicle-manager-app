@@ -18,7 +18,7 @@ abstract class AbstractDbHydrator implements HydratorInterface
      */
     protected function mysqlTimeStampToDateTime($mysqlString, $timeZone = null)
     {
-        if ($timeZone = null) {
+        if ($timeZone === null) {
             $timeZone = $this->utcTimeZone;
         }
         return \DateTime::createFromFormat(self::MYSQL_FORMAT, $mysqlString, $timeZone);

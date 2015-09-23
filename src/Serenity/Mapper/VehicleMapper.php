@@ -6,6 +6,12 @@ use Serenity\Hydrator\VehicleDbHydrator;
 
 class VehicleMapper
 {
+    const COLUMN_VEHICLE_ID = 'vehicle_id';
+
+    protected static $validColumns = [
+        self::COLUMN_VEHICLE_ID
+    ];
+
     /**
      * @var \PDO
      */
@@ -67,6 +73,28 @@ class VehicleMapper
         $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @return array
+     */
+    public function fetchAll($orderBy = self::COLUMN_VEHICLE_ID, $orderDirection = 'DESC')
+    {
+        if (!in_array($orderBy, self::$validColumns)) {
+            throw new \Exception(sprintf(
+                '%s invalid column passed for orderBy "%s"',
+                __METHOD__,
+                $orderBy
+            ));
+        }
+
+        $statement = $this->pdo->prepare(
+            'SELECT * FROM vehicles ORDER BY :order_by :order_direction'
+        );
+        $statement->bindValue(':order_by', $orderBy, \PDO::PARAM_STR);
+        $statement->bindValue(':order_direction', ($orderDirection === 'DESC') ? 'DESC' : 'ASC', \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchAll();
     }
 
     public function isUrlTaken($url)
