@@ -1,5 +1,15 @@
-<form enctype="multipart/form-data" method="post" action="/nitrogen-controller-test.php">
+<form enctype="multipart/form-data" method="post" action="/image-uploader">
 <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
+
+<div class="question">
+<label for="collection-id">Collection</label>
+<?php
+    $collectionId = $form->get('collection-id');
+    echo $this->formSelect($collectionId);
+    echo $this->formElementErrors($collectionId);
+?>
+</div>
+
 <div>
 <?php
     $filename = $form->get('filename')->setAttribute('multiple', 'multiple');//->setAttribute('accept', 'image/jpeg');

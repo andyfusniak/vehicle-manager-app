@@ -31,7 +31,16 @@ class ImageUploadController extends AbstractController
     public function uploadAction()
     {
         if ($this->request->getMethod() === Request::METHOD_POST) {
-            $this->service->saveImages($this->request->files->get('filename'));
+            $data = $this->request->request->all();
+
+            var_dump($data);
+
+
+            $this->form->setData($data);
+
+            if ($this->form->isValid()) {
+               $this->service->saveImages($this->request->files->get('filename'));
+            }
         }
 
         $viewModel = new ViewModel([

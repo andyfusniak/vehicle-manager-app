@@ -44,4 +44,19 @@ class CollectionService
     {
         return $this->mapper->isTagnameTaken($tagname);
     }
+
+    /**
+     * Fetch a list of name value pairs for select box options
+     * @return array
+     */
+    public function collectionsValueOptions()
+    {
+        $collections = $this->mapper->fetchAll();
+        $valueOptions = [];
+        foreach ($collections as $collection) {
+            $valueOptions[$collection['collection_id']] = $collection['name']
+                . ' (' . $collection['tagname'] . ')';
+        }
+        return $valueOptions;
+    }
 }

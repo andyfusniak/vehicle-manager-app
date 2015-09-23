@@ -9,6 +9,11 @@ class Image
     protected $imageId;
 
     /**
+     * @var int|null collection id to which this image belongs
+     */
+    protected $collectionId;
+
+    /**
      * @var string original name of the file
      */
     protected $originalName;
@@ -71,9 +76,10 @@ class Image
     {
         if ($imageId === null) {
             $imageId = null;
-        } else {
-            $imageId = (int) $imageId;
+            return $this;
         }
+        $this->imageId = (int) $imageId;
+        return $this;
     }
 
     /**
@@ -82,6 +88,27 @@ class Image
     public function getImageId()
     {
         return $this->imageId;
+    }
+
+    /**
+     * @param int|null $collectionId the collection id to which this image belongs
+     */
+    public function setCollectionId($collectionId)
+    {
+        if ($collectionId === null) {
+            $this->collectionId = null;
+            return $this;
+        }
+        $this->collectionId = (int) $collectionId;
+        return $this;
+    }
+
+    /**
+     * @return int|null collection id or null
+     */
+    public function getCollectionId()
+    {
+        return $this->collectionId;
     }
 
     /**

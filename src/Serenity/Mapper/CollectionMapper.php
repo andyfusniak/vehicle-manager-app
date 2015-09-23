@@ -65,4 +65,17 @@ class CollectionMapper
         }
         return false;
     }
+
+    /**
+     */
+    public function fetchAll($orderBy = 'name', $orderDirection = 'ASC')
+    {
+        $statement = $this->pdo->prepare(
+            'SELECT collection_id, tagname, name, created, modified FROM collections ORDER BY :order_by :order_direction'
+        );
+        $statement->bindValue(':order_by', $orderBy, \PDO::PARAM_STR);
+        $statement->bindValue(':order_direction', ($orderDirection === 'DESC') ? 'DESC' : 'ASC', \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }

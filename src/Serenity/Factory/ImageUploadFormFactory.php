@@ -16,8 +16,11 @@ class ImageUploadFormFactory implements FactoryInterface
      */
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
+        $collectionService = $serviceLocator->get('Serenity\Service\CollectionService');
+
         return new ImageUploadForm(
-            $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager')
+            $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager'),
+            $collectionService->collectionsValueOptions()
         );
     }
 }
