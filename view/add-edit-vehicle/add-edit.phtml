@@ -1,5 +1,7 @@
-<form method="post" action="/add-edit-vehicle">
-<div class="question">
+<h2>Add Vehicle</h2>
+<p class="lead">Enter the details for your new vehicle</p>
+<form class="sl-form form-horizontal" method="post" action="/add-edit-vehicle">
+<div class="form-group">
 <?php
     $vehicleId = $form->get('vehicle-id');
     echo $this->formHidden($vehicleId);
@@ -7,90 +9,97 @@
 ?>
 </div>
 
-<div class="question">
+<div class="form-group">
 <label for="type">Vehicle Type</label>
 <?php
     $type = $form->get('type')
-                 ->setAttribute('id', 'vehicle-type');
+                 ->setAttribute('id', 'vehicle-type')
+                 ->setAttribute('class', 'form-control');
     echo $this->formSelect($type);
     echo $this->formElementErrors($type);
 ?>
 </div>
 
-<div>
+<div class="form-group">
 <label for="visible">Visible</label>
 <?php
-    $visible = $form->get('visible');
+    $visible = $form->get('visible')->setAttribute('class', 'form-control');
     echo $this->formSelect($visible);
     echo $this->formElementErrors($visible);
 ?>
 </div>
 
-<div>
+<div class="form-group">
 <label for="sold">Sold</label>
 <?php
-    $sold = $form->get('sold');
+    $sold = $form->get('sold')->setAttribute('class', 'form-control');
     echo $this->formSelect($sold);
     echo $this->formElementErrors($sold);
 ?>
 </div>
 
-<div>
+<div class="form-group">
 <label for="url">URL</label>
 <?php
-    $url = $form->get('url');
+    $url = $form->get('url')->setAttribute('class', 'form-control')
+                            ->setAttribute('placeholder', 'e.g. my-caravan-slug-url');
     echo $this->formText($url);
     echo $this->formElementErrors($url);
 ?>
 </div>
 
-<div>
+<div class="form-group">
 <label for="price">Price</label>
-<?php
-    $price = $form->get('price');
+<div class="input-group">
+    <div class="input-group-addon">&pound;</div>
+    <?php
+    $price = $form->get('price')->setAttribute('class', 'form-control')
+                                ->setAttribute('placeholder', 'Amount');
     echo $this->formText($price);
-    echo $this->formElementErrors($price);
-?>
+    ?>
+    <div class="input-group-addon">.00</div>
+</div>
+<?php echo $this->formElementErrors($price); ?>
 </div>
 
-<div class="question">
+<div class="form-group">
 <label for="meta-keywords">Meta Keywords</label>
 <?php
-    $metaKeywords = $form->get('meta-keywords');
+    $metaKeywords = $form->get('meta-keywords')->setAttribute('class', 'form-control')
+                                               ->setAttribute('rows', '2');
     echo $this->formTextarea($metaKeywords);
     echo $this->formElementErrors($metaKeywords);
 ?>
 </div>
 
-<div class="question">
+<div class="form-group">
 <label for="meta-desc">Meta Description</label>
 <?php
-    $metaDesc = $form->get('meta-desc');
+    $metaDesc = $form->get('meta-desc')->setAttribute('class', 'form-control')
+                                       ->setAttribute('rows', '4');
     echo $this->formTextarea($metaDesc);
     echo $this->formElementErrors($metaDesc);
 ?>
 </div>
 
-<div>
+<div class="form-group">
 <label for="page-title">Page Title</label>
 <?php
-    $pageTitle = $form->get('page-title');
+    $pageTitle = $form->get('page-title')->setAttribute('class', 'form-control');
     echo $this->formText($pageTitle);
     echo $this->formElementErrors($pageTitle);
 ?>
 </div>
 
-<div class="question">
+<div class="form-group">
 <label for="markdown">Markdown</label>
 <?php
-    $markdown = $form->get('markdown');
+    $markdown = $form->get('markdown')->setAttribute('class', 'form-control')
+                                      ->setAttribute('rows', '12');
     echo $this->formTextarea($markdown);
     echo $this->formElementErrors($markdown);
 ?>
 </div>
 
-<button>Save</button>
+<button class="btn-lg btn-success">Save</button>
 </form>
-
-<hr>
-<?php //var_dump($this); ?>
