@@ -18,20 +18,39 @@ return array(
         'upload_dir' => __DIR__ . '/uploads'
     ],
     'factories' => [
-        'Pdo'                                   => 'Serenity\Factory\PdoFactory',
-        'Serenity\Mapper\ImageMapper'           => 'Serenity\Factory\ImageMapperFactory',
-        'Serenity\Mapper\VehicleMapper'         => 'Serenity\Factory\VehicleMapperFactory',
-        'Serenity\Hydrator\ImageDbHydrator'     => 'Serenity\Factory\ImageDbHydratorFactory',
-        'Serenity\Hydrator\VehicleDbHydrator'   => 'Serenity\Factory\VehicleDbHydratorFactory',
-        'Serenity\Hydrator\VehicleFormHydrator' => 'Serenity\Factory\VehicleFormHydratorFactory',
-        'Serenity\Form\ImageUploadForm'         => 'Serenity\Factory\ImageUploadFormFactory',
-        'Serenity\Form\VehicleForm'             => 'Serenity\Factory\VehicleFormFactory',
-        'Serenity\Service\ImageService'         => 'Serenity\Factory\ImageServiceFactory',
-        'Serenity\Service\VehicleService'       => 'Serenity\Factory\VehicleServiceFactory',
+        // Database
+        'Pdo' => 'Serenity\Factory\PdoFactory',
+
+        // Mappers
+        'Serenity\Mapper\CollectionMapper' => 'Serenity\Factory\CollectionMapperFactory',
+        'Serenity\Mapper\ImageMapper'      => 'Serenity\Factory\ImageMapperFactory',
+        'Serenity\Mapper\VehicleMapper'    => 'Serenity\Factory\VehicleMapperFactory',
+
+        // Hydrators
+        'Serenity\Hydrator\CollectionDbHydrator'   => 'Serenity\Factory\CollectionDbHydratorFactory',
+        'Serenity\Hydrator\CollectionFormHydrator' => 'Serenity\Factory\CollectionFormHydratorFactory',
+        'Serenity\Hydrator\ImageDbHydrator'        => 'Serenity\Factory\ImageDbHydratorFactory',
+        'Serenity\Hydrator\VehicleDbHydrator'      => 'Serenity\Factory\VehicleDbHydratorFactory',
+        'Serenity\Hydrator\VehicleFormHydrator'    => 'Serenity\Factory\VehicleFormHydratorFactory',
+
+        // Forms
+        'Serenity\Form\CollectionForm'  => 'Serenity\Factory\CollectionFormFactory',
+        'Serenity\Form\ImageUploadForm' => 'Serenity\Factory\ImageUploadFormFactory',
+        'Serenity\Form\VehicleForm'     => 'Serenity\Factory\VehicleFormFactory',
+
+        // Validators
+        'Serenity\Validator\CollectionTagnameTakenValidator' => 'Serenity\Factory\CollectionTagnameTakenValidatorFactory',
+        'Serenity\Validator\VehicleUrlTakenValidator'        => 'Serenity\Factory\VehicleUrlTakenValidatorFactory',
+
+        // Services
+        'Serenity\Service\CollectionService' => 'Serenity\Factory\CollectionServiceFactory',
+        'Serenity\Service\ImageService'      => 'Serenity\Factory\ImageServiceFactory',
+        'Serenity\Service\VehicleService'    => 'Serenity\Factory\VehicleServiceFactory',
 
         // Controllers
-        'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
-        'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory'
+        'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',
+        'CollectionController'     => 'Serenity\Factory\CollectionControllerFactory',
+        'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory'
     ],
     'routes' => [
         'image_upload' => [
@@ -40,19 +59,25 @@ return array(
                 '_controller' => 'ImageUploadController:uploadAction'
             ]
         ],
-        'add_edit_vehicle1' => [
+        'add_edit_vehicle-add' => [
             'path' => '/add-edit-vehicle',
             'defaults' => [
                 '_controller' => 'AddEditVehicleController:addEditAction',
             ]
         ],
-        'add_edit_vehicle2' => [
+        'add_edit_vehicle-edit' => [
             'path' => '/add-edit-vehicle/{vehicle_id}',
             'defaults' => [
                 '_controller' => 'AddEditVehicleController:addEditAction',
                 'requirements' => [
                     'vehicle_id' => '\d+'
                 ]
+            ]
+        ],
+        'collection-add' => [
+            'path' => '/add-edit-collection',
+            'defaults' => [
+                '_controller' => 'CollectionController:addEditAction'
             ]
         ]
     ]

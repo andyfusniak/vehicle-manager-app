@@ -93,8 +93,6 @@ class Form implements FormInterface
 
         foreach ($this->elements as $name => $element) {
             if (!array_key_exists($name, $this->data)) {
-                var_dump("Skipping " . $name);
-                die('skipping');
                 continue;
             }
 

@@ -18,7 +18,7 @@ class VehicleFormFactory implements FactoryInterface
     {
         return new VehicleForm(
             $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager'),
-            $serviceLocator->get('Serenity\Service\VehicleService')
+            $serviceLocator->get('Serenity\Validator\VehicleUrlTakenValidator')
         );
     }
 }

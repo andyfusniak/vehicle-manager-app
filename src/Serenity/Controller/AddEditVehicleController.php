@@ -23,7 +23,8 @@ class AddEditVehicleController extends AbstractController
     protected $service;
 
     /**
-     * @param VehicleForm $vehicleForm form
+     * @param VehicleForm $form
+     * @param VehicleService $service
      */
     public function __construct(VehicleForm $form, VehicleService $service)
     {
@@ -32,7 +33,6 @@ class AddEditVehicleController extends AbstractController
     }
 
     /**
-     * @param Request $request http request
      * @return ViewModel
      */
     public function addEditAction()

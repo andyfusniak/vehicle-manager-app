@@ -16,7 +16,7 @@ class VehicleDbHydrator extends AbstractDbHydrator
             ));
         }
 
-        return array(
+        return [
             'vehicle_id'    => $vehicle->getVehicleId(),
             'type'          => $vehicle->getType(),
             'visible'       => ($vehicle->getVisible() === true) ? 1 : 0,
@@ -30,7 +30,7 @@ class VehicleDbHydrator extends AbstractDbHydrator
             'page_html'     => $vehicle->getPageHtml(),
             'created'       => ($vehicle->getCreated() === null) ? null : $vehicle->getCreated()->format(self::MYSQL_FORMAT),
             'modified'      => ($vehicle->getModified() === null) ? null : $vehicle->format(self::MYSQL_FORMAT)
-        );
+        ];
     }
 
     public function hydrate(array $data, $vehicle)

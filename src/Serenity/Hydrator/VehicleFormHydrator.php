@@ -9,12 +9,12 @@ class VehicleFormHydrator extends AbstractFormHydrator
 {
     public function extract($object)
     {
-        return array(
+        return [
             'vehicle-id' => (string) $vehicle->getVehicleId(),
             'type'       => $vehicle->getType(),
             'visible'    => (string) $vehicle->getVisible(),
             // TODO must return strings
-        );
+        ];
     }
 
     public function hydrate(array $data, $object)

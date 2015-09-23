@@ -4,23 +4,21 @@ namespace Serenity\Factory;
 use Nitrogen\ServiceManager\FactoryInterface;
 use Nitrogen\ServiceManager\ServiceLocatorInterface;
 
-use Serenity\Form\ImageUploadForm;
+use Serenity\Form\CollectionForm;
 
-class ImageUploadFormFactory implements FactoryInterface
+class CollectionFormFactory implements FactoryInterface
 {
     /**
-     * Create a ImageUploadForm object
+     * Create a CollectionForm object
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @return ImageUploadForm
+     * @return CollectionForm
      */
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $collectionService = $serviceLocator->get('Serenity\Service\CollectionService');
-
-        return new ImageUploadForm(
+        return new CollectionForm(
             $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager'),
-            $collectionService->collectionsValueOptions()
+            $serviceLocator->get('Serenity\Validator\CollectionTagnameTakenValidator')
         );
     }
 }

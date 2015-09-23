@@ -27,12 +27,13 @@ class VehicleService
     /**
      * Add a new vehicle to persistent storage
      *
-     * @param array $vehicle the vehicle object
+     * @param array $vehicle the vehicle form data
+     * @return the new vehicle id
      */
     public function addVehicle(array $data)
     {
         $vehicle = new Vehicle();
-        $this->mapper->insert($this->formHydrator->hydrate($data, $vehicle));
+        return $this->mapper->insert($this->formHydrator->hydrate($data, $vehicle));
     }
 
     /**
@@ -56,7 +57,7 @@ class VehicleService
     }
 
     /**
-     * @param string @url check url
+     * @param string $url check url
      * @return bool returns true or false
      */
     public function isUrlTaken($url)

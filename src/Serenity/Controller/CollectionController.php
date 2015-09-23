@@ -7,46 +7,50 @@ use Symfony\Component\HttpFoundation\Response;
 use Nitrogen\View\ViewModel;
 use Nitrogen\Mvc\Controller\AbstractController;
 
-use Serenity\Form\ImageUploadForm;
-use Serenity\Service\ImageService;
+use Serenity\Form\CollectionForm;
+use Serenity\Service\CollectionService;
 
-class ImageUploadController extends AbstractController
+class CollectionController extends AbstractController
 {
     /**
-     * @var ImageUploadForm
+     * @var CollectionForm
      */
     protected $form;
 
     /**
-     * @var ImageService
+     * @var CollectionService
      */
     protected $service;
 
-    public function __construct(ImageUploadForm $form, ImageService $service)
+    /**
+     * @param CollectionForm $form
+     * @param CollectionService $service
+     */
+    public function __construct(CollectionForm $form, CollectionService $service)
     {
         $this->form = $form;
         $this->service = $service;
     }
 
-    public function uploadAction()
+    /**
+     * @return ViewModel
+     */
+    public function addEditAction()
     {
         if ($this->request->getMethod() === Request::METHOD_POST) {
             $data = $this->request->request->all();
-
-            var_dump($data);
-
-
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-               $this->service->saveImages($this->request->files->get('filename'));
+                $this->service->addCollection($data);
+                die('added');
             }
         }
 
         $viewModel = new ViewModel([
             'form' => $this->form
         ]);
-        $viewModel->setTemplate('view/image-upload/upload.phtml');
+        $viewModel->setTemplate('view/collection/add-edit.phtml');
         return $viewModel;
     }
 }
