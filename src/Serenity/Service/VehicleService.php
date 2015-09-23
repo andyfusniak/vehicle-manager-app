@@ -2,6 +2,7 @@
 namespace Serenity\Service;
 
 use Serenity\Entity\Vehicle;
+use Serenity\Hydrator\VehicleDbHydrator;
 use Serenity\Hydrator\VehicleFormHydrator;
 use Serenity\Mapper\VehicleMapper;
 
@@ -17,11 +18,18 @@ class VehicleService
      */
     protected $formHydrator;
 
+    /**
+     * @var VehicleDbHydrator
+     */
+    protected $dbHydrator;
+
     public function __construct(VehicleMapper $mapper,
-                                VehicleFormHydrator $formHydrator)
+                                VehicleFormHydrator $formHydrator,
+                                VehicleDbHydrator $dbHydrator)
     {
         $this->mapper = $mapper;
         $this->formHydrator = $formHydrator;
+        $this->dbHydrator = $dbHydrator;
     }
 
     /**
@@ -43,7 +51,23 @@ class VehicleService
     public function fetchByVehicleId($vehicleId)
     {
         $vehicle = new Vehicle();
-        return $this->hydrator->formHydrate($this->mapper->fetchByVehicleId($vehicleId), $vehicle);
+        return $this->formHydrator->hydrate($this->mapper->fetchByVehicleId($vehicleId), $vehicle);
+    }
+
+    /**
+     * @return array of Vehicle objects
+     */
+    public function fetchAll()
+    {
+        $vehicleObjects = [];
+        $vehicles = $this->mapper->fetchAll();
+
+        foreach ($vehicles as $vehicle) {
+            $object = new Vehicle();
+            $vehicleObjects[] = $this->dbHydrator->hydrate($vehicle, $object);
+        }
+
+        return $vehicleObjects;
     }
 
     /**

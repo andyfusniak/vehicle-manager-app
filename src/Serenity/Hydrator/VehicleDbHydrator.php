@@ -46,8 +46,8 @@ class VehicleDbHydrator extends AbstractDbHydrator
                 ->setPageTitle($data['page_title'])
                 ->setMarkdown($data['markdown'])
                 ->setPageHtml($data['page_html'])
-                ->setCreated(mysqlTimeStampToDateTime($data['created']))
-                ->setModified(mysqlTimeStampToDateTime($data['modified']));
+                ->setCreated($this->mysqlTimeStampToDateTime($data['created']))
+                ->setModified($this->mysqlTimeStampToDateTime($data['modified']));
         return $vehicle;
     }
 }

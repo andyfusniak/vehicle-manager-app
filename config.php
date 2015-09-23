@@ -50,13 +50,20 @@ return array(
         // Controllers
         'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',
         'CollectionController'     => 'Serenity\Factory\CollectionControllerFactory',
-        'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory'
+        'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
+        'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory'
     ],
     'routes' => [
         'image_upload' => [
             'path'     => '/image-uploader',
             'defaults' => [
                 '_controller' => 'ImageUploadController:uploadAction'
+            ]
+        ],
+        'list_vehicles' => [
+            'path' => '/list-vehicles',
+            'defaults' => [
+                '_controller' => 'ListVehiclesController:listAction'
             ]
         ],
         'add_edit_vehicle-add' => [
