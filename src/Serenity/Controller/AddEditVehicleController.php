@@ -35,7 +35,7 @@ class AddEditVehicleController extends AbstractController
     /**
      * @return ViewModel
      */
-    public function addEditAction()
+    public function addAction()
     {
         if ($this->request->getMethod() === Request::METHOD_POST) {
             $data = $this->request->request->all();
@@ -43,12 +43,44 @@ class AddEditVehicleController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->service->addVehicle($data);
-                //die('added');
+                $this->redirectToRoute('list_vehicles');
             }
         }
 
         $viewModel = new ViewModel([
-            'form' => $this->form
+            'form'   => $this->form,
+            'action' => $this->urlGenerator->generate('add_edit_vehicle_add')
+        ]);
+        $viewModel->setTemplate('view/add-edit-vehicle/add-edit.phtml');
+        return $viewModel;
+    }
+
+    public function editAction()
+    {
+        $vehicleId = $this->getRouteParam('vehicle_id');
+
+        if ($this->request->getMethod() === Request::METHOD_POST) {
+            $data = $this->request->request->all();
+            $this->form->setData($data);
+
+            if ($this->form->isValid()) {
+                die('update');
+                $this->service->updateVehicle($data);
+                $this->redirectToRoute('list_vehicles');
+            }
+        } else {
+            $vehicle = $this->service->fetchByVehicleId($vehicleId);
+            $data = $this->service->vehicleObjectToFormData($vehicle);
+            unset($data['page-html']);
+            $this->form->setData($data);
+        }
+
+        $viewModel = new ViewModel([
+            'form'   => $this->form,
+            'action' => $this->urlGenerator->generate(
+                'add_edit_vehicle_edit',
+                ['vehicle_id' => $vehicleId]
+            )
         ]);
         $viewModel->setTemplate('view/add-edit-vehicle/add-edit.phtml');
         return $viewModel;

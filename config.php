@@ -54,7 +54,7 @@ return array(
         'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory'
     ],
     'routes' => [
-        'image_upload' => [
+        'image_uploader' => [
             'path'     => '/image-uploader',
             'defaults' => [
                 '_controller' => 'ImageUploadController:uploadAction'
@@ -66,19 +66,19 @@ return array(
                 '_controller' => 'ListVehiclesController:listAction'
             ]
         ],
-        'add_edit_vehicle-add' => [
+        'add_edit_vehicle_add' => [
             'path' => '/add-edit-vehicle',
             'defaults' => [
-                '_controller' => 'AddEditVehicleController:addEditAction',
+                '_controller' => 'AddEditVehicleController:addAction',
             ]
         ],
-        'add_edit_vehicle-edit' => [
+        'add_edit_vehicle_edit' => [
             'path' => '/add-edit-vehicle/{vehicle_id}',
             'defaults' => [
-                '_controller' => 'AddEditVehicleController:addEditAction',
-                'requirements' => [
-                    'vehicle_id' => '\d+'
-                ]
+                '_controller' => 'AddEditVehicleController:editAction'
+            ],
+            'requirements' => [
+                'vehicle_id' => '\d+'
             ]
         ],
         'collection-add' => [

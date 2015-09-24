@@ -51,7 +51,12 @@ class VehicleService
     public function fetchByVehicleId($vehicleId)
     {
         $vehicle = new Vehicle();
-        return $this->formHydrator->hydrate($this->mapper->fetchByVehicleId($vehicleId), $vehicle);
+        return $this->dbHydrator->hydrate($this->mapper->fetchByVehicleId($vehicleId), $vehicle);
+    }
+
+    public function vehicleObjectToFormData(Vehicle $vehicle)
+    {
+        return $this->formHydrator->extract($vehicle);
     }
 
     /**
