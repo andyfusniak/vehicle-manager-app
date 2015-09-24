@@ -40,6 +40,7 @@ class ImageUploadController extends AbstractController
                     $data['collection-id'],
                     $this->request->files->get('filename')
                 );
+                $this->redirectToRoute('collection-list');
             }
         } else {
             $collectionId = $this->getRouteParam('collection_id');
