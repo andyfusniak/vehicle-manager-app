@@ -22,7 +22,7 @@
 ?>
 </div>
 
-<div class="form-group">
+<div class="form-group sl-short-input">
 <label for="visible">Visible</label>
 <?php
     $visible = $form->get('visible')->setAttribute('class', 'form-control');
@@ -31,7 +31,7 @@
 ?>
 </div>
 
-<div class="form-group">
+<div class="form-group sl-short-input">
 <label for="sold">Sold</label>
 <?php
     $sold = $form->get('sold')->setAttribute('class', 'form-control');
@@ -52,7 +52,7 @@
 
 <div class="form-group">
 <label for="price">Price</label>
-<div class="input-group">
+<div class="input-group sl-short-input">
     <div class="input-group-addon">&pound;</div>
     <?php
     $price = $form->get('price')->setAttribute('class', 'form-control')
@@ -96,7 +96,7 @@
 <div class="form-group">
 <label for="markdown">Markdown</label>
 <?php
-    $markdown = $form->get('markdown')->setAttribute('class', 'form-control')
+    $markdown = $form->get('markdown')->setAttribute('class', ['form-control', 'sl-markdown'])
                                       ->setAttribute('rows', '12');
     echo $this->formTextarea($markdown);
     echo $this->formElementErrors($markdown);

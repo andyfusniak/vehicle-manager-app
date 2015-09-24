@@ -57,4 +57,4 @@ try {
 
 $response->send();
 
-//ceil((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000.0) . ' ms';
+echo 'Page load time ' .ceil((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000.0) . ' ms';

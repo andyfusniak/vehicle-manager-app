@@ -1,3 +1,9 @@
 .sl-form {
     max-width: 600px;
 }
+.sl-short-input {
+    max-width: 180px;
+}
+.sl-markdown {
+    font-family: monospace;
+}
