@@ -3,6 +3,7 @@ namespace Serenity\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Serenity\Entity\Image;
+use Serenity\Hydrator\ImageDbHydrator;
 use Serenity\Mapper\ImageMapper;
 
 class ImageService
@@ -18,12 +19,18 @@ class ImageService
     protected $mapper;
 
     /**
+     * @var ImageDbHydrator
+     */
+    protected $dbHydrator;
+
+    /**
      * @param array $config application configuration
      */
-    public function __construct($config, ImageMapper $mapper)
+    public function __construct($config, ImageMapper $mapper, ImageDbHydrator $dbHydrator)
     {
         $this->config = $config;
         $this->mapper = $mapper;
+        $this->dbHydrator = $dbHydrator;
     }
 
     public function aspectRatioFromWidthAndHeight($width, $height)
@@ -85,5 +92,22 @@ class ImageService
             }
         }
         return $valid;
+    }
+
+    /**
+     * @param int $collectionId
+     * @return array of Image objects
+     */
+    public function fetchAllByCollectionId($collectionId)
+    {
+        $imageObjects = [];
+        $images = $this->mapper->fetchByCollectionId($collectionId);
+
+        foreach ($images as $data) {
+            $object = new Image();
+            $imageObjects[] = $this->dbHydrator->hydrate($data, $object);
+        }
+
+        return $imageObjects;
     }
 }

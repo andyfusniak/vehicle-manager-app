@@ -84,11 +84,11 @@ class CollectionMapper
     public function collectionPhotoCount()
     {
         $statement = $this->pdo->prepare('
-            SELECT DISTINCT c.collection_id, COUNT(i.collection_id) AS num_photos
-            FROM collections AS c
-            LEFT JOIN images AS i
-                ON c.collection_id = i.collection_id
-            GROUP BY i.collection_id
+            SELECT DISTINCT C.collection_id, COUNT(I.collection_id) AS num_photos
+            FROM collections AS C
+            LEFT JOIN images AS I
+                ON C.collection_id = I.collection_id
+            GROUP BY C.collection_id
         ');
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_ASSOC);

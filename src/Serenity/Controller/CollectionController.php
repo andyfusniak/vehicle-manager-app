@@ -43,7 +43,7 @@ class CollectionController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->service->addCollection($data);
-                die('added');
+                $this->redirectToRoute('collection-list');
             }
         }
 
@@ -68,6 +68,17 @@ class CollectionController extends AbstractController
             'photoCountMap' => $photoCountMap
         ]);
         $viewModel->setTemplate('view/collection/list.phtml');
+        return $viewModel;
+    }
+
+    public function viewAction()
+    {
+        $collection = $this->service->fetchCollection($this->getRouteParam('collection_id'));
+        $viewModel = new ViewModel([
+            'collection' => $collection,
+            'images'     => $collection->getImages()
+        ]);
+        $viewModel->setTemplate('view/collection/view.phtml');
         return $viewModel;
     }
 }

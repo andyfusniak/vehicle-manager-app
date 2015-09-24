@@ -108,6 +108,15 @@ return array(
             'defaults' => [
                 '_controller' => 'CollectionController:listAction'
             ]
+        ],
+        'collection-view' => [
+            'path' => '/view-collection/{collection_id}',
+            'defaults' => [
+                '_controller' => 'CollectionController:viewAction'
+            ],
+            'requirements' => [
+                'collection_id' => '\d+'
+            ]
         ]
     ]
 );

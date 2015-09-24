@@ -5,6 +5,7 @@ use Serenity\Entity\Collection;
 use Serenity\Hydrator\CollectionDbHydrator;
 use Serenity\Hydrator\CollectionFormHydrator;
 use Serenity\Mapper\CollectionMapper;
+use Serenity\Service\ImageService;
 
 class CollectionService
 {
@@ -12,6 +13,11 @@ class CollectionService
      * @var CollectionMapper
      */
     protected $mapper;
+
+    /**
+     * @var ImageService
+     */
+    protected $imageService;
 
     /**
      * @var CollectionFormHydrator
@@ -30,11 +36,13 @@ class CollectionService
      */
     public function __construct(CollectionMapper $mapper,
                                 CollectionFormHydrator $formHydrator,
-                                CollectionDbHydrator $dbHydrator)
+                                CollectionDbHydrator $dbHydrator,
+                                ImageService $imageService)
     {
         $this->mapper = $mapper;
         $this->formHydrator = $formHydrator;
         $this->dbHydrator = $dbHydrator;
+        $this->imageService = $imageService;
     }
 
     /**
@@ -100,5 +108,17 @@ class CollectionService
                 . ' (' . $collection['tagname'] . ')';
         }
         return $valueOptions;
+    }
+
+    /**
+     * @param int $collectionId
+     * @return Collection with onboard Image objects
+     */
+    public function fetchCollection($collectionId)
+    {
+        $collection = new Collection();
+        return $collection->setImages(
+            $this->imageService->fetchAllByCollectionId($collectionId)
+        );
     }
 }
