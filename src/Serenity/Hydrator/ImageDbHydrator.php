@@ -18,6 +18,7 @@ class ImageDbHydrator extends AbstractDbHydrator
 
         return array(
             'image_id'      => $image->getImageId(),
+            'collection_id' => $image->getCollectionId(),
             'original_name' => $image->getOriginalName(),
             'size'          => $image->getSize(),
             'mime_type'     => $image->getMimeType(),
@@ -35,6 +36,7 @@ class ImageDbHydrator extends AbstractDbHydrator
     public function hydrate(array $data, $image)
     {
         $image->setImageId((int) $data['image_id'])
+              ->setCollectionId($data['collection_id'])
               ->setOriginalName($data['original_name'])
               ->setSize((int) $data['size'])
               ->setMimeType($data['mime_type'])

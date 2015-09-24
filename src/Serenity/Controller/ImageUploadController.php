@@ -32,14 +32,13 @@ class ImageUploadController extends AbstractController
     {
         if ($this->request->getMethod() === Request::METHOD_POST) {
             $data = $this->request->request->all();
-
-            var_dump($data);
-
-
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-               $this->service->saveImages($this->request->files->get('filename'));
+                $this->service->saveImages(
+                    $data['collection-id'],
+                    $this->request->files->get('filename')
+                );
             }
         }
 
