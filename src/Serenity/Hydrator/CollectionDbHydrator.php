@@ -30,8 +30,8 @@ class CollectionDbHydrator extends AbstractDbHydrator
         $object->setCollectionId((int) $data['collection_id'])
                ->setTagname($data['tagname'])
                ->setName($data['name'])
-               ->setCreated(mysqlTimeStampToDateTime($data['created']))
-               ->setModified(mysqlTimeStampToDateTime($data['modified']));
+               ->setCreated($this->mysqlTimeStampToDateTime($data['created']))
+               ->setModified($this->mysqlTimeStampToDateTime($data['modified']));
         return $object;
     }
 }

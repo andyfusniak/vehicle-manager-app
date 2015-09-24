@@ -2,6 +2,7 @@
 namespace Serenity\Service;
 
 use Serenity\Entity\Collection;
+use Serenity\Hydrator\CollectionDbHydrator;
 use Serenity\Hydrator\CollectionFormHydrator;
 use Serenity\Mapper\CollectionMapper;
 
@@ -17,11 +18,23 @@ class CollectionService
      */
     protected $formHydrator;
 
+    /**
+     * @var CollectionDbHydrator
+     */
+    protected $dbHydrator;
+
+    /**
+     * @param CollectionMapper $mapper
+     * @param CollectionFormHydrator $formHydrator
+     * @param CollectionDbHydrator $dbHydrator
+     */
     public function __construct(CollectionMapper $mapper,
-                                CollectionFormHydrator $formHydrator)
+                                CollectionFormHydrator $formHydrator,
+                                CollectionDbHydrator $dbHydrator)
     {
         $this->mapper = $mapper;
         $this->formHydrator = $formHydrator;
+        $this->dbHydrator = $dbHydrator;
     }
 
     /**
@@ -43,6 +56,35 @@ class CollectionService
     public function isTagnameTaken($tagname)
     {
         return $this->mapper->isTagnameTaken($tagname);
+    }
+
+    /**
+     * @return array of Collection objects
+     */
+    public function fetchAll()
+    {
+        $collectionObjects = [];
+        $collections = $this->mapper->fetchAll();
+
+        foreach ($collections as $collection) {
+            $object = new Collection();
+            $collectionObjects[] = $this->dbHydrator->hydrate($collection, $object);
+        }
+
+        return $collectionObjects;
+    }
+
+    public function collectionPhotoCountLookup()
+    {
+        // convert the result set from associative array into a lookup table
+        $results = $this->mapper->collectionPhotoCount();
+
+        $lookup = [];
+        foreach ($results as $r) {
+            $lookup[(int) $r['collection_id']] = (int) $r['num_photos'];
+        }
+
+        return $lookup;
     }
 
     /**

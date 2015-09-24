@@ -30,6 +30,7 @@ class ImageUploadController extends AbstractController
 
     public function uploadAction()
     {
+
         if ($this->request->getMethod() === Request::METHOD_POST) {
             $data = $this->request->request->all();
             $this->form->setData($data);
@@ -40,7 +41,13 @@ class ImageUploadController extends AbstractController
                     $this->request->files->get('filename')
                 );
             }
+        } else {
+            $collectionId = $this->getRouteParam('collection_id');
+            if ($collectionId !== null) {
+                $this->form->get('collection-id')->setValue($collectionId);
+            }
         }
+
 
         $viewModel = new ViewModel([
             'form' => $this->form
