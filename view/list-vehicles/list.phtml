@@ -6,7 +6,7 @@
     <th>Sold</th>
     <th>Price</th>
     <th>Url</th>
-    <th>EDIT</th>
+    <th>&nbsp;</th>
 </tr>
 <?php foreach ($vehicles as $v) : ?>
 <?php //var_dump($v); ?>
@@ -20,8 +20,20 @@ $visible = $v->getVisible();
     <td><?php echo $this->escapeHtml($visible); ?></td>
     <td><?php echo $this->escapeHtml($v->getSold()); ?></td>
     <td><?php echo $this->escapeHtml($v->getPrice()); ?></td>
-    <td><kbd><?php echo $this->escapeHtml($v->getUrl()); ?></kbd></td>
-    <td><a href="/add-edit-vehicle/<?php echo $this->escapeHtml($vehicleId); ?>"><button type="button" class="btn-sm btn-link">Edit</button></a></td>
+    <td><kbd class="alert-warning"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($v->getUrl()); ?></kbd></td>
+    <td>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="/add-edit-vehicle/<?php echo $this->escapeHtml($vehicleId); ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+            <li role="presentation"><a href="#"><span class="glyphicon glyphicon-eye-open"></span> View</a></li>
+        </ul>
+    </td>
 </tr>
 <?php endforeach; ?>
 </table>
+
+<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
