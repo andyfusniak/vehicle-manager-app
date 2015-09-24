@@ -67,6 +67,15 @@ return array(
                 '_controller' => 'ImageUploadController:uploadAction'
             ]
         ],
+        'upload-to-collection' => [
+            'path' => '/image-uploader/{collection_id}',
+            'defaults' => [
+                '_controller' => 'ImageUploadController:uploadAction'
+            ],
+            'requirements' => [
+                'collection_id' => '\d+'
+            ]
+        ],
         'list_vehicles' => [
             'path' => '/list-vehicles',
             'defaults' => [
@@ -92,6 +101,12 @@ return array(
             'path' => '/add-edit-collection',
             'defaults' => [
                 '_controller' => 'CollectionController:addEditAction'
+            ]
+        ],
+        'collection-list' => [
+            'path' => '/list-collections',
+            'defaults' => [
+                '_controller' => 'CollectionController:listAction'
             ]
         ]
     ]

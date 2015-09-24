@@ -53,4 +53,21 @@ class CollectionController extends AbstractController
         $viewModel->setTemplate('view/collection/add-edit.phtml');
         return $viewModel;
     }
+
+    /**
+     * @return ViewModel
+     */
+    public function listAction()
+    {
+        $collections = $this->service->fetchAll();
+
+        $photoCountMap = $this->service->collectionPhotoCountLookup();
+
+        $viewModel = new ViewModel([
+            'collections'   => $collections,
+            'photoCountMap' => $photoCountMap
+        ]);
+        $viewModel->setTemplate('view/collection/list.phtml');
+        return $viewModel;
+    }
 }
