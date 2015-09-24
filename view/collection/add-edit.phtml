@@ -1,4 +1,5 @@
-<form method="post" action="/add-edit-collection">
+<div class="container">
+<form class="sl-form form-horizontal" method="post" action="/add-edit-collection">
 <div>
 <?php
     $collectionId = $form->get('collection-id');
@@ -7,22 +8,28 @@
 ?>
 </div>
 
-<div>
+<div class="form-group">
 <label for="tagname">Tagname</label>
 <?php
-    $tagname = $form->get('tagname');
+    $tagname = $form->get('tagname')->setAttribute('class', 'form-control')
+                                    ->setAttribute('placeholder', 'Choose a short tagname for markdown');
     echo $this->formText($tagname);
     echo $this->formElementErrors($tagname);
 ?>
 </div>
 
-<div>
+<div class="form-group">
+<label for="name">Name</label>
 <?php
-    $name = $form->get('name');
+    $name = $form->get('name')->setAttribute('class', 'form-control')
+                              ->setAttribute('placeholder', 'Give your collection a name');
     echo $this->formText($name);
     echo $this->formElementErrors($name);
 ?>
 </div>
 
-<button>Save</button>
+<div class="form-group">
+<button class="btn-lg btn-success">Save</button>
+</div>
 </form>
+</div>
