@@ -17,7 +17,8 @@ class CollectionServiceFactory implements FactoryInterface
         return new CollectionService(
             $serviceLocator->get('Serenity\Mapper\CollectionMapper'),
             $serviceLocator->get('Serenity\Hydrator\CollectionFormHydrator'),
-            $serviceLocator->get('Serenity\Hydrator\CollectionDbHydrator')
+            $serviceLocator->get('Serenity\Hydrator\CollectionDbHydrator'),
+            $serviceLocator->get('Serenity\Service\ImageService')
         );
     }
 }

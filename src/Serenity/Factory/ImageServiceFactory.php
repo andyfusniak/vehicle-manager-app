@@ -18,7 +18,8 @@ class ImageServiceFactory implements FactoryInterface
     {
         return new ImageService(
             $serviceLocator->get('config'),
-            $serviceLocator->get('Serenity\Mapper\ImageMapper')
+            $serviceLocator->get('Serenity\Mapper\ImageMapper'),
+            $serviceLocator->get('Serenity\Hydrator\ImageDbHydrator')
         );
     }
 }

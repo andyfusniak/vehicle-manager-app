@@ -52,4 +52,14 @@ class ImageMapper
         $statement->execute();
         return $this->pdo->lastInsertId();
     }
+
+    public function fetchByCollectionId($collectionId)
+    {
+        $statement = $this->pdo->prepare(
+            'SELECT * FROM images WHERE collection_id = :collection_id'
+        );
+        $statement->bindValue(':collection_id', (int) $collectionId, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

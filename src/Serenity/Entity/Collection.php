@@ -1,6 +1,8 @@
 <?php
 namespace Serenity\Entity;
 
+use Serenity\Entity\Image;
+
 class Collection
 {
     /**
@@ -27,6 +29,11 @@ class Collection
      * @var \DateTime|null
      */
     protected $modified;
+
+    /**
+     * @var null|array of Image objects
+     */
+    protected $images;
 
     /**
      * @param int|null the primary key
@@ -127,5 +134,33 @@ class Collection
     public function getModified()
     {
         return $this->modified;
+    }
+
+    /**
+     * @param Image $image object
+     * @return Collection
+     */
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+        return $this;
+    }
+
+    /**
+     * @param array of Image objects
+     * @return Collection
+     */
+    public function setImages(array $images)
+    {
+        $this->images = $images;
+        return $this;
+    }
+
+    /**
+     * @return array of image objects
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }
