@@ -10,10 +10,17 @@ class VehicleFormHydrator extends AbstractFormHydrator
     public function extract($object)
     {
         return [
-            'vehicle-id' => (string) $vehicle->getVehicleId(),
-            'type'       => $vehicle->getType(),
-            'visible'    => (string) $vehicle->getVisible(),
-            // TODO must return strings
+            'vehicle-id' => (string) $object->getVehicleId(),
+            'type'       => $object->getType(),
+            'visible'    => ($object->getVisible() === true) ? '1' : '0',
+            'sold'       => ($object->getSold() === true) ? '1' : '0',
+            'url'        => ($object->getUrl() === null) ? '' : $object->getUrl(),
+            'price'      => ($object->getPrice() === null) ? '': (string) $object->getPrice(),
+            'meta-keywords' => ($object->getMetaKeywords() === null) ? '' : $object->getMetaKeywords(),
+            'meta-desc'  => ($object->getMetaDesc() === null) ? '' : $object->getMetaDesc(),
+            'page-title' => ($object->getPageTitle() === null) ? '' : $object->getPageTitle(),
+            'markdown'   => ($object->getMarkdown() === null) ? '' : $object->getMarkdown(),
+            'page-html'  => ($object->getPageHtml() === null) ? '' : $object->getPageHtml()
         ];
     }
 

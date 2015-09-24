@@ -1,6 +1,6 @@
 <h2>Add Vehicle</h2>
 <p class="lead">Enter the details for your new vehicle</p>
-<form class="sl-form form-horizontal" method="post" action="/add-edit-vehicle">
+<form class="sl-form form-horizontal" method="post" action="<?php echo $this->escapeHtml($action); ?>">
 <div class="form-group">
 <?php
     $vehicleId = $form->get('vehicle-id');

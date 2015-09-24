@@ -29,10 +29,13 @@ try {
     $matcher = new Routing\Matcher\UrlMatcher($application->getRoutes(), $context);
     $parameters = $matcher->match($request->getPathInfo());
 
+    $generator = new Routing\Generator\UrlGenerator($application->getRoutes(), $context);
+
     list($service, $action) = split(':', $parameters['_controller']);
 
     $controller = $serviceLocator->get($service);
     $controller->setMatch($parameters);
+    $controller->setUrlGenerator($generator);
 
     $viewModel = $controller->dispatch($application->getRequest(), $response);
     $viewModel = $viewModel->setCaptureTo('content');

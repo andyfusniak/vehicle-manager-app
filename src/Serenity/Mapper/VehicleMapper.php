@@ -72,6 +72,7 @@ class VehicleMapper
         );
         $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
         $statement->execute();
+        //var_dump($statement->fetch(\PDO::FETCH_ASSOC));
         return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
