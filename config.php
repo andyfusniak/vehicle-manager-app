@@ -50,10 +50,17 @@ return array(
         // Controllers
         'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',
         'CollectionController'     => 'Serenity\Factory\CollectionControllerFactory',
+        'DashboardController'      => 'Serenity\Factory\DashboardControllerFactory',
         'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
         'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory'
     ],
     'routes' => [
+        'dashboard' => [
+            'path' => '/',
+            'defaults' => [
+                '_controller' => 'DashboardController:indexAction'
+            ]
+        ],
         'image_uploader' => [
             'path'     => '/image-uploader',
             'defaults' => [
