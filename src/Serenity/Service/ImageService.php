@@ -31,7 +31,12 @@ class ImageService
 
     }
 
-    public function saveImages($files)
+    /**
+     * @param int $collectionId
+     * @param array of UploadedFile object
+     * @return bool true or false depending on outcome
+     */
+    public function saveImages($collectionId, $files)
     {
         if ($files === null) {
             throw new \Exception(sprintf(
@@ -55,6 +60,7 @@ class ImageService
                 // to convert it
                 $image = new Image();
                 $image->setOriginalName($originalName)
+                      ->setCollectionId((int) $collectionId)
                       ->setSize($file->getClientSize())
                       ->setMimeType($file->getMimeType())
                       ->setExtension($file->guessExtension())

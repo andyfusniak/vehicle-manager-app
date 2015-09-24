@@ -22,13 +22,9 @@ class ImageUploadForm extends Form
         $collectionChain->attach('validatornotempty');
         $collectionId->setValidatorChain($collectionChain);
 
-        // caption
-        $caption = new Element\Text('caption');
-
         $this->add([
             $filename,
-            $collectionId,
-            $caption
+            $collectionId
         ]);
     }
 }

@@ -36,10 +36,11 @@ class ImageMapper
     {
         $data = $this->hydrator->extract($image);
         $statement = $this->pdo->prepare(
-            'INSERT INTO images (image_id, original_name, size, mime_type, extension, checksum, width, height, aspect, is_portrait, created, modified) VALUES (null, :original_name, :size, :mime_type, :extension, :checksum, :width, :height, :aspect, :is_portrait, NOW(), NOW())'
+            'INSERT INTO images (image_id, collection_id, original_name, size, mime_type, extension, checksum, width, height, aspect, is_portrait, created, modified) VALUES (null, :collection_id, :original_name, :size, :mime_type, :extension, :checksum, :width, :height, :aspect, :is_portrait, NOW(), NOW())'
         );
         unset($data['image_id']);
         $statement->bindValue(':original_name', $data['original_name'], \PDO::PARAM_STR);
+        $statement->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
         $statement->bindValue(':size', $data['size'], \PDO::PARAM_INT);
         $statement->bindValue(':mime_type', $data['mime_type'], \PDO::PARAM_STR);
         $statement->bindValue(':extension', $data['extension'], \PDO::PARAM_STR);
