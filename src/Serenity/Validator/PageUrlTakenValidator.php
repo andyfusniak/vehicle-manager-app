@@ -3,21 +3,21 @@ namespace Serenity\Validator;
 
 use Nitrogen\Validator\AbstractValidator;
 use Nitrogen\Validator\Exception;
-use Serenity\Service\VehicleService;
+use Serenity\Service\PageService;
 
-class VehicleUrlTakenValidator extends AbstractValidator
+class PageUrlTakenValidator extends AbstractValidator
 {
-    const VEHICLE_URL_TAKEN = 'vehicleUrlTaken';
+    const PAGE_URL_TAKEN = 'pageUrlTaken';
 
     /**
-     * @var VehicleService
+     * @var PageService
      */
     protected $service;
 
     /**
-     * @param VehicleService $ervice
+     * @param PageService $service
      */
-    public function __construct(VehicleService $service)
+    public function __construct(PageService $service)
     {
         $this->service = $service;
     }
@@ -38,7 +38,7 @@ class VehicleUrlTakenValidator extends AbstractValidator
         $this->setValue($value);
 
         if ($this->service->isUrlTaken($value)) {
-            $this->messages[self::VEHICLE_URL_TAKEN] = 'The url chosen is already in use';
+            $this->messages[self::PAGE_URL_TAKEN] = 'The page url chosen is already in use';
             return false;
         }
         return true;

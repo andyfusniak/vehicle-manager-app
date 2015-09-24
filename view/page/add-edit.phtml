@@ -1,0 +1,16 @@
+<h2>Add/Edit Page</h2>
+
+<div class="container">
+<form class="sl-form form-horizontal" method="post" action="<?php echo $this->escapeHtmlAttr($action) ?>">
+
+<div class="form-group">
+<label for="url">URL</label>
+<?php
+    $url = $form->get('url');
+    echo $this->formText($url);
+    echo $this->formElementErrors($url);
+?>
+</div>
+
+</form>
+</div>

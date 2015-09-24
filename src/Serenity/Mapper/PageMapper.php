@@ -1,15 +1,15 @@
 <?php
 namespace Serenity\Mapper;
 
-use Serenity\Entity\Vehicle;
-use Serenity\Hydrator\VehicleDbHydrator;
+use Serenity\Entity\Page;
+use Serenity\Hydrator\PageDbHydrator;
 
-class VehicleMapper
+class PageMapper
 {
-    const COLUMN_VEHICLE_ID = 'vehicle_id';
+    const COLUMN_PAGE_ID = 'page_id';
 
     protected static $validColumns = [
-        self::COLUMN_VEHICLE_ID
+        self::COLUMN_PAGE_ID
     ];
 
     /**
@@ -18,40 +18,33 @@ class VehicleMapper
     protected $pdo;
 
     /**
-     * @var VehicleDbHydrator
+     * @var PageDbHydrator
      */
-    protected $hydrator;
+    protected $dbHydrator;
 
     /**
      * @param \PDO $pdo the database adapter
-     * @param VehicleDbHydrator $hydrator the hydrator object
+     * @param PageDbHydrator $dbHydrator the database hydrator
      */
-    public function __construct(\PDO $pdo, VehicleDbHydrator $hydrator)
+    public function __construct(\PDO $pdo, PageDbHydrator $dbHydrator)
     {
         $this->pdo = $pdo;
-        $this->hydrator = $hydrator;
+        $this->dbHydrator = $dbHydrator;
     }
 
     /**
-     * Create a new vehicle row in the database
+     * Create a new page row in the database
      *
-     * @param Vehicle $vehicle vehicle object
+     * @param Page $page page object
      * @return int the last insert id from the db
      */
-    public function insert(Vehicle $vehicle)
+    public function insert(Page $page)
     {
-        $data = $this->hydrator->extract($vehicle);
+        $data = $this->dbHydrator->extract($page);
         $statement = $this->pdo->prepare(
-            'INSERT INTO vehicles (vehicle_id, type, visible, sold, url, price, meta_keywords, meta_desc, page_title, markdown, page_html, created, modified) VALUES (null, :type, 1, 0, :url, :price, :meta_keywords, :meta_desc, :page_title, :markdown, :page_html, NOW(), NOW())'
+            'INSERT INTO pages (page_id, url, meta_keywords, meta_desc, page_title, markdown, page_html, created, modified) VALUES (null, :url, :meta_keywords, :meta_desc, :page_title, :markdown, :page_html, NOW(), NOW())'
         );
-        unset($data['vehicle_id']);
-        unset($data['visible']);
-        unset($data['sold']);
-        unset($data['created']);
-        unset($data['modified']);
-        $statement->bindValue(':type', $data['type'], \PDO::PARAM_STR);
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
-        $statement->bindValue(':price', $data['price'], \PDO::PARAM_INT);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
@@ -62,15 +55,15 @@ class VehicleMapper
     }
 
     /**
-     * @param int $vehicleId the primary key
-     * @return array associative array of details
+     * @param int $pageId the primary key
+     * @return array associative array of data
      */
-    public function fetchByVehicleId($vehicleId)
+    public function fetchByPageId($pageId)
     {
         $statement = $this->pdo->prepare(
-            'SELECT * FROM vehicles WHERE vehicle_id = :vehicle_id'
+            'SELECT * FROM pages WHERE page_id = :page_id'
         );
-        $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
+        $statement->bindValue(':page_id', (int) $pageId, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch(\PDO::FETCH_ASSOC);
     }
@@ -78,7 +71,7 @@ class VehicleMapper
     /**
      * @return array
      */
-    public function fetchAll($orderBy = self::COLUMN_VEHICLE_ID, $orderDirection = 'DESC')
+    public function fetchAllAssocArray($orderBy = self::COLUMN_PAGE_ID, $orderDirection = 'DESC')
     {
         if (!in_array($orderBy, self::$validColumns)) {
             throw new \Exception(sprintf(
@@ -89,7 +82,7 @@ class VehicleMapper
         }
 
         $statement = $this->pdo->prepare(
-            'SELECT * FROM vehicles ORDER BY :order_by :order_direction'
+            'SELECT * FROM pages ORDER BY :order_by :order_direction'
         );
         $statement->bindValue(':order_by', $orderBy, \PDO::PARAM_STR);
         $statement->bindValue(':order_direction', ($orderDirection === 'DESC') ? 'DESC' : 'ASC', \PDO::PARAM_STR);
@@ -100,7 +93,7 @@ class VehicleMapper
     public function isUrlTaken($url)
     {
         $statement = $this->pdo->prepare(
-            'SELECT url FROM vehicles WHERE url = :url'
+            'SELECT url FROM pages WHERE url = :url'
         );
         $statement->bindValue(':url', (string) $url, \PDO::PARAM_STR);
         $statement->execute();
@@ -116,24 +109,19 @@ class VehicleMapper
     public function update($data)
     {
         $statement = $this->pdo->prepare('
-            UPDATE vehicles
-            SET type = :type, url = :url, visible = :visible, sold = :sold,
-                price = :price, meta_keywords = :meta_keywords,
-                meta_desc = :meta_desc, page_title = :page_title,
-                markdown = :markdown, page_html = :page_html, modified = NOW()
-            WHERE vehicle_id = :vehicle_id
+            UPDATE pages
+            SET url = :url, meta_keywords = :meta_keywords, meta_desc = :meta_desc
+                page_title = :page_title, markdown = :markdown,
+                page_html = :page_html, modified = NOW()
+            WHERE page_id = :page_id
         ');
-        $statement->bindValue(':type', $data['type'], \PDO::PARAM_STR);
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
-        $statement->bindValue(':visible', $data['visible'], \PDO::PARAM_INT);
-        $statement->bindValue(':sold', $data['sold'], \PDO::PARAM_INT);
-        $statement->bindValue(':price', $data['price'], \PDO::PARAM_INT);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
         $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
-        $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
+        $statement->bindValue(':page_id', $data['page_id'], \PDO::PARAM_INT);
         $statement->execute();
     }
 }

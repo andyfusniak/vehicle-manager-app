@@ -1,48 +1,17 @@
 <?php
 namespace Serenity\Entity;
 
-class Vehicle
+class Page
 {
     /**
-     * @var array list of valid vehicle types
+     * @var int|null page id
      */
-    private static $validVehicleTypes = array(
-        'caravans',
-        'motorhomes',
-        'awningrange',
-        'accessories',
-        'cars'
-    );
+    protected $pageId;
 
     /**
-     * @var int vehicle unique id (primary key)
-     */
-    protected $vehicleId;
-
-    /**
-     * @var string vehicle type
-     */
-    protected $type;
-
-    /**
-     * @var bool visible
-     */
-    protected $visible;
-
-    /**
-     * @var bool sold
-     */
-    protected $sold;
-
-    /**
-     * @var string slug url for this vehicle
+     * @var string the part url of this page
      */
     protected $url;
-
-    /**
-     * @var int the price in pounds of this vehicle
-     */
-    protected $price;
 
     /**
      * @var string meta keywords for this vehicle page
@@ -79,61 +48,30 @@ class Vehicle
      */
     protected $modified;
 
-    public function setVehicleId($vehicleId)
+    /**
+     * @param int|null $pageId
+     * @return Page
+     */
+    public function setPageId($pageId)
     {
-        $this->vehicleId = $vehicleId;
-        return $this;
-    }
-
-    public function getVehicleId()
-    {
-        return $this->vehicleId;
-    }
-
-    public function setType($type)
-    {
-        if (!in_array($type, self::$validVehicleTypes)) {
-            throw new \InvalidArgumentException(sprintf(
-                '%s: expects a value of {%s}.  Value of "%s" passed',
-                __METHOD__,
-                implode(',', self::$validVehicleTypes),
-                $type
-            ));
+        if ($pageId === null) {
+            $this->pageId = null;
         }
-        $this->type = $type;
+        $this->pageId = (int) $pageId;
         return $this;
     }
 
-    public function getType()
+    /**
+     * @return int|null
+     */
+    public function getPageId()
     {
-        return $this->type;
-    }
-
-    public function setVisible($visible)
-    {
-        $this->visible = (bool) $visible;
-        return $this;
-    }
-
-    public function getVisible()
-    {
-        return $this->visible;
-    }
-
-    public function setSold($sold)
-    {
-        $this->sold = (bool) $sold;
-        return $this;
-    }
-
-    public function getSold()
-    {
-        return $this->sold;
+        return $this->pageId;
     }
 
     public function setUrl($url)
     {
-        $this->url = $url;
+        $this->url = (string) $url;
         return $this;
     }
 
@@ -142,18 +80,7 @@ class Vehicle
         return $this->url;
     }
 
-    public function setPrice($price)
-    {
-        $this->price = $price;
-        return $this;
-    }
-
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    public function setMetaKeywords($metaKeywords)
+        public function setMetaKeywords($metaKeywords)
     {
         $this->metaKeywords = (string) $metaKeywords;
         return $this;

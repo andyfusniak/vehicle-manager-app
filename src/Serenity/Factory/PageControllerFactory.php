@@ -4,20 +4,21 @@ namespace Serenity\Factory;
 use Nitrogen\ServiceManager\FactoryInterface;
 use Nitrogen\ServiceManager\ServiceLocatorInterface;
 
-use Serenity\Controller\ListVehiclesController;
+use Serenity\Controller\PageController;
 
-class ListVehiclesControllerFactory implements FactoryInterface
+class PageControllerFactory implements FactoryInterface
 {
     /**
-     * Create a ListVehiclesController object
+     * Create an PageController object
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @return ListVehiclesController
+     * @return PageController
      */
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new ListVehiclesController(
-            $serviceLocator->get('Serenity\Service\VehicleService'),
+        return new PageController(
+            $serviceLocator->get('Serenity\Form\PageForm'),
+            $serviceLocator->get('Serenity\Service\PageService'),
             $serviceLocator->get('config')
         );
     }

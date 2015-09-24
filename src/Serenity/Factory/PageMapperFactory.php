@@ -3,21 +3,21 @@ namespace Serenity\Factory;
 
 use Nitrogen\ServiceManager\FactoryInterface;
 use Nitrogen\ServiceManager\ServiceLocatorInterface;
-use Serenity\Hydrator\VehicleDbHydrator;
-use Serenity\Mapper\VehicleMapper;
+use Serenity\Hydrator\PageDbHydrator;
+use Serenity\Mapper\PageMapper;
 
-class VehicleMapperFactory implements FactoryInterface
+class PageMapperFactory implements FactoryInterface
 {
     /**
-     * Create a VehicleMapper object
+     * Create a PageMapper object
      *
-     * @return VehicleMapper
+     * @return PageMapper
      */
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new VehicleMapper(
+        return new PageMapper(
             $serviceLocator->get('Pdo'),
-            $serviceLocator->get('Serenity\Hydrator\VehicleDbHydrator')
+            $serviceLocator->get('Serenity\Hydrator\PageDbHydrator')
         );
     }
 }

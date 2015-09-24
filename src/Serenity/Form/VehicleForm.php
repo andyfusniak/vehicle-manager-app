@@ -61,6 +61,8 @@ class VehicleForm extends Form
 
         // meta-keywords
         $metaKeywords = new Element\Textarea('meta-keywords');
+
+        // meta-desc
         $metaDesc = new Element\Textarea('meta-desc');
 
         // page-title

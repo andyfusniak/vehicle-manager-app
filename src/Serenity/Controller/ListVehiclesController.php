@@ -14,11 +14,20 @@ class ListVehiclesController extends AbstractController
     protected $service;
 
     /**
-     * @param VehicleService $service
+     * @var string the local time zone datetimezone string
      */
-    public function __construct(VehicleService $service)
+    protected $localTimeZone;
+
+    /**
+     * @param VehicleService $service
+     * @param array $config the application configuration
+     */
+    public function __construct(VehicleService $service, array $config)
     {
         $this->service = $service;
+        if (isset($config['system']['timezones']['local'])) {
+            $this->localTimeZone =  $config['system']['timezones']['local'];
+        }
     }
 
     public function listAction()
@@ -26,7 +35,8 @@ class ListVehiclesController extends AbstractController
         $vehicles = $this->service->fetchAll();
 
         $viewModel = new ViewModel([
-            'vehicles' => $vehicles
+            'vehicles'      => $vehicles,
+            'localTimeZone' => $this->localTimeZone
         ]);
         $viewModel->setTemplate('view/list-vehicles/list.phtml');
         return $viewModel;
