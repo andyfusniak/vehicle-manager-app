@@ -26,7 +26,7 @@ class VehicleFormHydrator extends AbstractFormHydrator
 
     public function hydrate(array $data, $object)
     {
-        $object->setVehicleId((int) $data['vehicle-id'])
+        $object->setVehicleId($data['vehicle-id'])
                ->setType($data['type'])
                ->setVisible(($data['visible'] === '1') ? true : false)
                ->setSold(($data['sold'] === '1') ? true : false)

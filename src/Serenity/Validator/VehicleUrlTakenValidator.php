@@ -15,7 +15,7 @@ class VehicleUrlTakenValidator extends AbstractValidator
     protected $service;
 
     /**
-     * @param VehicleService $vehicleService
+     * @param VehicleService $ervice
      */
     public function __construct(VehicleService $service)
     {

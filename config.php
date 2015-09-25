@@ -24,27 +24,33 @@ return array(
         // Mappers
         'Serenity\Mapper\CollectionMapper' => 'Serenity\Factory\CollectionMapperFactory',
         'Serenity\Mapper\ImageMapper'      => 'Serenity\Factory\ImageMapperFactory',
+        'Serenity\Mapper\PageMapper'       => 'Serenity\Factory\PageMapperFactory',
         'Serenity\Mapper\VehicleMapper'    => 'Serenity\Factory\VehicleMapperFactory',
 
         // Hydrators
         'Serenity\Hydrator\CollectionDbHydrator'   => 'Serenity\Factory\CollectionDbHydratorFactory',
         'Serenity\Hydrator\CollectionFormHydrator' => 'Serenity\Factory\CollectionFormHydratorFactory',
         'Serenity\Hydrator\ImageDbHydrator'        => 'Serenity\Factory\ImageDbHydratorFactory',
+        'Serenity\Hydrator\PageDbHydrator'         => 'Serenity\Factory\PageDbHydratorFactory',
+        'Serenity\Hydrator\PageFormHydrator'       => 'Serenity\Factory\PageFormHydratorFactory',
         'Serenity\Hydrator\VehicleDbHydrator'      => 'Serenity\Factory\VehicleDbHydratorFactory',
         'Serenity\Hydrator\VehicleFormHydrator'    => 'Serenity\Factory\VehicleFormHydratorFactory',
 
         // Forms
         'Serenity\Form\CollectionForm'  => 'Serenity\Factory\CollectionFormFactory',
         'Serenity\Form\ImageUploadForm' => 'Serenity\Factory\ImageUploadFormFactory',
+        'Serenity\Form\PageForm'        => 'Serenity\Factory\PageFormFactory',
         'Serenity\Form\VehicleForm'     => 'Serenity\Factory\VehicleFormFactory',
 
         // Validators
         'Serenity\Validator\CollectionTagnameTakenValidator' => 'Serenity\Factory\CollectionTagnameTakenValidatorFactory',
+        'Serenity\Validator\PageUrlTakenValidator'           => 'Serenity\Factory\PageUrlTakenValidatorFactory',
         'Serenity\Validator\VehicleUrlTakenValidator'        => 'Serenity\Factory\VehicleUrlTakenValidatorFactory',
 
         // Services
         'Serenity\Service\CollectionService' => 'Serenity\Factory\CollectionServiceFactory',
         'Serenity\Service\ImageService'      => 'Serenity\Factory\ImageServiceFactory',
+        'Serenity\Service\PageService'       => 'Serenity\Factory\PageServiceFactory',
         'Serenity\Service\VehicleService'    => 'Serenity\Factory\VehicleServiceFactory',
 
         // Controllers
@@ -52,7 +58,8 @@ return array(
         'CollectionController'     => 'Serenity\Factory\CollectionControllerFactory',
         'DashboardController'      => 'Serenity\Factory\DashboardControllerFactory',
         'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
-        'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory'
+        'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory',
+        'PageController'           => 'Serenity\Factory\PageControllerFactory'
     ],
     'routes' => [
         'dashboard' => [
@@ -116,6 +123,36 @@ return array(
             ],
             'requirements' => [
                 'collection_id' => '\d+'
+            ]
+        ],
+        'page_view' => [
+            'path' => '/list-pages',
+            'defaults' => [
+                '_controller' => 'PageController:listAction'
+            ]
+        ],
+        'page_add' => [
+            'path' => '/add-page',
+            'defaults' => [
+                '_controller' => 'PageController:addAction'
+            ]
+        ],
+        'page_edit' => [
+            'path' => '/edit-page/{page_id}',
+            'defaults' => [
+                '_controller' => 'PageController:editAction'
+            ],
+            'requirements' => [
+                'page_id' => '\d+'
+            ]
+        ],
+        'page_delete' => [
+            'path' => '/delete-page/{page_id}',
+            'defaults' => [
+                '_controller' => 'PageController:deleteAction'
+            ],
+            'requirements' => [
+                'page_id' => '\d+'
             ]
         ]
     ]

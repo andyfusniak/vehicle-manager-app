@@ -63,13 +63,17 @@ class ValidatorChain implements ValidatorInterface
         return $this;
     }
 
-    public function isValid($value)
+    /**
+     * @param string $value the form value to check
+     * @context array|null an optional array holding the form context
+     */
+    public function isValid($value, $context = null)
     {
         $this->messages = [];
         $result = true;
 
         foreach ($this->validators as $validator) {
-            if (!$validator->isValid($value)) {
+            if (!$validator->isValid($value, $context)) {
                 $result = false;
                 $this->messages = array_replace_recursive(
                     $this->messages,

@@ -6,6 +6,7 @@
     <th>Sold</th>
     <th>Price</th>
     <th>Url</th>
+    <th>Last Modified</th>
     <th>&nbsp;</th>
 </tr>
 <?php foreach ($vehicles as $v) : ?>
@@ -21,6 +22,7 @@ $visible = $v->getVisible();
     <td><?php echo $this->escapeHtml($v->getSold()); ?></td>
     <td><?php echo $this->escapeHtml($v->getPrice()); ?></td>
     <td><kbd class="alert-warning"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($v->getUrl()); ?></kbd></td>
+    <td><?php echo $this->showDateTime($v->getModified(), $localTimeZone); ?></td>
     <td>
         <ul class="nav nav-pills">
             <li role="presentation"><a href="/add-edit-vehicle/<?php echo $this->escapeHtml($vehicleId); ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>

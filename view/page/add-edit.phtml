@@ -4,37 +4,18 @@
 <div class="container">
 <form class="sl-form form-horizontal" method="post" action="<?php echo $this->escapeHtmlAttr($action); ?>">
 <?php
-    $vehicleId = $form->get('vehicle-id');
-    echo $this->formHidden($vehicleId);
-    echo $this->formElementErrors($vehicleId);
+    $pageId = $form->get('page-id');
+    echo $this->formHidden($pageId);
+    echo $this->formElementErrors($pageId);
 ?>
 
 <div class="form-group">
-<label for="type">Vehicle Type</label>
+<label for="name">Name</label>
 <?php
-    $type = $form->get('type')
-                 ->setAttribute('id', 'vehicle-type')
-                 ->setAttribute('class', 'form-control');
-    echo $this->formSelect($type);
-    echo $this->formElementErrors($type);
-?>
-</div>
-
-<div class="form-group sl-short-input">
-<label for="visible">Visible</label>
-<?php
-    $visible = $form->get('visible')->setAttribute('class', 'form-control');
-    echo $this->formSelect($visible);
-    echo $this->formElementErrors($visible);
-?>
-</div>
-
-<div class="form-group sl-short-input">
-<label for="sold">Sold</label>
-<?php
-    $sold = $form->get('sold')->setAttribute('class', 'form-control');
-    echo $this->formSelect($sold);
-    echo $this->formElementErrors($sold);
+    $name = $form->get('name')->setAttribute('class', 'form-control')
+                              ->setAttribute('placeholder', 'Short name for your reference only');
+    echo $this->formText($name);
+    echo $this->formElementErrors($name);
 ?>
 </div>
 
@@ -42,24 +23,10 @@
 <label for="url">URL</label>
 <?php
     $url = $form->get('url')->setAttribute('class', 'form-control')
-                            ->setAttribute('placeholder', 'e.g. my-caravan-slug-url');
+                            ->setAttribute('placeholder', 'e.g. contact-us or about-us');
     echo $this->formText($url);
     echo $this->formElementErrors($url);
 ?>
-</div>
-
-<div class="form-group">
-<label for="price">Price</label>
-<div class="input-group sl-short-input">
-    <div class="input-group-addon">&pound;</div>
-    <?php
-    $price = $form->get('price')->setAttribute('class', 'form-control')
-                                ->setAttribute('placeholder', 'Amount');
-    echo $this->formText($price);
-    ?>
-    <div class="input-group-addon">.00</div>
-</div>
-<?php echo $this->formElementErrors($price); ?>
 </div>
 
 <div class="form-group">
