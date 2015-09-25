@@ -44,7 +44,7 @@ class PageController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->service->addPage($data);
-                $this->redirectToRoute('page_view');
+                return $this->redirectToRoute('page_view');
             }
         }
 
@@ -98,5 +98,15 @@ class PageController extends AbstractController
         ]);
         $viewModel->setTemplate('view/page/list.phtml');
         return $viewModel;
+    }
+
+    public function deleteAction()
+    {
+        $pageId = $this->getRouteParam('page_id');
+
+        if ($pageId !== null) {
+            $this->service->deletePage((int) $this->getRouteParam('page_id'));
+        }
+        return $this->redirectToRoute('page_view');
     }
 }

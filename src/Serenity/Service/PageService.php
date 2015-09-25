@@ -97,4 +97,12 @@ class PageService
     {
         return $this->mapper->isUrlTaken($url, $pageId);
     }
+
+    /**
+     * @param int $pageId the page to delete
+     */
+    public function deletePage($pageId)
+    {
+        $this->mapper->delete((int) $pageId);
+    }
 }

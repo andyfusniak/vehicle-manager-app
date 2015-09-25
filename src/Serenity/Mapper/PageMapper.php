@@ -138,4 +138,16 @@ class PageMapper
         $statement->bindValue(':page_id', $data['page_id'], \PDO::PARAM_INT);
         $statement->execute();
     }
+
+    /**
+     * @param int $pageId the page to delete
+     */
+    public function delete($pageId)
+    {
+        $statement = $this->pdo->prepare(
+            'DELETE FROM pages WHERE page_id = :page_id LIMIT 1'
+        );
+        $statement->bindValue(':page_id', $pageId, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }

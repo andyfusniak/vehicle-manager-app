@@ -9,6 +9,7 @@
     <th>&nbsp;</th>
 </tr>
 <?php foreach ($pages as $p) : ?>
+<?php $pageId = $p->getPageId(); ?>
 <tr>
     <td><?php echo $this->escapeHtml($p->getUrl()); ?></td>
     <td><kbd class="alert-warning"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($p->getUrl()); ?></kbd></td>
@@ -16,11 +17,11 @@
     <td><?php echo $this->showDateTime($p->getModified(), $localTimeZone); ?></td>
     <td>
         <ul class="nav nav-pills">
-            <li role="presentation"><a href="/edit-page/<?php echo $this->escapeHtml($p->getPageId()); ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+            <li role="presentation"><a href="/edit-page/<?php echo $this->escapeHtml($pageId); ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
             <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-trash"></span> <span class="caret"></span> Del</a>
                 <ul class="dropdown-menu">
-                    <li role="presentation"><a href="#">Confirm</a></li>
+                    <li role="presentation"><a href="/delete-page/<?php echo $this->escapeHtml($pageId); ?>">Confirm</a></li>
                 </ul>
             </li>
         </ul>

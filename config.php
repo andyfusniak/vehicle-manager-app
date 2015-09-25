@@ -145,6 +145,15 @@ return array(
             'requirements' => [
                 'page_id' => '\d+'
             ]
+        ],
+        'page_delete' => [
+            'path' => '/delete-page/{page_id}',
+            'defaults' => [
+                '_controller' => 'PageController:deleteAction'
+            ],
+            'requirements' => [
+                'page_id' => '\d+'
+            ]
         ]
     ]
 );
