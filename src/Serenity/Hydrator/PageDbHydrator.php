@@ -19,6 +19,7 @@ class PageDbHydrator extends AbstractDbHydrator
         return [
             'page_id'       => $object->getPageId(),
             'url'           => $object->getUrl(),
+            'name'          => $object->getName(),
             'meta_keywords' => $object->getMetaKeywords(),
             'meta_desc'     => $object->getMetaDesc(),
             'page_title'    => $object->getPageTitle(),
@@ -33,6 +34,7 @@ class PageDbHydrator extends AbstractDbHydrator
     {
         $object->setPageId((int) $data['page_id'])
                ->setUrl($data['url'])
+               ->setName($data['name'])
                ->setMetaKeywords($data['meta_keywords'])
                ->setMetaDesc($data['meta_desc'])
                ->setPageTitle($data['page_title'])

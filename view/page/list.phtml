@@ -11,7 +11,7 @@
 <?php foreach ($pages as $p) : ?>
 <?php $pageId = $p->getPageId(); ?>
 <tr>
-    <td><?php echo $this->escapeHtml($p->getUrl()); ?></td>
+    <td><?php echo $this->escapeHtml($p->getName()); ?></td>
     <td><kbd class="alert-warning"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($p->getUrl()); ?></kbd></td>
     <td><?php echo $this->showDateTime($p->getCreated(), $localTimeZone); ?></td>
     <td><?php echo $this->showDateTime($p->getModified(), $localTimeZone); ?></td>

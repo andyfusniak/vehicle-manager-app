@@ -14,6 +14,11 @@ class Page
     protected $url;
 
     /**
+     * @var string page name for editor managing
+     */
+    protected $name;
+
+    /**
      * @var string meta keywords for this vehicle page
      */
     protected $metaKeywords;
@@ -68,6 +73,17 @@ class Page
     public function getPageId()
     {
         return $this->pageId;
+    }
+
+    public function setName($name)
+    {
+        $this->name = (string) $name;
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
     public function setUrl($url)

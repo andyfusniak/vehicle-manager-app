@@ -12,6 +12,7 @@ class PageFormHydrator extends AbstractFormHydrator
         return [
             'page-id'       => (string) $object->getPageId(),
             'url'           => $object->getUrl(),
+            'name'          => $object->getName(),
             'meta-keywords' => $object->getMetaKeywords(),
             'meta-desc'     => $object->getMetaDesc(),
             'page-title'    => $object->getPageTitle(),
@@ -31,6 +32,7 @@ class PageFormHydrator extends AbstractFormHydrator
         }
         $object->setPageId($pageId)
                ->setUrl($data['url'])
+               ->setName($data['name'])
                ->setMetaKeywords($data['meta-keywords'])
                ->setMetaDesc($data['meta-desc'])
                ->setPageTitle($data['page-title'])

@@ -23,6 +23,11 @@ class PageForm extends Form
                  ->attach($pageUrlTakenValidator);
         $url->setValidatorChain($urlChain);
 
+        // name
+        $name = new Element\Text('name');
+        $nameChain = new ValidatorChain($helperPluginManager);
+        $nameChain->attach('validatornotempty');
+
         // meta-keywords
         $metaKeywords = new Element\Textarea('meta-keywords');
 
@@ -38,6 +43,7 @@ class PageForm extends Form
         $this->add([
             $pageId,
             $url,
+            $name,
             $metaKeywords,
             $metaDesc,
             $pageTitle,
