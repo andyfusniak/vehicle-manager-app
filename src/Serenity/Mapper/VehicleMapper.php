@@ -6,10 +6,33 @@ use Serenity\Hydrator\VehicleDbHydrator;
 
 class VehicleMapper
 {
-    const COLUMN_VEHICLE_ID = 'vehicle_id';
+    const COLUMN_VEHICLE_ID    = 'vehicle_id';
+    const COLUMN_TYPE          = 'type';
+    const COLUMN_VISIBLE       = 'visible';
+    const COLUMN_SOLD          = 'sold';
+    const COLUMN_URL           = 'url';
+    const COLUMN_PRICE         = 'price';
+    const COLUMN_META_KEYWORDS = 'meta_keywords';
+    const COLUMN_META_DESC     = 'meta_desc';
+    const COLUMN_PAGE_TITLE    = 'page_title';
+    const COLUMN_MARKDOWN      = 'markdown';
+    const COLUMN_PAGE_HTML     = 'page_html';
+    const COLUMN_CREATED       = 'created';
+    const COLUMN_MODIFIED      = 'modified';
 
-    protected static $validColumns = [
-        self::COLUMN_VEHICLE_ID
+
+    // it makes no sense to sort by some fields such as
+    // meta keywords, meta description, page_html, markdown
+    protected static $validSortableColumns = [
+        self::COLUMN_VEHICLE_ID,
+        self::COLUMN_TYPE,
+        self::COLUMN_VISIBLE,
+        self::COLUMN_SOLD,
+        self::COLUMN_URL,
+        self::COLUMN_PRICE,
+        self::COLUMN_PAGE_TITLE,
+        self::COLUMN_CREATED,
+        self::COLUMN_MODIFIED
     ];
 
     /**
@@ -78,9 +101,9 @@ class VehicleMapper
     /**
      * @return array
      */
-    public function fetchAll($orderBy = self::COLUMN_VEHICLE_ID, $orderDirection = 'DESC')
+    public function fetchAllAssocArray($orderBy = self::COLUMN_VEHICLE_ID, $orderDirection = 'DESC')
     {
-        if (!in_array($orderBy, self::$validColumns)) {
+        if (!in_array($orderBy, self::$validSortableColumns)) {
             throw new \Exception(sprintf(
                 '%s invalid column passed for orderBy "%s"',
                 __METHOD__,
@@ -97,12 +120,32 @@ class VehicleMapper
         return $statement->fetchAll();
     }
 
-    public function isUrlTaken($url)
+    public function fetchVehiclesByDistinctCategoriesPriceDescAssocArray()
     {
-        $statement = $this->pdo->prepare(
-            'SELECT url FROM vehicles WHERE url = :url'
-        );
+        $statement = $this->pdo->prepare('
+            SELECT *
+            FROM vehicles
+            WHERE type IN (
+                SELECT DISTINCT type FROM vehicles
+            )
+            ORDER BY FIELD(type, "caravans", "motorhomes", "awningrange", "accessories", "cars"), price DESC
+        ');
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function isUrlTaken($url, $vehicleId = null)
+    {
+        $sql = 'SELECT url FROM vehicles WHERE url = :url';
+        if ($vehicleId !== null) {
+            $sql .= ' AND vehicle_id <> :vehicle_id';
+        }
+        $statement = $this->pdo->prepare($sql);
+
         $statement->bindValue(':url', (string) $url, \PDO::PARAM_STR);
+        if ($vehicleId !== null) {
+            $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
+        }
         $statement->execute();
         if (is_array($statement->fetch(\PDO::FETCH_ASSOC))) {
             return true;
@@ -117,10 +160,17 @@ class VehicleMapper
     {
         $statement = $this->pdo->prepare('
             UPDATE vehicles
-            SET type = :type, url = :url, visible = :visible, sold = :sold,
-                price = :price, meta_keywords = :meta_keywords,
-                meta_desc = :meta_desc, page_title = :page_title,
-                markdown = :markdown, page_html = :page_html, modified = NOW()
+            SET type = :type,
+                url = :url,
+                visible = :visible,
+                sold = :sold,
+                price = :price,
+                meta_keywords = :meta_keywords,
+                meta_desc = :meta_desc,
+                page_title = :page_title,
+                markdown = :markdown,
+                page_html = :page_html,
+                modified = NOW()
             WHERE vehicle_id = :vehicle_id
         ');
         $statement->bindValue(':type', $data['type'], \PDO::PARAM_STR);
@@ -136,4 +186,9 @@ class VehicleMapper
         $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
         $statement->execute();
     }
+
+
+    // ORDER BY FIELD(noticeBy, 'all','auto','email','mobile','nothing')
+    // ORDER BY FIELD(type, 'cars', 'motorhomes', 'accessories', 'caravans', 'awningrange');
+
 }

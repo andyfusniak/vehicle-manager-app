@@ -32,10 +32,10 @@ class ListVehiclesController extends AbstractController
 
     public function listAction()
     {
-        $vehicles = $this->service->fetchAll();
+        $vehiclesMap = $this->service->fetchVehiclesByDistinctCategoriesPriceDesc();
 
         $viewModel = new ViewModel([
-            'vehicles'      => $vehicles,
+            'vehiclesMap'   => $vehiclesMap,
             'localTimeZone' => $this->localTimeZone
         ]);
         $viewModel->setTemplate('view/list-vehicles/list.phtml');

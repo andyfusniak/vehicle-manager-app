@@ -17,7 +17,8 @@ class VehicleUrlTakenValidatorFactory implements FactoryInterface
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new VehicleUrlTakenValidator(
-            $serviceLocator->get('Serenity\Service\VehicleService')
+            $serviceLocator->get('Serenity\Service\VehicleService'),
+            $serviceLocator->get('Serenity\Service\PageService')
         );
     }
 }
