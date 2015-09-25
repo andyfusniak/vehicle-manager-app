@@ -97,16 +97,17 @@ class Element implements ElementInterface
     }
 
     /**
+     * @param array|null $context
      * @return bool
      */
-    public function isValid()
+    public function isValid($context = null)
     {
         // if there are no validators attached for this element
         // then it is assumed to be valid
         if ($this->validatorChain === null) {
             return true;
         }
-        return $this->validatorChain->isValid($this->value);
+        return $this->validatorChain->isValid($this->value, $context);
     }
 
     /**
