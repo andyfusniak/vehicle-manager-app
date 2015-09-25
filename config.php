@@ -32,6 +32,7 @@ return array(
         'Serenity\Hydrator\CollectionFormHydrator' => 'Serenity\Factory\CollectionFormHydratorFactory',
         'Serenity\Hydrator\ImageDbHydrator'        => 'Serenity\Factory\ImageDbHydratorFactory',
         'Serenity\Hydrator\PageDbHydrator'         => 'Serenity\Factory\PageDbHydratorFactory',
+        'Serenity\Hydrator\PageFormHydrator'       => 'Serenity\Factory\PageFormHydratorFactory',
         'Serenity\Hydrator\VehicleDbHydrator'      => 'Serenity\Factory\VehicleDbHydratorFactory',
         'Serenity\Hydrator\VehicleFormHydrator'    => 'Serenity\Factory\VehicleFormHydratorFactory',
 

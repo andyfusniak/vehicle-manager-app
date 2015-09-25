@@ -2,14 +2,12 @@
 <p class="lead">Enter the details for your new vehicle</p>
 
 <div class="container">
-<form class="sl-form form-horizontal" method="post" action="<?php echo $this->escapeHtml($action); ?>">
-<div class="form-group">
+<form class="sl-form form-horizontal" method="post" action="<?php echo $this->escapeHtmlAttr($action); ?>">
 <?php
     $vehicleId = $form->get('vehicle-id');
     echo $this->formHidden($vehicleId);
     echo $this->formElementErrors($vehicleId);
 ?>
-</div>
 
 <div class="form-group">
 <label for="type">Vehicle Type</label>

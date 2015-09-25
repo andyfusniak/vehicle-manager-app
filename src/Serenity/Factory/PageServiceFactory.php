@@ -16,7 +16,8 @@ class PageServiceFactory implements FactoryInterface
     {
         return new PageService(
             $serviceLocator->get('Serenity\Mapper\PageMapper'),
-            $serviceLocator->get('Serenity\Hydrator\PageDbHydrator')
+            $serviceLocator->get('Serenity\Hydrator\PageDbHydrator'),
+            $serviceLocator->get('Serenity\Hydrator\PageFormHydrator')
         );
     }
 }

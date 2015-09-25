@@ -56,6 +56,7 @@ class Page
     {
         if ($pageId === null) {
             $this->pageId = null;
+            return $this;
         }
         $this->pageId = (int) $pageId;
         return $this;

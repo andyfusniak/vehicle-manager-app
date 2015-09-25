@@ -41,6 +41,10 @@ class PageMapper
     public function insert(Page $page)
     {
         $data = $this->dbHydrator->extract($page);
+        unset($data['page_id']);
+        unset($data['created']);
+        unset($data['modified']);
+
         $statement = $this->pdo->prepare(
             'INSERT INTO pages (page_id, url, meta_keywords, meta_desc, page_title, markdown, page_html, created, modified) VALUES (null, :url, :meta_keywords, :meta_desc, :page_title, :markdown, :page_html, NOW(), NOW())'
         );
@@ -58,7 +62,7 @@ class PageMapper
      * @param int $pageId the primary key
      * @return array associative array of data
      */
-    public function fetchByPageId($pageId)
+    public function fetchByPageIdAssocArray($pageId)
     {
         $statement = $this->pdo->prepare(
             'SELECT * FROM pages WHERE page_id = :page_id'
@@ -90,12 +94,18 @@ class PageMapper
         return $statement->fetchAll();
     }
 
-    public function isUrlTaken($url)
+    public function isUrlTaken($url, $pageId = null)
     {
-        $statement = $this->pdo->prepare(
-            'SELECT url FROM pages WHERE url = :url'
-        );
+        $sql ='SELECT url FROM pages WHERE url = :url';
+        if ($pageId !== null) {
+            $sql .= ' AND page_id <> :page_id';
+        }
+        $statement = $this->pdo->prepare($sql);
+
         $statement->bindValue(':url', (string) $url, \PDO::PARAM_STR);
+        if ($pageId !== null) {
+            $statement->bindValue(':page_id', (int) $pageId, \PDO::PARAM_INT);
+        }
         $statement->execute();
         if (is_array($statement->fetch(\PDO::FETCH_ASSOC))) {
             return true;
@@ -110,9 +120,13 @@ class PageMapper
     {
         $statement = $this->pdo->prepare('
             UPDATE pages
-            SET url = :url, meta_keywords = :meta_keywords, meta_desc = :meta_desc
-                page_title = :page_title, markdown = :markdown,
-                page_html = :page_html, modified = NOW()
+            SET url = :url,
+                meta_keywords = :meta_keywords,
+                meta_desc = :meta_desc,
+                page_title = :page_title,
+                markdown = :markdown,
+                page_html = :page_html,
+                modified = NOW()
             WHERE page_id = :page_id
         ');
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);

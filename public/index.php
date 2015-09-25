@@ -50,7 +50,7 @@ try {
     $response->setContent('Not Found');
     $response->setStatusCode(404);
 } catch (Exception $e) {
-    var_dump($e);
+    throw $e;
     $response->setContent('An error occurred');
     $response->setStatusCode(500);
 }

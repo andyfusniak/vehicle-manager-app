@@ -17,8 +17,15 @@ class PageDbHydrator extends AbstractDbHydrator
         }
 
         return [
-            'page_id' => $vehicle->getPage()
-            // TODO
+            'page_id'       => $object->getPageId(),
+            'url'           => $object->getUrl(),
+            'meta_keywords' => $object->getMetaKeywords(),
+            'meta_desc'     => $object->getMetaDesc(),
+            'page_title'    => $object->getPageTitle(),
+            'markdown'      => $object->getMarkdown(),
+            'page_html'     => $object->getPageHtml(),
+            'created'       => $object->getCreated(),
+            'modified'      => $object->getModified()
         ];
     }
 

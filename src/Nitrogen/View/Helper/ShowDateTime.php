@@ -3,7 +3,9 @@ namespace Nitrogen\View\Helper;
 
 class ShowDateTime extends AbstractHelper
 {
-    const DEFAULT_FORMAT = 'm/d/y g:ia';
+    const DEFAULT_DATE_UK = 'd/m/y';
+    const DEFAULT_TIME_UK = 'g:ia';
+    const DEFAULT_DATETIME_UK = 'd/m/y g:ia';
 
     public function __invoke($value, $timeZone = null)
     {
@@ -15,7 +17,18 @@ class ShowDateTime extends AbstractHelper
             if ($timeZone instanceof \DateTimeZone) {
                 $value->setTimezone($timeZone);
             }
-            return $value->format(self::DEFAULT_FORMAT);
+
+            // make times align
+            // e.g.  25/09/15 12:22pm
+            //       25/09/15  1:22pm
+
+            //if (strlen($value->format('g')) > 1) {
+            //    $spacing = '&nbsp;';
+            //} else {
+            //    $spacing = '&nbsp;&nbsp;';
+            //}
+
+            return $value->format(self::DEFAULT_DATETIME_UK);
         }
         return 'NO';
     }

@@ -1,16 +1,65 @@
-<h2>Add/Edit Page</h2>
+<h2>Add Vehicle</h2>
+<p class="lead">Enter the details for your new vehicle</p>
 
 <div class="container">
-<form class="sl-form form-horizontal" method="post" action="<?php echo $this->escapeHtmlAttr($action) ?>">
+<form class="sl-form form-horizontal" method="post" action="<?php echo $this->escapeHtmlAttr($action); ?>">
+<?php
+    $pageId = $form->get('page-id');
+    echo $this->formHidden($pageId);
+    echo $this->formElementErrors($pageId);
+?>
 
 <div class="form-group">
 <label for="url">URL</label>
 <?php
-    $url = $form->get('url');
+    $url = $form->get('url')->setAttribute('class', 'form-control')
+                            ->setAttribute('placeholder', 'e.g. contact-us or about-us');
     echo $this->formText($url);
     echo $this->formElementErrors($url);
 ?>
 </div>
 
+<div class="form-group">
+<label for="meta-keywords">Meta Keywords</label>
+<?php
+    $metaKeywords = $form->get('meta-keywords')->setAttribute('class', 'form-control')
+                                               ->setAttribute('rows', '2');
+    echo $this->formTextarea($metaKeywords);
+    echo $this->formElementErrors($metaKeywords);
+?>
+</div>
+
+<div class="form-group">
+<label for="meta-desc">Meta Description</label>
+<?php
+    $metaDesc = $form->get('meta-desc')->setAttribute('class', 'form-control')
+                                       ->setAttribute('rows', '4');
+    echo $this->formTextarea($metaDesc);
+    echo $this->formElementErrors($metaDesc);
+?>
+</div>
+
+<div class="form-group">
+<label for="page-title">Page Title</label>
+<?php
+    $pageTitle = $form->get('page-title')->setAttribute('class', 'form-control');
+    echo $this->formText($pageTitle);
+    echo $this->formElementErrors($pageTitle);
+?>
+</div>
+
+<div class="form-group">
+<label for="markdown">Markdown</label>
+<?php
+    $markdown = $form->get('markdown')->setAttribute('class', ['form-control', 'sl-markdown'])
+                                      ->setAttribute('rows', '12');
+    echo $this->formTextarea($markdown);
+    echo $this->formElementErrors($markdown);
+?>
+</div>
+
+<div class="form-group">
+<button class="btn-lg btn-success">Save</button>
+</div>
 </form>
 </div>
