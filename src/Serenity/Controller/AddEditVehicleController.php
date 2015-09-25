@@ -64,8 +64,7 @@ class AddEditVehicleController extends AbstractController
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-                die('update');
-                $this->service->updateVehicle($data);
+                $this->service->updateVehicle($this->form->getData());
                 $this->redirectToRoute('list_vehicles');
             }
         } else {

@@ -65,7 +65,7 @@ class VehicleService
     public function fetchAll()
     {
         $vehicleObjects = [];
-        $vehicles = $this->mapper->fetchAll();
+        $vehicles = $this->mapper->fetchAllAssocArray();
 
         foreach ($vehicles as $vehicle) {
             $object = new Vehicle();
@@ -75,22 +75,42 @@ class VehicleService
         return $vehicleObjects;
     }
 
+    public function fetchVehiclesByDistinctCategoriesPriceDesc()
+    {
+        $vehiclesAssoc = $this->mapper->fetchVehiclesByDistinctCategoriesPriceDescAssocArray();
+
+        $vehicleMap = [];
+        foreach ($vehiclesAssoc as $data) {
+            $type = $data['type'];
+            $vehiclesMap[$type][] = $this->dbHydrator->hydrate($data, new Vehicle());
+        }
+
+        return $vehiclesMap;
+    }
+
     /**
      * @param array $vehicle the vehicle to update with id set
      * @return void
      */
     public function updateVehicle($data)
     {
-        $vehicle = new Vehicle();
-        $this->mapper->update($this->formHydrator->hydrate($data, $vehicle));
+        $vehicle = $this->formHydrator->hydrate($data, new Vehicle());
+        $dbData = $this->dbHydrator->extract($vehicle);
+        unset($dbData['created']);
+        unset($dbData['modified']);
+        $this->mapper->update($dbData);
     }
 
     /**
+     *
+     * See page service similar function for explanation
+     *
      * @param string $url check url
+     * @param int $vehicleId vehicle id context
      * @return bool returns true or false
      */
-    public function isUrlTaken($url)
+    public function isUrlTaken($url, $vehicleId = null)
     {
-        return $this->mapper->isUrlTaken($url);
+        return $this->mapper->isUrlTaken($url, $vehicleId);
     }
 }
