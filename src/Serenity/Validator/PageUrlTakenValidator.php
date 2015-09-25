@@ -4,22 +4,30 @@ namespace Serenity\Validator;
 use Nitrogen\Validator\AbstractValidator;
 use Nitrogen\Validator\Exception;
 use Serenity\Service\PageService;
+use Serenity\Service\VehicleService;
 
 class PageUrlTakenValidator extends AbstractValidator
 {
     const PAGE_URL_TAKEN = 'pageUrlTaken';
+    const IN_USE_AS_VEHICLE_URL = 'inUseAsVehicleUrl';
 
     /**
      * @var PageService
      */
-    protected $service;
+    protected $pageService;
+
+    /**
+     * @var VehicleService
+     */
+    protected $vehicleService;
 
     /**
      * @param PageService $service
      */
-    public function __construct(PageService $service)
+    public function __construct(PageService $pageService, VehicleService $vehicleService)
     {
-        $this->service = $service;
+        $this->pageService = $pageService;
+        $this->vehicleService = $vehicleService;
     }
 
     /**
@@ -46,8 +54,13 @@ class PageUrlTakenValidator extends AbstractValidator
 
         $this->setValue($value);
 
-        if ($this->service->isUrlTaken($value, $pageId)) {
-            $this->messages[self::PAGE_URL_TAKEN] = 'The page url chosen is already in use';
+        if ($this->vehicleService->isUrlTaken($value)) {
+            $this->messages[self::IN_USE_AS_VEHICLE_URL] = 'The page url clashes with a vehicle url in the vehicles.  Urls must be unique across the entire website';
+            return false;
+        }
+
+        if ($this->pageService->isUrlTaken($value, $pageId)) {
+            $this->messages[self::PAGE_URL_TAKEN] = 'This page url is already in use';
             return false;
         }
         return true;

@@ -17,7 +17,8 @@ class PageUrlTakenValidatorFactory implements FactoryInterface
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new PageUrlTakenValidator(
-            $serviceLocator->get('Serenity\Service\PageService')
+            $serviceLocator->get('Serenity\Service\PageService'),
+            $serviceLocator->get('Serenity\Service\VehicleService')
         );
     }
 }
