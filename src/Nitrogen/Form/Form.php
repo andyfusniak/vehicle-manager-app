@@ -21,6 +21,13 @@ class Form implements FormInterface
     protected $invalidElements;
 
     /**
+     * Whether or not validation has occurred
+     *
+     * @var bool
+     */
+    protected $hasValidated = false;
+
+    /**
      * Add an element or list of elements
      *
      * @param ElementInterface|array
@@ -64,8 +71,9 @@ class Form implements FormInterface
      * @param array $data to be validated
      * @return Form
      */
-    public function setData($data)
+    public function setData(array $data)
     {
+        $this->hasValidated = false;
         $this->data = $data;
 
         // populate the values
@@ -77,6 +85,22 @@ class Form implements FormInterface
             }
         }
         return $this;
+    }
+
+    /**
+     * @return array form data after validation
+     */
+    public function getData()
+    {
+        // although now filtering occurs we put this in now to
+        // force the flow
+        if (!$this->hasValidated) {
+            throw new \Exception(sprintf(
+                '%s cannot return data as validation has not yet occurred',
+                __METHOD__
+            ));
+        }
+        return $this->data;
     }
 
     public function isValid()
@@ -101,6 +125,7 @@ class Form implements FormInterface
                 $valid = false;
             }
         }
+        $this->hasValidated = true;
         return $valid;
     }
 
