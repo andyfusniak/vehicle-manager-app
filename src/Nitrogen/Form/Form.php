@@ -96,7 +96,7 @@ class Form implements FormInterface
                 continue;
             }
 
-            if (!$element->isValid()) {
+            if (!$element->isValid($this->data)) {
                 $this->invalidElements[$name] = $element;
                 $valid = false;
             }
