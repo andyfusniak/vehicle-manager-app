@@ -90,7 +90,16 @@ class Application
         $serviceLocator = new ServiceLocator();
         $serviceLocator->setService('config', $configuration);
         $serviceLocator->setService('Nitrogen\ServiceManager\HelperPluginManager', $helperPluginManager);
-        $serviceLocator->setService($configuration['factories']);
+
+        if (isset($configuration) && is_array($configuration['factories'])) {
+            $serviceLocator->setService($configuration['factories']);
+        }
+
+        if (isset($configuration['invokables']) && is_array($configuration['invokables'])) {
+            foreach ($configuration['invokables'] as $name => $className) {
+                $helperPluginManager->setInvokableClass($name, $className);
+            }
+        }
 
         $view = new View();
         $renderer = new PhpRenderer();

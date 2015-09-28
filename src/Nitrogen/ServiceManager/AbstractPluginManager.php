@@ -70,4 +70,14 @@ abstract class AbstractPluginManager
         return $invokable;
     }
 
+    public function setInvokableClass($name, $className)
+    {
+        if (isset($this->canonicalNames[$name])) {
+            throw new \Exception(sprintf(
+                'A plugin with the name "%s" already exists and cannot be overwritten',
+                    $name
+            ));
+        }
+        $this->invokableClasses[$name] = $className;
+    }
 }
