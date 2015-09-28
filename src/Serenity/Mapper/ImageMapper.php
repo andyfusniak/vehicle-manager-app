@@ -6,6 +6,17 @@ use Serenity\Hydrator\ImageDbHydrator;
 
 class ImageMapper
 {
+    const COLUMN_COLLECTION_ID = 'collection_id';
+    const COLUMN_PRIORITY      = 'priority';
+
+    /**
+     * @var array
+     */
+    private static $validSortableColumns = [
+        self::COLUMN_COLLECTION_ID,
+        self::COLUMN_PRIORITY
+    ];
+
     /**
      * @var \PDO
      */
@@ -53,13 +64,53 @@ class ImageMapper
         return $this->pdo->lastInsertId();
     }
 
-    public function fetchByCollectionId($collectionId)
+    public function fetchByCollectionId($collectionId, $orderBy = [], $orderDirection = 'ASC')
     {
-        $statement = $this->pdo->prepare(
-            'SELECT * FROM images WHERE collection_id = :collection_id'
-        );
+        // check the values for the order by parameters as these will be injected
+        // into the SQL statment directly and not using bindValue
+        foreach ($orderBy as $ob) {
+            if (!in_array($ob, self::$validSortableColumns)) {
+                throw new \Exception(sprintf(
+                    '%s invalid column passed for orderBy "%s"',
+                    __METHOD__,
+                    $ob
+                ));
+            }
+        }
+        $sql = 'SELECT * FROM images WHERE collection_id = :collection_id';
+        if (!empty($orderBy)) {
+            $sql .= ' ORDER BY ' . implode(', ', $orderBy)  . (($orderDirection === 'DESC') ? ' DESC' : ' ASC');
+        }
+
+        $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':collection_id', (int) $collectionId, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function updatePhotoOrder(array $data)
+    {
+        $this->pdo->beginTransaction();
+
+        $priority = 1;
+        foreach($data as $value) {
+            $statement = $this->pdo->prepare(
+                'UPDATE images SET priority = :priority WHERE image_id = :image_id'
+            );
+            $statement->bindValue(':priority', $priority++, \PDO::PARAM_INT);
+            $statement->bindValue(':image_id', (int) $value, \PDO::PARAM_INT);
+            $statement->execute();
+        }
+
+        $this->pdo->commit();
+    }
+
+    public function deletePhotoOrder($imageId)
+    {
+        $statement = $this->pdo->prepare(
+            'DELETE FROM images WHERE image_id = :image_id'
+        );
+        $statement->bindValue(':image_id', (int) $imageId, \PDO::PARAM_INT);
+        $statement->execute();
     }
 }

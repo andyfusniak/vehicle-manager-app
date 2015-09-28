@@ -117,8 +117,12 @@ class CollectionService
     public function fetchCollection($collectionId)
     {
         $collection = new Collection();
+        $collection = $this->dbHydrator->hydrate(
+            $this->mapper->fetchCollection($collectionId),
+            $collection
+        );
         return $collection->setImages(
-            $this->imageService->fetchAllByCollectionId($collectionId)
+            $this->imageService->fetchAllByCollectionId($collectionId, ['priority', 'collection_id'])
         );
     }
 }

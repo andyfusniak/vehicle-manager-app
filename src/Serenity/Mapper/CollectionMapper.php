@@ -79,6 +79,16 @@ class CollectionMapper
         return $statement->fetchAll();
     }
 
+    public function fetchCollection($collectionId)
+    {
+        $statement = $this->pdo->prepare(
+            'SELECT * FROM collections WHERE collection_id = :collection_id'
+        );
+        $statement->bindValue(':collection_id', (int) $collectionId, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
     /**
      */
     public function collectionPhotoCount()

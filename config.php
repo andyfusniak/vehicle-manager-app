@@ -14,8 +14,12 @@ return array(
             'local'  => 'Europe/London'
         ]
     ],
-    'serenitylesiure' => [
-        'upload_dir' => __DIR__ . '/uploads'
+    'serenityleisure' => [
+        'upload_dir' => __DIR__ . '/uploads',
+        'web_dir'    => __DIR__ . '/public/images'
+    ],
+    'invokables' => [
+        'image' => 'Serenity\View\Helper\Image'
     ],
     'factories' => [
         // Database

@@ -3,7 +3,7 @@
 
 <div class="container">
 <form class="sl-form form-horizontal" enctype="multipart/form-data" method="post" action="/image-uploader">
-<input type="hidden" name="MAX_FILE_SIZE" value="5242880">
+<input type="hidden" name="MAX_FILE_SIZE" value="8388608">
 
 <div class="form-group">
 <label for="collection-id">Collection</label>
@@ -18,8 +18,8 @@
 <label for="filename">Choose Files</label>
 <?php
     $filename = $form->get('filename')->setAttribute('multiple', 'multiple')
-                                      ->setAttribute('class', 'form-control');
-    //->setAttribute('accept', 'image/jpeg');
+                                      ->setAttribute('class', 'form-control')
+                                      ->setAttribute('accept', 'image/jpeg');
     echo $this->formFile($filename);
     echo $this->formElementErrors($filename);
 ?>
