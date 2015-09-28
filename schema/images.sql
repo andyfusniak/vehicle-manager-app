@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `images` (
   `image_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `collection_id` int(10) unsigned NOT NULL,
+  `priority` int(10) unsigned NOT NULL,
   `original_name` varchar(255) DEFAULT NULL,
   `size` int(10) unsigned DEFAULT NULL,
   `mime_type` varchar(255) CHARACTER SET ascii DEFAULT NULL,
@@ -14,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`image_id`),
   KEY `collection_id` (`collection_id`),
+  KEY `priority` (`priority`),
   KEY `original_name` (`original_name`),
   KEY `size` (`size`),
   KEY `mime_type` (`mime_type`),
@@ -31,4 +33,3 @@ CREATE TABLE IF NOT EXISTS `images` (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

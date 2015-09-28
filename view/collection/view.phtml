@@ -1,9 +1,76 @@
 <?php
 //var_dump($collection);
 ?>
+<h2><?php echo $this->escapeHtml($collection->getName()); ?> <kbd class="alert-success"><small><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($collection->getTagname()); ?></kbd></small></h2>
+<div class="well well-small">
+    <p>Created <?php echo $this->showDateTime($collection->getCreated()); ?></p>
+    <p>Last Modified <?php echo $this->showDateTime($collection->getModified()); ?></p>
+</div>
+<style>
+.sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.sortable li {
+    margin: 3px 3px 3px 0;
+    float: left;
+    width: 150px;
+    height: 100px;
+    font-size: 4em;
+    text-align: center;
+    cursor: pointer;
+}
 
+#sortable-delete {
+    width: 100px;
+    height: 100px;
+}
+</style>
+
+<script>
+$(function() {
+    $('.sortable').sortable({
+        tolerance: 'pointer',
+        cursor: 'pointer',
+        dropOnEmpty: true,
+        connectWith: '.sortable',
+        update: function (event, ui) {
+            if (this.id === 'sortable-delete') {
+                var data = 'delete=' + ui.item.attr('id');
+                //console.log(data);
+                $.ajax({
+                    data: data,
+                    type: 'POST',
+                    url: '/view-collection/<?php echo $this->escapeHtml($collection->getCollectionId()); ?>'
+                });
+
+                //$(this).animate({opacity: '0.5'}, 1000);
+                $('#' + ui.item.attr('id')).hide(200);
+                // Remove the element dropped on #sortable-delete
+
+                //$('#' + ui.item.attr('id')).remove();
+            } else {
+                //console.log('move');
+                var data = $(this).sortable('serialize');
+                //console.log(data);
+                // POST to server using $.post or $.ajax
+                $.ajax({
+                    data: data,
+                    type: 'POST',
+                    url: '/view-collection/<?php echo $this->escapeHtml($collection->getCollectionId()); ?>'
+                });
+            }
+        }
+    });
+    $('.sortable').disableSelection();
+});
+</script>
+
+
+<ul id="sortable-delete" class="sortable glyphicon glyphicon-trash" style="font-size: 80px"></ul>
+<ul class="sortable">
 <?php foreach ($images as $i) : ?>
-
-<img src="/images/caravan_250.jpg" alt="Caravan test image" class="img-thumbnail">
-
+<li id="photo-<?php echo $this->escapeHtmlAttr($i->getImageId()); ?>"class="ui-state-default"><?php echo $this->image($i, 150); ?></li>
 <?php endforeach; ?>
+</ul>

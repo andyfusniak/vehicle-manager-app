@@ -9,6 +9,7 @@ use Nitrogen\Mvc\Controller\AbstractController;
 
 use Serenity\Form\CollectionForm;
 use Serenity\Service\CollectionService;
+use Serenity\Service\ImageService;
 
 class CollectionController extends AbstractController
 {
@@ -20,16 +21,24 @@ class CollectionController extends AbstractController
     /**
      * @var CollectionService
      */
-    protected $service;
+    protected $collectionService;
+
+    /**
+     * @var ImageService
+     */
+    protected $imageService;
 
     /**
      * @param CollectionForm $form
      * @param CollectionService $service
      */
-    public function __construct(CollectionForm $form, CollectionService $service)
+    public function __construct(CollectionForm $form,
+                                CollectionService $collectionService,
+                                ImageService $imageService)
     {
         $this->form = $form;
-        $this->service = $service;
+        $this->collectionService = $collectionService;
+        $this->imageService = $imageService;
     }
 
     /**
@@ -42,7 +51,7 @@ class CollectionController extends AbstractController
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-                $this->service->addCollection($data);
+                $this->collectionService->addCollection($data);
                 $this->redirectToRoute('collection-list');
             }
         }
@@ -59,9 +68,9 @@ class CollectionController extends AbstractController
      */
     public function listAction()
     {
-        $collections = $this->service->fetchAll();
+        $collections = $this->collectionService->fetchAll();
 
-        $photoCountMap = $this->service->collectionPhotoCountLookup();
+        $photoCountMap = $this->collectionService->collectionPhotoCountLookup();
 
         $viewModel = new ViewModel([
             'collections'   => $collections,
@@ -73,7 +82,20 @@ class CollectionController extends AbstractController
 
     public function viewAction()
     {
-        $collection = $this->service->fetchCollection($this->getRouteParam('collection_id'));
+        if ($this->request->getMethod() === Request::METHOD_POST) {
+            $data = $this->request->request->all();
+
+            if (isset($data['delete'])) {
+                $this->imageService->deletePhotoOrder($data);
+            } else {
+                $this->imageService->updatePhotoOrder($data);
+            }
+            $viewModel = new ViewModel();
+            $viewModel->setTemplate('view/collection/json-success.phtml');
+            return $viewModel;
+        }
+
+        $collection = $this->collectionService->fetchCollection($this->getRouteParam('collection_id'));
         $viewModel = new ViewModel([
             'collection' => $collection,
             'images'     => $collection->getImages()

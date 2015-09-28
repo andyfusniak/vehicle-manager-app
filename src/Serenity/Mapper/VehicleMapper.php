@@ -114,6 +114,8 @@ class VehicleMapper
         $statement = $this->pdo->prepare(
             'SELECT * FROM vehicles ORDER BY :order_by :order_direction'
         );
+        // TODO this type of binding doesn't work
+
         $statement->bindValue(':order_by', $orderBy, \PDO::PARAM_STR);
         $statement->bindValue(':order_direction', ($orderDirection === 'DESC') ? 'DESC' : 'ASC', \PDO::PARAM_STR);
         $statement->execute();
