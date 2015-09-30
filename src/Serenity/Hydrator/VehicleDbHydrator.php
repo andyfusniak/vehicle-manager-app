@@ -26,6 +26,7 @@ class VehicleDbHydrator extends AbstractDbHydrator
             'meta_keywords' => $vehicle->getMetaKeywords(),
             'meta_desc'     => $vehicle->getMetaDesc(),
             'page_title'    => $vehicle->getPageTitle(),
+            'collection_id' => $vehicle->getCollectionId(),
             'markdown'      => $vehicle->getMarkdown(),
             'page_html'     => $vehicle->getPageHtml(),
             'created'       => ($vehicle->getCreated() === null) ? null : $vehicle->getCreated()->format(self::MYSQL_FORMAT),
@@ -44,6 +45,7 @@ class VehicleDbHydrator extends AbstractDbHydrator
                 ->setMetaKeywords(($data['meta_keywords'] === null) ? '' : $data['meta_keywords'])
                 ->setMetaDesc(($data['meta_desc'] === null) ? '' : $data['meta_desc'])
                 ->setPageTitle(($data['page_title'] === null) ? '' : $data['page_title'])
+                ->setCollectionId($data['collection_id'])
                 ->setMarkdown(($data['markdown'] === null) ? '' : $data['markdown'])
                 ->setPageHtml(($data['page_html'] === null) ? '' : $data['page_html'])
                 ->setCreated($this->mysqlTimeStampToDateTime($data['created']))

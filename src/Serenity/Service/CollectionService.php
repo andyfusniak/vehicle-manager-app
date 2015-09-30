@@ -82,6 +82,17 @@ class CollectionService
         return $collectionObjects;
     }
 
+    public function selectBoxCollections()
+    {
+        $valueOptions = [];
+        $collections = $this->mapper->fetchAll();
+        foreach ($collections as $collection) {
+            $key = $collection['collection_id'];
+            $valueOptions[$key] = $collection['name'] . '(' . $collection['tagname'] . ')';
+        }
+        return $valueOptions;
+    }
+
     public function collectionPhotoCountLookup()
     {
         // convert the result set from associative array into a lookup table

@@ -1,21 +1,24 @@
 <table class="table table-striped table-condensed">
 <tr class="info">
     <th>Page Title</th>
+    <th>Collection In Use</th>
     <th>Last Modified</th>
     <th>Status</th>
     <th class="text-right">Price</th>
     <th>&nbsp;</th>
 </tr>
-<?php foreach ($vehiclesMap as $categoryName => $subcategory) : ?>
+<?php foreach ($vehiclesMap as $categoryName => $vehicleAndCollections) : ?>
 <tr class="info"><th colspan="8"><?php echo $this->escapeHtml($categoryName); ?></th></tr>
-<?php foreach ($subcategory as $v) : ?>
-<?php //var_dump($v); ?>
+<?php foreach ($vehicleAndCollections as $vehicleAndCollection) : ?>
+<?php $v = $vehicleAndCollection['vehicleObj']; ?>
+<?php $c = $vehicleAndCollection['collection']; ?>
 <?php
 $vehicleId = $v->getVehicleId();
 $visible = $v->getVisible();
 ?>
 <tr>
     <td><?php echo $this->escapeHtml($v->getPageTitle()); ?><br><kbd class="alert-warning"><a href="#"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($v->getUrl()); ?></a></kbd></td>
+    <td><kbd class="alert-success"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($c['tagname']); ?></kbd></td>
     <td><?php echo $this->showDateTime($v->getModified(), $localTimeZone); ?></td>
     <td><?php echo ($visible === true) ? '<kbd class="alert-success">VISIBLE</kbd>' : '<kbd class="alert-danger">INVISIBLE</kbd>'; ?></td>
     <td class="text-right"><?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?><?php echo ($v->getSold() === true) ? ' <br><kbd class="alert-danger">SOLD</kbd> ' : ''; ?></td>
@@ -28,10 +31,3 @@ $visible = $v->getVisible();
 <?php endforeach; ?>
 <?php endforeach; ?>
 </table>
-
-<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on left">Tooltip on left</button>
-<script>
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-</script>

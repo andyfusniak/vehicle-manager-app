@@ -1,5 +1,6 @@
 CREATE TABLE `vehicles` (
   `vehicle_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `collection_id` INT UNSIGNED NOT NULL,
   `type` enum('caravans','motorhomes','awningrange','accessories','cars') CHARACTER SET ascii NOT NULL,
   `visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `sold` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -14,11 +15,16 @@ CREATE TABLE `vehicles` (
   `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`vehicle_id`),
   UNIQUE KEY `url` (`url`),
+  KEY `collection_id` (`collection_id`),
   KEY `price` (`price`),
   KEY `page_title` (`page_title`),
   KEY `type` (`type`),
   KEY `modified` (`modified`) USING BTREE,
   KEY `created` (`created`),
   KEY `visible` (`visible`),
-  KEY `sold` (`sold`)
+  KEY `sold` (`sold`),
+  CONSTRAINT `collection_id_fk`
+    FOREIGN KEY (`collection_id`)
+      REFERENCES `collections` (`collection_id`)
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

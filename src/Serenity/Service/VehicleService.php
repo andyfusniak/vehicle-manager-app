@@ -79,10 +79,16 @@ class VehicleService
     {
         $vehiclesAssoc = $this->mapper->fetchVehiclesByDistinctCategoriesPriceDescAssocArray();
 
-        $vehicleMap = [];
+        $vehiclesMap = [];
         foreach ($vehiclesAssoc as $data) {
             $type = $data['type'];
-            $vehiclesMap[$type][] = $this->dbHydrator->hydrate($data, new Vehicle());
+            $vehiclesMap[$type][] = [
+                'vehicleObj' => $this->dbHydrator->hydrate($data, new Vehicle()),
+                'collection' => [
+                    'tagname' => $data['tagname'],
+                    'name'    => $data['collection_name']
+                ]
+            ];
         }
 
         return $vehiclesMap;

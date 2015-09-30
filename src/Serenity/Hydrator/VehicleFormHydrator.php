@@ -19,6 +19,7 @@ class VehicleFormHydrator extends AbstractFormHydrator
             'meta-keywords' => ($object->getMetaKeywords() === null) ? '' : $object->getMetaKeywords(),
             'meta-desc'  => ($object->getMetaDesc() === null) ? '' : $object->getMetaDesc(),
             'page-title' => ($object->getPageTitle() === null) ? '' : $object->getPageTitle(),
+            'collection-id' => ($object->getCollectionId() === null) ? '' : $object->getCollectionId(),
             'markdown'   => ($object->getMarkdown() === null) ? '' : $object->getMarkdown(),
             'page-html'  => ($object->getPageHtml() === null) ? '' : $object->getPageHtml()
         ];
@@ -35,6 +36,7 @@ class VehicleFormHydrator extends AbstractFormHydrator
                ->setMetaKeywords($data['meta-keywords'])
                ->setMetaDesc($data['meta-desc'])
                ->setPageTitle($data['page-title'])
+               ->setCollectionId($data['collection-id'])
                ->setMarkdown($data['markdown'])
                ->setPageHtml(isset($data['page-html']) ? $data['page-html'] : null);
         return $object;
