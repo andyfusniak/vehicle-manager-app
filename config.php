@@ -48,6 +48,7 @@ return array(
 
         // Validators
         'Serenity\Validator\CollectionTagnameTakenValidator' => 'Serenity\Factory\CollectionTagnameTakenValidatorFactory',
+        'Serenity\Validator\NameReferenceValidator'          => 'Serenity\Factory\NameReferenceValidatorFactory',
         'Serenity\Validator\PageUrlTakenValidator'           => 'Serenity\Factory\PageUrlTakenValidatorFactory',
         'Serenity\Validator\SlugValidator'                   => 'Serenity\Factory\SlugValidatorFactory',
         'Serenity\Validator\VehicleUrlTakenValidator'        => 'Serenity\Factory\VehicleUrlTakenValidatorFactory',
