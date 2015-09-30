@@ -6,12 +6,14 @@ use Nitrogen\Form\Element;
 use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\Validator\ValidatorChain;
 
+use Serenity\Service\CollectionService;
 use Serenity\Validator\VehicleUrlTakenValidator;
 
 class VehicleForm extends Form
 {
     public function __construct(HelperPluginManager $helperPluginManager,
-                                VehicleUrlTakenValidator $vehicleUrlTakenValidator)
+                                VehicleUrlTakenValidator $vehicleUrlTakenValidator,
+                                CollectionService $collectionService)
     {
         $vehicleId = new Element\Hidden('vehicle-id');
         //$vehicleIdChain = new ValidatorChain($helperPluginManager);
@@ -20,13 +22,13 @@ class VehicleForm extends Form
 
         // type
         $type = new Element\Select('type');
-        $type->setValueOptions(array(
+        $type->setValueOptions([
             'caravans'    => 'Caravans',
             'motorhomes'  => 'Motorhomes',
             'awningrange' => 'Awning Range',
             'accessories' => 'Accessories',
             'cars'        => 'Cars'
-        ))->setEmptyOption('--select--');
+        ])->setEmptyOption('--select--');
         $typeChain = new ValidatorChain($helperPluginManager);
         $typeChain->attach('validatornotempty');
         $type->setValidatorChain($typeChain);
@@ -68,6 +70,14 @@ class VehicleForm extends Form
         // page-title
         $pageTitle = new Element\Text('page-title');
 
+        // collection-id
+        $collections = $collectionService->selectBoxCollections();
+        $collectionId = new Element\Select('collection-id');
+        $collectionId->setValueOptions($collections)->setEmptyOption('--select--');
+        $collectionIdChain = new ValidatorChain($helperPluginManager);
+        $collectionIdChain->attach('validatornotempty');
+        $collectionId->setValidatorChain($collectionIdChain);
+
         // markdown
         $markdown = new Element\Textarea('markdown');
 
@@ -81,6 +91,7 @@ class VehicleForm extends Form
             $metaKeywords,
             $metaDesc,
             $pageTitle,
+            $collectionId,
             $markdown
         ]);
     }

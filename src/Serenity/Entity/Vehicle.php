@@ -60,6 +60,11 @@ class Vehicle
     protected $pageTitle;
 
     /**
+     * @var int set of photos to use for this vehicle
+     */
+    protected $collectionId;
+
+    /**
      * @var string markdown content
      */
     protected $markdown;
@@ -184,6 +189,17 @@ class Vehicle
     public function getPageTitle()
     {
         return $this->pageTitle;
+    }
+
+    public function setCollectionId($collectionId)
+    {
+        $this->collectionId = (int) $collectionId;
+        return $this;
+    }
+
+    public function getCollectionId()
+    {
+        return $this->collectionId;
     }
 
     public function setMarkdown($markdown)

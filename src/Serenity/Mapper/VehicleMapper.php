@@ -65,7 +65,7 @@ class VehicleMapper
     {
         $data = $this->hydrator->extract($vehicle);
         $statement = $this->pdo->prepare(
-            'INSERT INTO vehicles (vehicle_id, type, visible, sold, url, price, meta_keywords, meta_desc, page_title, markdown, page_html, created, modified) VALUES (null, :type, 1, 0, :url, :price, :meta_keywords, :meta_desc, :page_title, :markdown, :page_html, NOW(), NOW())'
+            'INSERT INTO vehicles (vehicle_id, type, visible, sold, url, price, meta_keywords, meta_desc, page_title, collection_id, markdown, page_html, created, modified) VALUES (null, :type, 1, 0, :url, :price, :meta_keywords, :meta_desc, :page_title, :collection_id, :markdown, :page_html, NOW(), NOW())'
         );
         unset($data['vehicle_id']);
         unset($data['visible']);
@@ -78,6 +78,7 @@ class VehicleMapper
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
+        $statement->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
         $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
         $statement->execute();
@@ -125,12 +126,14 @@ class VehicleMapper
     public function fetchVehiclesByDistinctCategoriesPriceDescAssocArray()
     {
         $statement = $this->pdo->prepare('
-            SELECT *
-            FROM vehicles
-            WHERE type IN (
-                SELECT DISTINCT type FROM vehicles
+            SELECT V.*, C.tagname, C.name AS collection_name
+            FROM vehicles AS V
+            JOIN collections AS C
+                ON V.collection_id = C.collection_id
+            WHERE V.type IN (
+                SELECT DISTINCT V.type FROM vehicles
             )
-            ORDER BY FIELD(type, "caravans", "motorhomes", "awningrange", "accessories", "cars"), price DESC
+            ORDER BY FIELD(V.type, "caravans", "motorhomes", "awningrange", "accessories", "cars"), price DESC
         ');
         $statement->execute();
         return $statement->fetchAll();
@@ -170,6 +173,7 @@ class VehicleMapper
                 meta_keywords = :meta_keywords,
                 meta_desc = :meta_desc,
                 page_title = :page_title,
+                collection_id = :collection_id,
                 markdown = :markdown,
                 page_html = :page_html,
                 modified = NOW()
@@ -183,6 +187,7 @@ class VehicleMapper
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
+        $statement->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
         $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
         $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
