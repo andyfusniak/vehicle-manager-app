@@ -6,6 +6,20 @@ use Serenity\Hydrator\CollectionDbHydrator;
 
 class CollectionMapper
 {
+    const COLUMN_COLLECTION_ID = 'collection_id';
+    const COLUMN_TAGNAME       = 'tagname';
+    const COLUMN_NAME          = 'name';
+    const COLUMN_CREATED       = 'created';
+    const COLUMN_MODIFIED      = 'updated';
+
+    protected static $validSortableColumns = [
+        self::COLUMN_COLLECTION_ID,
+        self::COLUMN_TAGNAME,
+        self::COLUMN_NAME,
+        self::COLUMN_CREATED,
+        self::COLUMN_MODIFIED
+    ];
+
     /**
      * @var \PDO
      */
@@ -70,11 +84,20 @@ class CollectionMapper
      */
     public function fetchAll($orderBy = 'name', $orderDirection = 'ASC')
     {
-        $statement = $this->pdo->prepare(
-            'SELECT collection_id, tagname, name, created, modified FROM collections ORDER BY :order_by :order_direction'
-        );
-        $statement->bindValue(':order_by', $orderBy, \PDO::PARAM_STR);
-        $statement->bindValue(':order_direction', ($orderDirection === 'DESC') ? 'DESC' : 'ASC', \PDO::PARAM_STR);
+        if (!in_array($orderBy, self::$validSortableColumns)) {
+            throw new \Exception(sprintf(
+                '%s invalid column passed for orderBy "%s"',
+                __METHOD__,
+                $orderBy
+            ));
+        }
+
+        $sql = 'SELECT collection_id, tagname, name, created, modified FROM collections';
+        if (!empty($orderBy)) {
+            $sql .= ' ORDER BY ' . $orderBy . (($orderDirection === 'DESC') ? ' DESC' : ' ASC');
+        }
+
+        $statement = $this->pdo->prepare($sql);
         $statement->execute();
         return $statement->fetchAll();
     }
