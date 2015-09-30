@@ -7,18 +7,28 @@ use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\Validator\ValidatorChain;
 
 use Serenity\Service\CollectionService;
+use Serenity\Validator\SlugValidator;
 use Serenity\Validator\VehicleUrlTakenValidator;
 
 class VehicleForm extends Form
 {
     public function __construct(HelperPluginManager $helperPluginManager,
                                 VehicleUrlTakenValidator $vehicleUrlTakenValidator,
+                                SlugValidator $slugValidator,
                                 CollectionService $collectionService)
     {
         $vehicleId = new Element\Hidden('vehicle-id');
         //$vehicleIdChain = new ValidatorChain($helperPluginManager);
         //$vehicleIdChain->attach('validatornotempty');
         //$vehicleId->setValidatorChain($vehicleIdChain);
+
+        // collection-id
+        $collections = $collectionService->selectBoxCollections();
+        $collectionId = new Element\Select('collection-id');
+        $collectionId->setValueOptions($collections)->setEmptyOption('--select--');
+        $collectionIdChain = new ValidatorChain($helperPluginManager);
+        $collectionIdChain->attach('validatornotempty');
+        $collectionId->setValidatorChain($collectionIdChain);
 
         // type
         $type = new Element\Select('type');
@@ -51,6 +61,7 @@ class VehicleForm extends Form
         $url = new Element\Text('url');
         $urlChain = new ValidatorChain($helperPluginManager);
         $urlChain->attach('validatornotempty')
+                 ->attach($slugValidator)
                  ->attach($vehicleUrlTakenValidator);
         $url->setValidatorChain($urlChain);
 
@@ -70,19 +81,12 @@ class VehicleForm extends Form
         // page-title
         $pageTitle = new Element\Text('page-title');
 
-        // collection-id
-        $collections = $collectionService->selectBoxCollections();
-        $collectionId = new Element\Select('collection-id');
-        $collectionId->setValueOptions($collections)->setEmptyOption('--select--');
-        $collectionIdChain = new ValidatorChain($helperPluginManager);
-        $collectionIdChain->attach('validatornotempty');
-        $collectionId->setValidatorChain($collectionIdChain);
-
         // markdown
         $markdown = new Element\Textarea('markdown');
 
         $this->add([
             $vehicleId,
+            $collectionId,
             $type,
             $visible,
             $sold,
@@ -91,7 +95,6 @@ class VehicleForm extends Form
             $metaKeywords,
             $metaDesc,
             $pageTitle,
-            $collectionId,
             $markdown
         ]);
     }

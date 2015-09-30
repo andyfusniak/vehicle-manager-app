@@ -10,6 +10,17 @@
 ?>
 
 <div class="form-group">
+<label for="collection-id">Collection to use</label>
+<?php
+    $collectionId = $form->get('collection-id')
+                         ->setAttribute('id', 'collection-id')
+                         ->setAttribute('class', 'form-control');
+    echo $this->formSelect($collectionId);
+    echo $this->formElementErrors($collectionId);
+?>
+</div>
+
+<div class="form-group">
 <label for="type">Vehicle Type</label>
 <?php
     $type = $form->get('type')
@@ -92,17 +103,6 @@
 </div>
 
 <div class="form-group">
-<label for="collection-id">Collection to use</label>
-<?php
-    $collectionId = $form->get('collection-id')
-                         ->setAttribute('id', 'collection-id')
-                         ->setAttribute('class', 'form-control');
-    echo $this->formSelect($collectionId);
-    echo $this->formElementErrors($collectionId);
-?>
-</div>
-
-<div class="form-group">
 <label for="markdown">Markdown</label>
 <?php
     $markdown = $form->get('markdown')->setAttribute('class', ['form-control', 'sl-markdown'])
@@ -117,3 +117,9 @@
 </div>
 </form>
 </div>
+
+<script>
+$(function() {
+  $('#nav-add-edit-vehicle').addClass('active');
+});
+</script>

@@ -29,16 +29,25 @@ class CollectionController extends AbstractController
     protected $imageService;
 
     /**
+     * @var string the local time zone datetimezone string
+     */
+    protected $localTimeZone;
+
+    /**
      * @param CollectionForm $form
      * @param CollectionService $service
      */
     public function __construct(CollectionForm $form,
                                 CollectionService $collectionService,
-                                ImageService $imageService)
+                                ImageService $imageService,
+                                array $config)
     {
         $this->form = $form;
         $this->collectionService = $collectionService;
         $this->imageService = $imageService;
+        if (isset($config['system']['timezones']['local'])) {
+            $this->localTimeZone =  $config['system']['timezones']['local'];
+        }
     }
 
     /**
@@ -57,7 +66,7 @@ class CollectionController extends AbstractController
         }
 
         $viewModel = new ViewModel([
-            'form' => $this->form
+            'form'          => $this->form
         ]);
         $viewModel->setTemplate('view/collection/add-edit.phtml');
         return $viewModel;
@@ -98,7 +107,8 @@ class CollectionController extends AbstractController
         $collection = $this->collectionService->fetchCollection($this->getRouteParam('collection_id'));
         $viewModel = new ViewModel([
             'collection' => $collection,
-            'images'     => $collection->getImages()
+            'images'     => $collection->getImages(),
+            'localTimeZone' => $this->localTimeZone
         ]);
         $viewModel->setTemplate('view/collection/view.phtml');
         return $viewModel;

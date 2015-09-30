@@ -19,7 +19,8 @@ return array(
         'web_dir'    => __DIR__ . '/public/images'
     ],
     'invokables' => [
-        'image' => 'Serenity\View\Helper\Image'
+        'image'       => 'Serenity\View\Helper\Image',
+        'vehicletype' => 'Serenity\View\Helper\VehicleType'
     ],
     'factories' => [
         // Database
@@ -48,7 +49,9 @@ return array(
 
         // Validators
         'Serenity\Validator\CollectionTagnameTakenValidator' => 'Serenity\Factory\CollectionTagnameTakenValidatorFactory',
+        'Serenity\Validator\NameReferenceValidator'          => 'Serenity\Factory\NameReferenceValidatorFactory',
         'Serenity\Validator\PageUrlTakenValidator'           => 'Serenity\Factory\PageUrlTakenValidatorFactory',
+        'Serenity\Validator\SlugValidator'                   => 'Serenity\Factory\SlugValidatorFactory',
         'Serenity\Validator\VehicleUrlTakenValidator'        => 'Serenity\Factory\VehicleUrlTakenValidatorFactory',
 
         // Services

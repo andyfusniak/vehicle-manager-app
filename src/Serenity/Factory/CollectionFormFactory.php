@@ -18,7 +18,9 @@ class CollectionFormFactory implements FactoryInterface
     {
         return new CollectionForm(
             $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager'),
-            $serviceLocator->get('Serenity\Validator\CollectionTagnameTakenValidator')
+            $serviceLocator->get('Serenity\Validator\CollectionTagnameTakenValidator'),
+            $serviceLocator->get('Serenity\Validator\NameReferenceValidator'),
+            $serviceLocator->get('Serenity\Validator\SlugValidator')
         );
     }
 }
