@@ -19,7 +19,8 @@ class CollectionControllerFactory implements FactoryInterface
         return new CollectionController(
             $serviceLocator->get('Serenity\Form\CollectionForm'),
             $serviceLocator->get('Serenity\Service\CollectionService'),
-            $serviceLocator->get('Serenity\Service\ImageService')
+            $serviceLocator->get('Serenity\Service\ImageService'),
+            $serviceLocator->get('config')
         );
     }
 }

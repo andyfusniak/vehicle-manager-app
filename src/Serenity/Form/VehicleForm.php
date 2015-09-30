@@ -7,12 +7,14 @@ use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\Validator\ValidatorChain;
 
 use Serenity\Service\CollectionService;
+use Serenity\Validator\SlugValidator;
 use Serenity\Validator\VehicleUrlTakenValidator;
 
 class VehicleForm extends Form
 {
     public function __construct(HelperPluginManager $helperPluginManager,
                                 VehicleUrlTakenValidator $vehicleUrlTakenValidator,
+                                SlugValidator $slugValidator,
                                 CollectionService $collectionService)
     {
         $vehicleId = new Element\Hidden('vehicle-id');
@@ -51,6 +53,7 @@ class VehicleForm extends Form
         $url = new Element\Text('url');
         $urlChain = new ValidatorChain($helperPluginManager);
         $urlChain->attach('validatornotempty')
+                 ->attach($slugValidator)
                  ->attach($vehicleUrlTakenValidator);
         $url->setValidatorChain($urlChain);
 
