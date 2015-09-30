@@ -88,7 +88,7 @@ class CollectionService
         $collections = $this->mapper->fetchAll();
         foreach ($collections as $collection) {
             $key = $collection['collection_id'];
-            $valueOptions[$key] = $collection['name'] . '(' . $collection['tagname'] . ')';
+            $valueOptions[$key] = $collection['name'] . ' (' . $collection['tagname'] . ')';
         }
         return $valueOptions;
     }

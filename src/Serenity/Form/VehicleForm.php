@@ -22,6 +22,14 @@ class VehicleForm extends Form
         //$vehicleIdChain->attach('validatornotempty');
         //$vehicleId->setValidatorChain($vehicleIdChain);
 
+        // collection-id
+        $collections = $collectionService->selectBoxCollections();
+        $collectionId = new Element\Select('collection-id');
+        $collectionId->setValueOptions($collections)->setEmptyOption('--select--');
+        $collectionIdChain = new ValidatorChain($helperPluginManager);
+        $collectionIdChain->attach('validatornotempty');
+        $collectionId->setValidatorChain($collectionIdChain);
+
         // type
         $type = new Element\Select('type');
         $type->setValueOptions([
@@ -73,19 +81,12 @@ class VehicleForm extends Form
         // page-title
         $pageTitle = new Element\Text('page-title');
 
-        // collection-id
-        $collections = $collectionService->selectBoxCollections();
-        $collectionId = new Element\Select('collection-id');
-        $collectionId->setValueOptions($collections)->setEmptyOption('--select--');
-        $collectionIdChain = new ValidatorChain($helperPluginManager);
-        $collectionIdChain->attach('validatornotempty');
-        $collectionId->setValidatorChain($collectionIdChain);
-
         // markdown
         $markdown = new Element\Textarea('markdown');
 
         $this->add([
             $vehicleId,
+            $collectionId,
             $type,
             $visible,
             $sold,
@@ -94,7 +95,6 @@ class VehicleForm extends Form
             $metaKeywords,
             $metaDesc,
             $pageTitle,
-            $collectionId,
             $markdown
         ]);
     }

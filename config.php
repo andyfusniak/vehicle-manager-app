@@ -19,7 +19,8 @@ return array(
         'web_dir'    => __DIR__ . '/public/images'
     ],
     'invokables' => [
-        'image' => 'Serenity\View\Helper\Image'
+        'image'       => 'Serenity\View\Helper\Image',
+        'vehicletype' => 'Serenity\View\Helper\VehicleType'
     ],
     'factories' => [
         // Database

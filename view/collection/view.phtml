@@ -74,3 +74,9 @@ $(function() {
 <li id="photo-<?php echo $this->escapeHtmlAttr($i->getImageId()); ?>"class="ui-state-default"><?php echo $this->image($i, 150); ?></li>
 <?php endforeach; ?>
 </ul>
+
+<script>
+$(function() {
+  $('#nav-collections').addClass('active');
+});
+</script>
