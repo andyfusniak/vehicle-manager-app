@@ -27,12 +27,14 @@ return array(
         'Pdo' => 'Serenity\Factory\PdoFactory',
 
         // Mappers
+        'Serenity\Mapper\AdminMapper'      => 'Serenity\Factory\AdminMapperFactory',
         'Serenity\Mapper\CollectionMapper' => 'Serenity\Factory\CollectionMapperFactory',
         'Serenity\Mapper\ImageMapper'      => 'Serenity\Factory\ImageMapperFactory',
         'Serenity\Mapper\PageMapper'       => 'Serenity\Factory\PageMapperFactory',
         'Serenity\Mapper\VehicleMapper'    => 'Serenity\Factory\VehicleMapperFactory',
 
         // Hydrators
+        'Serenity\Hydrator\AdminDbHydrator'        => 'Serenity\Factory\AdminDbHydratorFactory',
         'Serenity\Hydrator\CollectionDbHydrator'   => 'Serenity\Factory\CollectionDbHydratorFactory',
         'Serenity\Hydrator\CollectionFormHydrator' => 'Serenity\Factory\CollectionFormHydratorFactory',
         'Serenity\Hydrator\ImageDbHydrator'        => 'Serenity\Factory\ImageDbHydratorFactory',
@@ -53,9 +55,11 @@ return array(
         'Serenity\Validator\NameReferenceValidator'          => 'Serenity\Factory\NameReferenceValidatorFactory',
         'Serenity\Validator\PageUrlTakenValidator'           => 'Serenity\Factory\PageUrlTakenValidatorFactory',
         'Serenity\Validator\SlugValidator'                   => 'Serenity\Factory\SlugValidatorFactory',
+        'Serenity\Validator\UsernameValidator'               => 'Serenity\Factory\UsernameValidatorFactory',
         'Serenity\Validator\VehicleUrlTakenValidator'        => 'Serenity\Factory\VehicleUrlTakenValidatorFactory',
 
         // Services
+        'Serenity\Service\AuthService'       => 'Serenity\Factory\AuthServiceFactory',
         'Serenity\Service\CollectionService' => 'Serenity\Factory\CollectionServiceFactory',
         'Serenity\Service\ImageService'      => 'Serenity\Factory\ImageServiceFactory',
         'Serenity\Service\PageService'       => 'Serenity\Factory\PageServiceFactory',
@@ -175,6 +179,24 @@ return array(
             'path'     => '/admin-sign-in',
             'defaults' => [
                 '_controller' => 'AdminSignInController:authAction'
+            ]
+        ],
+        'admin_sign_in_failed' => [
+            'path' => '/admin-sign-in-failed',
+            'defaults' => [
+                '_controller' => 'AdminSignInController:failedAction'
+            ]
+        ],
+        'admin_sign_out' => [
+            'path' => '/admin-sign-out',
+            'defaults' => [
+                '_controller' => 'AdminSignInController:signOutAction'
+            ]
+        ],
+        'admin_create_admin_temp' => [
+            'path' => '/admin-create-user',
+            'defaults' => [
+                '_controller' => 'AdminSignInController:createAdminAction'
             ]
         ]
     ]

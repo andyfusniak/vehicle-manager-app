@@ -16,6 +16,9 @@ class AdminSignInFormFactory implements FactoryInterface
      */
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new AdminSignInForm();
+        return new AdminSignInForm(
+            $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager'),
+            $serviceLocator->get('Serenity\Validator\UsernameValidator')
+        );
     }
 }

@@ -13,7 +13,14 @@ use Nitrogen\View\ViewModel;
 
 use Serenity\Controller\AddEditVehicleController;
 use Serenity\Controller\ImageUploadController;
+
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+
+$session = new Session();
+$session->start();
 
 $application = Application::init($config);
 
@@ -38,13 +45,28 @@ try {
     $controller->setUrlGenerator($generator);
 
     // main layout (set based on the route)
-    $layoutModel = new ViewModel();
-    if (isset($parameters['_route']) && ($parameters['_route'] === 'admin_sign_in_controller')) {
+    $layoutModel = new ViewModel([
+        'admin' => $session->get('admin')
+    ]);
+
+    $signInOpenRoutes = [
+        'admin_sign_in_controller',
+        'admin_create_admin_temp',
+        'admin_sign_in_failed'
+    ];
+
+    if (isset($parameters['_route']) && (in_array($parameters['_route'], $signInOpenRoutes))) {
         $layoutModel->setTemplate('view/layout/admin-sign-in-layout.phtml');
     } else {
+        // restrict access to main admin app
+        $admin = $session->get('admin');
+        if ($admin === null) {
+            $response = new RedirectResponse('/admin-sign-in');
+            $response->send();
+            die();
+        }
         $layoutModel->setTemplate('view/layout/layout.phtml');
     }
-
     $viewModel = $controller->dispatch($application->getRequest(), $response);
     $viewModel = $viewModel->setCaptureTo('content');
 
