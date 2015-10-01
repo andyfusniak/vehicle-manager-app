@@ -37,12 +37,18 @@ try {
     $controller->setMatch($parameters);
     $controller->setUrlGenerator($generator);
 
+    // main layout (set based on the route)
+    $layoutModel = new ViewModel();
+    if (isset($parameters['_route']) && ($parameters['_route'] === 'admin_sign_in_controller')) {
+        $layoutModel->setTemplate('view/layout/admin-sign-in-layout.phtml');
+    } else {
+        $layoutModel->setTemplate('view/layout/layout.phtml');
+    }
+
     $viewModel = $controller->dispatch($application->getRequest(), $response);
     $viewModel = $viewModel->setCaptureTo('content');
 
-    // main layout
-    $layoutModel = new ViewModel();
-    $layoutModel->setTemplate('view/layout/layout.phtml');
+    // inject the ViewModel into the main layout view
     $layoutModel->addChild($viewModel);
 
     $response->setContent($application->getView()->render($layoutModel));
