@@ -6,7 +6,7 @@ use Serenity\Entity;
 
 class Image extends AbstractHelper
 {
-    public function __invoke(Entity\Image $image, $size = 250, $basePath = '/images')
+    public function __invoke(Entity\Image $image, $size = 250, $basePath = '/images/vehicles')
     {
         $imageId = (string) $image->getImageId();
         $filename = $basePath . '/'
