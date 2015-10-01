@@ -16,7 +16,7 @@ return array(
     ],
     'serenityleisure' => [
         'upload_dir' => __DIR__ . '/uploads',
-        'web_dir'    => __DIR__ . '/public/images'
+        'web_dir'    => __DIR__ . '/public/images/vehicles'
     ],
     'invokables' => [
         'image'       => 'Serenity\View\Helper\Image',
@@ -42,6 +42,7 @@ return array(
         'Serenity\Hydrator\VehicleFormHydrator'    => 'Serenity\Factory\VehicleFormHydratorFactory',
 
         // Forms
+        'Serenity\Form\AdminSignInForm' => 'Serenity\Factory\AdminSignInFormFactory',
         'Serenity\Form\CollectionForm'  => 'Serenity\Factory\CollectionFormFactory',
         'Serenity\Form\ImageUploadForm' => 'Serenity\Factory\ImageUploadFormFactory',
         'Serenity\Form\PageForm'        => 'Serenity\Factory\PageFormFactory',
@@ -62,6 +63,7 @@ return array(
 
         // Controllers
         'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',
+        'AdminSignInController'    => 'Serenity\Factory\AdminSignInControllerFactory',
         'CollectionController'     => 'Serenity\Factory\CollectionControllerFactory',
         'DashboardController'      => 'Serenity\Factory\DashboardControllerFactory',
         'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
@@ -167,6 +169,12 @@ return array(
             'path'     => '/settings',
             'defaults' => [
                 '_controller' => 'SettingsController:overviewAction'
+            ]
+        ],
+        'admin_sign_in_controller' => [
+            'path'     => '/admin-sign-in',
+            'defaults' => [
+                '_controller' => 'AdminSignInController:authAction'
             ]
         ]
     ]

@@ -9,6 +9,7 @@ class HelperPluginManager extends AbstractPluginManager
         'formelementerrors'     => 'Nitrogen\Form\View\Helper\FormElementErrors',
         'formfile'              => 'Nitrogen\Form\View\Helper\FormFile',
         'formhidden'            => 'Nitrogen\Form\View\Helper\FormHidden',
+        'formpassword'          => 'Nitrogen\Form\View\Helper\FormPassword',
         'formselect'            => 'Nitrogen\Form\View\Helper\FormSelect',
         'formtext'              => 'Nitrogen\Form\View\Helper\FormText',
         'formtextarea'          => 'Nitrogen\Form\View\Helper\FormTextarea',

@@ -9,7 +9,7 @@ class View
     /**
      * @var ViewModel
      */
-    protected $viewModel;
+    protected $layout;
 
     /**
      * @var PhpRenderer
