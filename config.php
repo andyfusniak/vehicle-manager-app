@@ -66,7 +66,8 @@ return array(
         'DashboardController'      => 'Serenity\Factory\DashboardControllerFactory',
         'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
         'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory',
-        'PageController'           => 'Serenity\Factory\PageControllerFactory'
+        'PageController'           => 'Serenity\Factory\PageControllerFactory',
+        'SettingsController'       => 'Serenity\Factory\SettingsControllerFactory'
     ],
     'routes' => [
         'dashboard' => [
@@ -160,6 +161,12 @@ return array(
             ],
             'requirements' => [
                 'page_id' => '\d+'
+            ]
+        ],
+        'settings_overview' => [
+            'path'     => '/settings',
+            'defaults' => [
+                '_controller' => 'SettingsController:overviewAction'
             ]
         ]
     ]
