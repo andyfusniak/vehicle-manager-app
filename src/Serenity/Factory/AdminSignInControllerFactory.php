@@ -17,7 +17,8 @@ class AdminSignInControllerFactory implements FactoryInterface
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new AdminSignInController(
-            $serviceLocator->get('Serenity\Form\AdminSignInForm')
+            $serviceLocator->get('Serenity\Form\AdminSignInForm'),
+            $serviceLocator->get('Serenity\Service\AuthService')
         );
     }
 }

@@ -20,12 +20,18 @@ class AdminDbHydrator extends AbstractDbHydrator
             'admin_id' => $admin->getAdminId(),
             'username' => $admin->getUsername(),
             'passwd'   => $admin->getPasswd(),
-            'created'  => $admin->getCreated()->format(self::MYSQL_FORMAT),
-            'modified' => $admin->getModified()->format(self::MYSQL_FORMAT)
+            'created'  => ($admin->getCreated() === null) ? null : $admin->getCreated()->format(self::MYSQL_FORMAT),
+            'modified' => ($admin->getModified() === null) ? null : $admin->getModified()->format(self::MYSQL_FORMAT)
         );
     }
 
     public function hydrate(array $data, $object)
     {
+        $object->setAdminId((int) $data['admin_id'])
+               ->setUsername($data['username'])
+               ->setPasswd($data['passwd'])
+               ->setCreated($this->mysqlTimeStampToDateTime($data['created']))
+               ->setModified($this->mysqlTimeStampToDateTime($data['modified']));
+        return $object;
     }
 }

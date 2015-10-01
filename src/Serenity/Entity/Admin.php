@@ -30,7 +30,7 @@ class Admin
 
     public function setAdminId($adminId)
     {
-        $this->adminId = $adminId;
+        $this->adminId = (int) $adminId;
         return $this;
     }
 

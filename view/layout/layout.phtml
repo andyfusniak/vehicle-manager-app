@@ -66,11 +66,11 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-collapse pull-right">
-                <p class="navbar-text"><span class="glyphicon glyphicon-user"></span> Richard Adams</p>
+                <p class="navbar-text"><span class="glyphicon glyphicon-user"></span> <?php echo $this->escapeHtml($admin->getUsername()); ?></p>
                 <li id="nav-cog" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li id="nav-cog-settings"><a href="/settings">Settings</a></li>
-                    <li id="nav-cog-sign-out"><a href="#">Sign out</a></li>
+                    <li id="nav-cog-sign-out"><a href="/admin-sign-out">Sign out</a></li>
                 </ul>
                 </li>
             </ul>
