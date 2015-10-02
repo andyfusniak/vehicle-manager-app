@@ -2,6 +2,7 @@
 namespace Serenity\Service;
 
 use Serenity\Entity\Vehicle;
+use Serenity\Entity\VehicleFeatures;
 use Serenity\Hydrator\VehicleDbHydrator;
 use Serenity\Hydrator\VehicleFormHydrator;
 use Serenity\Mapper\VehicleMapper;
@@ -50,8 +51,7 @@ class VehicleService
      */
     public function fetchByVehicleId($vehicleId)
     {
-        $vehicle = new Vehicle();
-        return $this->dbHydrator->hydrate($this->mapper->fetchByVehicleId($vehicleId), $vehicle);
+        return $this->mapper->fetchByVehicleId($vehicleId);
     }
 
     public function vehicleObjectToFormData(Vehicle $vehicle)
@@ -118,5 +118,17 @@ class VehicleService
     public function isUrlTaken($url, $vehicleId = null)
     {
         return $this->mapper->isUrlTaken($url, $vehicleId);
+    }
+
+    public function generateFeatureCheckboxes(array $features)
+    {
+        $featureCheckboxes = [];
+        foreach (VehicleFeatures::$titles as $value => $title) {
+            $featureCheckboxes[$value] = [
+                'title'     => $title,
+                'isChecked' =>in_array($value, $features)
+            ];
+        }
+        return $featureCheckboxes;
     }
 }

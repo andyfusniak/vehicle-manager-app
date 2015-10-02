@@ -42,14 +42,18 @@ class AddEditVehicleController extends AbstractController
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-                $this->service->addVehicle($data);
+                $postProcessedData = $this->form->getData();
+                $postProcessedData['features'] = $data['features'];
+                $this->service->addVehicle($postProcessedData);
                 $this->redirectToRoute('list_vehicles');
             }
         }
 
         $viewModel = new ViewModel([
-            'form'   => $this->form,
-            'action' => $this->urlGenerator->generate('add_edit_vehicle_add')
+            'form'              => $this->form,
+            'featureCheckboxes' => $this->service->generateFeatureCheckboxes(
+                                       isset($data['features']) ? $data['features'] : []),
+            'action'            => $this->urlGenerator->generate('add_edit_vehicle_add')
         ]);
         $viewModel->setTemplate('view/add-edit-vehicle/add-edit.phtml');
         return $viewModel;
@@ -64,7 +68,9 @@ class AddEditVehicleController extends AbstractController
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-                $this->service->updateVehicle($this->form->getData());
+                $postProcessedData = $this->form->getData();
+                $postProcessedData['features'] = $data['features'];
+                $this->service->updateVehicle($postProcessedData);
                 $this->redirectToRoute('list_vehicles');
             }
         } else {
@@ -75,8 +81,9 @@ class AddEditVehicleController extends AbstractController
         }
 
         $viewModel = new ViewModel([
-            'form'   => $this->form,
-            'action' => $this->urlGenerator->generate(
+            'form'              => $this->form,
+            'featureCheckboxes' => $this->service->generateFeatureCheckboxes($data['features']),
+            'action'            => $this->urlGenerator->generate(
                 'add_edit_vehicle_edit',
                 ['vehicle_id' => $vehicleId]
             )

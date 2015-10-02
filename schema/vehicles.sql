@@ -11,6 +11,7 @@ CREATE TABLE `vehicles` (
   `page_title` varchar(255) NOT NULL,
   `markdown` text NOT NULL,
   `page_html` text,
+  `features` text,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`vehicle_id`),

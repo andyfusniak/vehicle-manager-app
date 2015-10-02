@@ -21,7 +21,8 @@ class VehicleFormHydrator extends AbstractFormHydrator
             'page-title' => ($object->getPageTitle() === null) ? '' : $object->getPageTitle(),
             'collection-id' => ($object->getCollectionId() === null) ? '' : $object->getCollectionId(),
             'markdown'   => ($object->getMarkdown() === null) ? '' : $object->getMarkdown(),
-            'page-html'  => ($object->getPageHtml() === null) ? '' : $object->getPageHtml()
+            'page-html'  => ($object->getPageHtml() === null) ? '' : $object->getPageHtml(),
+            'features'   => $object->getFeatures()
         ];
     }
 
@@ -38,7 +39,8 @@ class VehicleFormHydrator extends AbstractFormHydrator
                ->setPageTitle($data['page-title'])
                ->setCollectionId($data['collection-id'])
                ->setMarkdown($data['markdown'])
-               ->setPageHtml(isset($data['page-html']) ? $data['page-html'] : null);
+               ->setPageHtml(isset($data['page-html']) ? $data['page-html'] : null)
+               ->setFeatures(isset($data['features']) ? $data['features'] : []);
         return $object;
     }
 }

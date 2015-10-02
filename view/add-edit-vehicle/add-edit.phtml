@@ -74,6 +74,18 @@
 </div>
 
 <div class="form-group">
+<label>Features</label>
+<ul id="features">
+<?php foreach ($featureCheckboxes as $value => $item) : ?>
+    <li>
+        <label for="<?php echo $this->escapeHtmlAttr($value); ?>">
+        <input type="checkbox" name="features[]" id="<?php echo $this->escapeHtmlAttr($value); ?>" value="<?php echo $this->escapeHtmlAttr($value); ?>" class="sl-checkbox"<?php echo $item['isChecked'] ? ' checked' : '' ?>><?php echo $this->escapeHtml($item['title']); ?></label>
+    </li>
+<?php endforeach; ?>
+</ul>
+</div>
+
+<div class="form-group">
 <label for="meta-keywords">Meta Keywords</label>
 <?php
     $metaKeywords = $form->get('meta-keywords')->setAttribute('class', 'form-control')

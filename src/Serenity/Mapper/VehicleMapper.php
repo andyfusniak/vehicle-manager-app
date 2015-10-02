@@ -43,16 +43,16 @@ class VehicleMapper
     /**
      * @var VehicleDbHydrator
      */
-    protected $hydrator;
+    protected $dbHydrator;
 
     /**
      * @param \PDO $pdo the database adapter
-     * @param VehicleDbHydrator $hydrator the hydrator object
+     * @param VehicleDbHydrator $dbHydrator the hydrator object
      */
-    public function __construct(\PDO $pdo, VehicleDbHydrator $hydrator)
+    public function __construct(\PDO $pdo, VehicleDbHydrator $dbHydrator)
     {
         $this->pdo = $pdo;
-        $this->hydrator = $hydrator;
+        $this->dbHydrator = $dbHydrator;
     }
 
     /**
@@ -63,10 +63,11 @@ class VehicleMapper
      */
     public function insert(Vehicle $vehicle)
     {
-        $data = $this->hydrator->extract($vehicle);
-        $statement = $this->pdo->prepare(
-            'INSERT INTO vehicles (vehicle_id, type, visible, sold, url, price, meta_keywords, meta_desc, page_title, collection_id, markdown, page_html, created, modified) VALUES (null, :type, 1, 0, :url, :price, :meta_keywords, :meta_desc, :page_title, :collection_id, :markdown, :page_html, NOW(), NOW())'
-        );
+        $data = $this->dbHydrator->extract($vehicle);
+        $statement = $this->pdo->prepare('
+            INSERT INTO vehicles (vehicle_id, type, visible, sold, url, price, meta_keywords, meta_desc, page_title, collection_id, markdown, page_html, features, created, modified)
+            VALUES (null, :type, 1, 0, :url, :price, :meta_keywords, :meta_desc, :page_title, :collection_id, :markdown, :page_html, :features, NOW(), NOW())
+        ');
         unset($data['vehicle_id']);
         unset($data['visible']);
         unset($data['sold']);
@@ -81,6 +82,7 @@ class VehicleMapper
         $statement->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
         $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
+        $statement->bindValue(':features', $data['features'], \PDO::PARAM_STR);
         $statement->execute();
         return $this->pdo->lastInsertId();
     }
@@ -96,7 +98,8 @@ class VehicleMapper
         );
         $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
         $statement->execute();
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+
+        return $this->dbHydrator->hydrate($statement->fetch(\PDO::FETCH_ASSOC), new Vehicle());
     }
 
     /**
@@ -176,6 +179,7 @@ class VehicleMapper
                 collection_id = :collection_id,
                 markdown = :markdown,
                 page_html = :page_html,
+                features = :features,
                 modified = NOW()
             WHERE vehicle_id = :vehicle_id
         ');
@@ -191,6 +195,7 @@ class VehicleMapper
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
         $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
         $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
+        $statement->bindValue(':features', $data['features'], \PDO::PARAM_STR);
         $statement->execute();
     }
 

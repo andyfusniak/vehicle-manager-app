@@ -16,6 +16,11 @@ class VehicleDbHydrator extends AbstractDbHydrator
             ));
         }
 
+        $featureList = [];
+        foreach ($vehicle->getFeatures() as $feature) {
+            $featureList[$feature] = true;
+        }
+
         return [
             'vehicle_id'    => $vehicle->getVehicleId(),
             'type'          => $vehicle->getType(),
@@ -29,6 +34,7 @@ class VehicleDbHydrator extends AbstractDbHydrator
             'collection_id' => $vehicle->getCollectionId(),
             'markdown'      => $vehicle->getMarkdown(),
             'page_html'     => $vehicle->getPageHtml(),
+            'features'      => json_encode($featureList),
             'created'       => ($vehicle->getCreated() === null) ? null : $vehicle->getCreated()->format(self::MYSQL_FORMAT),
             'modified'      => ($vehicle->getModified() === null) ? null : $vehicle->format(self::MYSQL_FORMAT)
         ];
@@ -36,6 +42,12 @@ class VehicleDbHydrator extends AbstractDbHydrator
 
     public function hydrate(array $data, $vehicle)
     {
+        if (isset($data['features']) && (!empty($data['features']))) {
+            $features = array_keys(json_decode($data['features'], true));
+        } else {
+            $features = [];
+        }
+
         $vehicle->setVehicleId((int) $data['vehicle_id'])
                 ->setType($data['type'])
                 ->setVisible(((int) $data['visible'] === 1) ? true : false)
@@ -48,6 +60,7 @@ class VehicleDbHydrator extends AbstractDbHydrator
                 ->setCollectionId($data['collection_id'])
                 ->setMarkdown(($data['markdown'] === null) ? '' : $data['markdown'])
                 ->setPageHtml(($data['page_html'] === null) ? '' : $data['page_html'])
+                ->setFeatures($features)
                 ->setCreated($this->mysqlTimeStampToDateTime($data['created']))
                 ->setModified($this->mysqlTimeStampToDateTime($data['modified']));
         return $vehicle;
