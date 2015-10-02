@@ -75,6 +75,11 @@ class Vehicle
     protected $pageHtml;
 
     /**
+     * @var array $features array of features for this vehicle
+     */
+    protected $features = [];
+
+    /**
      * @var \DateTime created datetime object
      */
     protected $created;
@@ -189,6 +194,17 @@ class Vehicle
     public function getPageTitle()
     {
         return $this->pageTitle;
+    }
+
+    public function setFeatures($features)
+    {
+        $this->features = $features;
+        return $this;
+    }
+
+    public function getFeatures()
+    {
+        return $this->features;
     }
 
     public function setCollectionId($collectionId)

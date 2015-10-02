@@ -19,3 +19,41 @@
   display: flex;
   align-items: center;
 }
+
+/* feature checkbox selector */
+ul#features {
+    width: 220px;
+    height: 220px;
+    overflow-y: auto;
+    overflow-x:	hidden;
+    list-style:	none;
+    padding: 0;
+    border:	1px solid #CCC;
+}
+
+#features li label {
+    margin: 0;
+    font-weight: normal;
+    display: block;
+	border-bottom: 1px solid #DDD;
+	padding: 8px 4px 8px 26px;
+	color: #000;
+	outline: none;
+	position: relative;
+}
+
+#features li label:hover {
+	color:	#000;
+	background-color: #EEE;
+}
+
+#features li label.selected {
+    color: #fff;
+	background-color: #ccc;
+}
+
+#features li label .sl-checkbox{
+    position: absolute;
+	top: 11px;
+	left: 6px;
+}
