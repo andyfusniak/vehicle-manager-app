@@ -101,6 +101,7 @@ class CollectionController extends AbstractController
             }
             $viewModel = new ViewModel();
             $viewModel->setTemplate('view/collection/json-success.phtml');
+            $this->getLayout()->setTemplate('view/layout/emptylayout.phtml');
             return $viewModel;
         }
 

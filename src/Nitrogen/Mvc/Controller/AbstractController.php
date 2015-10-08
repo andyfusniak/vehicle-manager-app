@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
+use Nitrogen\View\ViewModel;
 
 abstract class AbstractController
 {
@@ -29,6 +30,11 @@ abstract class AbstractController
      * @var UrlGenerator
      */
     protected $urlGenerator;
+
+    /**
+     * @var ViewModel the root view model (layout)
+     */
+    protected $layout;
 
     public function setMatch(array $match)
     {
@@ -64,6 +70,24 @@ abstract class AbstractController
         $response = new RedirectResponse($url);
         $response->send();
         die();
+    }
+
+    /**
+     * @param ViewModel $viewModel the root view model (layout)
+     * @return AbstractController
+     */
+    public function setLayout(ViewModel $viewModel)
+    {
+        $this->layout = $viewModel;
+        return $this;
+    }
+
+    /**
+     * @return ViewModel the root view model (layout)
+     */
+    public function getLayout()
+    {
+        return $this->layout;
     }
 
     public function dispatch(Request $request, Response $response)

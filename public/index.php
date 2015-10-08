@@ -48,6 +48,8 @@ try {
     $layoutModel = new ViewModel([
         'admin' => $session->get('admin')
     ]);
+    // inject the root layout into the controller
+    $controller->setLayout($layoutModel);
 
     $signInOpenRoutes = [
         'admin_sign_in',
@@ -70,7 +72,7 @@ try {
         $layoutModel->setTemplate('view/layout/frontend-layout.phtml');
     }
     $viewModel = $controller->dispatch($application->getRequest(), $response);
-    $viewModel = $viewModel->setCaptureTo('content');
+    //$viewModel = $viewModel->setCaptureTo('content');
 
     // inject the ViewModel into the main layout view
     $layoutModel->addChild($viewModel);
