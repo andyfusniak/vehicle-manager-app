@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Serenity Leisure Control Panel</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/jquery-ui-1.11.4.min.js"></script>
+    <script src="/js/bootstrap-3.3.5.min.js"></script>
+    <script src="/js/jquery.ui.touch-punch.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Lato:700,400' rel='stylesheet' type='text/css'>
+<style>
+ul.sl-vehicle-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+}
+
+li.sl-vehicle-container {
+    display: inline-block;
+    float: left;
+    position: relative;
+    margin: 0;
+    margin-right: 38px;
+    margin-bottom: 38px;
+    padding: 0;
+    height: auto;
+    width: 350px;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+}
+.sl-vehicle-container img {
+    vertical-align: middle;
+}
+
+.sl-price {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px 15px;
+    background: #ffffff;
+    font-size: 16px;
+    border-radius: 3px;
+}
+.sl-vehicle-details {
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid #f2f1f1;
+    border-right: 1px solid #f2f1f1;
+    border-bottom: 1px solid #f2f1f1;
+}
+.sl-vehicle-details h1 {
+    margin: 0;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 10px;
+    line-height: 26px;
+    font-size: 20px!important;
+}
+.sl-vehicle-details h1 a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #666464;
+}
+
+.sl-vehicle-details p {
+    margin: 0;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    font-size: 15px;
+}
+.sl-vehicle-details p a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #777777;
+}
+
+#test-image {
+    display: inline-block;
+    width: 100%;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-size: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+#test-image {
+    background-image: url('/images/vehicles/60_800.jpg');
+}
+#media only screen and (max-width: 320px) {
+    #test-image {
+        background-image: url('/images/vehicles/60_300.jpg');
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="test-image"></div>
+
+<p>Test finished</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-xs-6">
+            <img class="img-responsive" src="/images/vehicles/58_350.jpg">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<ul class="sl-vehicle-list">
+
+<?php for ($i = 0; $i < 22; $i++) : ?>
+<li class="sl-vehicle-container">
+    <a href="#"><img src="/images/vehicles/58_350.jpg" alt="Vehicle"></a>
+    <span class="sl-price">&pound;15,500</span>
+    <div class="sl-vehicle-details">
+        <h1><a href="#">2009 Concorde Charisma 890G Smart Garage</a></h1>
+        <p><a href="#">Two owners from new, 17,000 miles with full service history. An abundance of space is very apparent to the interior, to include a very large bathroom, plus a fixed island bed allowing movement around both sides.</a></p>
+    </div>
+</li>
+
+<li class="sl-vehicle-container">
+    <a href="#"><img src="/images/vehicles/58_350.jpg" alt="Vehicle"></a>
+    <span class="sl-price">&pound;15,500</span>
+    <div class="sl-vehicle-details">
+        <h1><a href="#">2009 Concorde Charisma</a></h1>
+        <p><a href="#">Two owners from new, 17,000 miles with full service history. An abundance of space is very apparent to the.</a></p>
+    </div>
+</li>
+
+<?php endfor; ?>
+
+
+</ul>
+</div>
+
+</body>
+</html>

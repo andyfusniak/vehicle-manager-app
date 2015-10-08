@@ -23,7 +23,7 @@ class ImageService
      */
     protected $dbHydrator;
 
-    protected static $defaultSizes = [50, 100, 150, 200, 250];
+    protected static $defaultSizes = [50, 100, 150, 200, 250, 300, 340, 350, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000];
 
     /**
      * @param array $config application configuration
