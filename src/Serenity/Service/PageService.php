@@ -79,6 +79,12 @@ class PageService
         );
     }
 
+
+    public function fetchUrlAndPageNames()
+    {
+        return $this->mapper->fetchUrlAndPageNames();
+    }
+
     public function pageObjectToFormData(Page $page)
     {
         return $this->formHydrator->extract($page);

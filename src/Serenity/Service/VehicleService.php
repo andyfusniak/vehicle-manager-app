@@ -94,6 +94,17 @@ class VehicleService
         return $vehiclesMap;
     }
 
+    public function fetchVehicleCategoriesArray()
+    {
+        return [
+            'caravans',
+            'motorhomes',
+            'awningrange',
+            'accessories',
+            'cars'
+        ];
+    }
+
     /**
      * @param array $vehicle the vehicle to update with id set
      * @return void

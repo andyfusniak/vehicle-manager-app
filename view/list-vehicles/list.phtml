@@ -18,7 +18,7 @@ $vehicleId = $v->getVehicleId();
 $visible = $v->getVisible();
 ?>
 <tr>
-    <td><?php echo $this->escapeHtml($v->getPageTitle()); ?><br><kbd class="alert-warning"><a href="#"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($v->getUrl()); ?></a></kbd></td>
+    <td><?php echo $this->escapeHtml($v->getPageTitle()); ?><br><kbd class="alert-warning"><a href="<?php echo $this->escapeHtmlAttr('/' . $v->getUrl()); ?>" target="_blank"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($v->getUrl()); ?></a></kbd></td>
     <td><kbd class="alert-success"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($c['tagname']); ?></kbd></td>
     <td><?php echo $this->showDateTime($v->getModified(), $localTimeZone); ?></td>
     <td><?php echo ($visible === true) ? '<kbd class="alert-success">VISIBLE</kbd>' : '<kbd class="alert-danger">INVISIBLE</kbd>'; ?></td>

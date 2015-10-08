@@ -1,6 +1,8 @@
 <?php
 namespace Nitrogen\ServiceManager;
 
+use Nitrogen\ServiceManager\ServiceLocatorInterface;
+
 abstract class AbstractPluginManager
 {
     /**
@@ -9,12 +11,18 @@ abstract class AbstractPluginManager
     protected $canonicalNames = [];
 
     /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceLocator;
+
+    /**
      * cached instances
      */
     protected $instances = [];
 
-    public function __construct()
+    public function __construct(ServiceLocatorInterface $serviceLocator)
     {
+        $this->serviceLocator = $serviceLocator;
     }
 
     private function getCanonicalName($name)
@@ -45,6 +53,11 @@ abstract class AbstractPluginManager
             $instance = $this->createFromInvokable($canonicalName);
             $this->instances[$canonicalName] = $instance;
             return $instance;
+        }
+
+        $object = $this->serviceLocator->get($name);
+        if ($object !== null) {
+            return $object;
         }
 
         return null;

@@ -61,7 +61,7 @@ class CollectionController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->collectionService->addCollection($data);
-                $this->redirectToRoute('collection-list');
+                return $this->redirectToRoute('admin_collection_list');
             }
         }
 

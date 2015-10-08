@@ -42,7 +42,7 @@ $(function() {
                 $.ajax({
                     data: data,
                     type: 'POST',
-                    url: '/view-collection/<?php echo $this->escapeHtml($collection->getCollectionId()); ?>'
+                    url: '/admin/view-collection/<?php echo $this->escapeHtml($collection->getCollectionId()); ?>'
                 });
 
                 //$(this).animate({opacity: '0.5'}, 1000);
@@ -58,7 +58,7 @@ $(function() {
                 $.ajax({
                     data: data,
                     type: 'POST',
-                    url: '/view-collection/<?php echo $this->escapeHtml($collection->getCollectionId()); ?>'
+                    url: '/admin/view-collection/<?php echo $this->escapeHtml($collection->getCollectionId()); ?>'
                 });
             }
         }

@@ -44,13 +44,13 @@ class PageController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->service->addPage($data);
-                return $this->redirectToRoute('page_view');
+                return $this->redirectToRoute('admin_page_view');
             }
         }
 
         $viewModel = new ViewModel([
             'form'   => $this->form,
-            'action' => $this->urlGenerator->generate('page_add')
+            'action' => $this->urlGenerator->generate('admin_page_add')
         ]);
         $viewModel->setTemplate('view/page/add-edit.phtml');
         return $viewModel;
@@ -64,7 +64,7 @@ class PageController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->service->updatePage($this->form->getData());
-                return $this->redirectToRoute('page_view');
+                return $this->redirectToRoute('admin_page_view');
             }
 
             $pageId = $data['page-id'];
@@ -107,6 +107,6 @@ class PageController extends AbstractController
         if ($pageId !== null) {
             $this->service->deletePage((int) $this->getRouteParam('page_id'));
         }
-        return $this->redirectToRoute('page_view');
+        return $this->redirectToRoute('admin_page_view');
     }
 }

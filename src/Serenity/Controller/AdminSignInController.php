@@ -45,7 +45,7 @@ class AdminSignInController extends AbstractController
 
                 if ($admin != null) {
                     $this->authService->login($admin);
-                    return $this->redirectToRoute('dashboard');
+                    return $this->redirectToRoute('admin_dashboard');
                 }
 
                 return $this->redirectToRoute('admin_sign_in_failed');
@@ -83,6 +83,6 @@ class AdminSignInController extends AbstractController
     public function signOutAction()
     {
         $this->authService->logout();
-        return $this->redirectToRoute('dashboard');
+        return $this->redirectToRoute('admin_dashboard');
     }
 }
