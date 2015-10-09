@@ -80,9 +80,9 @@ class PageService
     }
 
 
-    public function fetchUrlAndPageNames()
+    public function fetchUrlAndPageNames($orderBy = PageMapper::COLUMN_PRIORITY, $orderDirection = 'ASC')
     {
-        return $this->mapper->fetchUrlAndPageNames();
+        return $this->mapper->fetchUrlAndPageNames($orderBy, $orderDirection);
     }
 
     public function pageObjectToFormData(Page $page)
