@@ -11,7 +11,7 @@ class SlugValidator extends AbstractValidator
     /**
      * @var string
      */
-    protected $regEx = '/^[a-z-]+[a-z]$/';
+    protected $regEx = '/^[a-z0-9-]+[a-z0-9]$/';
 
     public function isValid($value)
     {
