@@ -6,10 +6,21 @@ use Serenity\Hydrator\PageDbHydrator;
 
 class PageMapper
 {
-    const COLUMN_PAGE_ID = 'page_id';
+    const COLUMN_PAGE_ID  = 'page_id';
+    const COLUMN_PRIORITY = 'priority';
+    const COLULN_URL      = 'url';
+    const COLUMN_NAME     = 'name';
+    const COLUMN_CREATED  = 'created';
+    const COLUMN_MODIFIED = 'modified';
 
     protected static $validColumns = [
-        self::COLUMN_PAGE_ID
+        self::COLUMN_PAGE_ID,
+        self::COLUMN_PRIORITY,
+        self::COLULN_URL,
+        self::COLULN_URL,
+        self::COLUMN_NAME,
+        self::COLUMN_CREATED,
+        self::COLUMN_MODIFIED
     ];
 
     /**
@@ -76,7 +87,7 @@ class PageMapper
     /**
      * @return array
      */
-    public function fetchAllAssocArray($orderBy = self::COLUMN_PAGE_ID, $orderDirection = 'DESC')
+    public function fetchAllAssocArray($orderBy = self::COLUMN_PRIORITY, $orderDirection = 'DESC')
     {
         if (!in_array($orderBy, self::$validColumns)) {
             throw new \Exception(sprintf(
@@ -86,13 +97,34 @@ class PageMapper
             ));
         }
 
-        $statement = $this->pdo->prepare(
-            'SELECT * FROM pages ORDER BY :order_by :order_direction'
-        );
-        $statement->bindValue(':order_by', $orderBy, \PDO::PARAM_STR);
-        $statement->bindValue(':order_direction', ($orderDirection === 'DESC') ? 'DESC' : 'ASC', \PDO::PARAM_STR);
+        $sql = 'SELECT * FROM pages';
+        if (!empty($orderBy)) {
+            $sql .= ' ORDER BY ' . $orderBy . (($orderDirection === 'DESC') ? ' DESC' : ' ASC');
+        }
+
+        $statement = $this->pdo->prepare($sql);
         $statement->execute();
         return $statement->fetchAll();
+    }
+
+    public function fetchUrlAndPageNames($orderBy = self::COLUMN_PRIORITY, $orderDirection = 'DESC')
+    {
+        if (!in_array($orderBy, self::$validColumns)) {
+            throw new \Exception(sprintf(
+                '%s invalid column passed for orderBy "%s"',
+                __METHOD__,
+                $orderBy
+            ));
+        }
+
+        $sql = 'SELECT url, name FROM pages';
+        if (!empty($orderBy)) {
+            $sql .= ' ORDER BY ' . $orderBy . (($orderDirection === 'DESC') ? ' DESC' : ' ASC');
+        }
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function isUrlTaken($url, $pageId = null)
@@ -140,6 +172,23 @@ class PageMapper
         $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
         $statement->bindValue(':page_id', $data['page_id'], \PDO::PARAM_INT);
         $statement->execute();
+    }
+
+    public function updatePageOrder(array $data)
+    {
+        $this->pdo->beginTransaction();
+
+        $priority = 1;
+        foreach ($data as $value) {
+            $statement = $this->pdo->prepare(
+                'UPDATE pages SET priority = :priority WHERE page_id = :page_id'
+            );
+            $statement->bindValue(':priority', $priority++, \PDO::PARAM_INT);
+            $statement->bindValue(':page_id', (int) $value, \PDO::PARAM_INT);
+            $statement->execute();
+        }
+
+        $this->pdo->commit();
     }
 
     /**

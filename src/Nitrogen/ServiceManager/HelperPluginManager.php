@@ -1,6 +1,8 @@
 <?php
 namespace Nitrogen\ServiceManager;
 
+use Nitrogen\ServiceManager\ServiceLocatorInterface as ServiceLocator;
+
 class HelperPluginManager extends AbstractPluginManager
 {
     protected $invokableClasses = [
@@ -20,8 +22,8 @@ class HelperPluginManager extends AbstractPluginManager
         'validatorstringlength' => 'Nitrogen\Validator\StringLength'
     ];
 
-    public function __construct()
+    public function __construct(ServiceLocator $serviceLocator)
     {
-        parent::__construct();
+        parent::__construct($serviceLocator);
     }
 }

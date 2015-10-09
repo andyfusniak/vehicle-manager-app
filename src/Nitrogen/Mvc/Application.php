@@ -85,9 +85,9 @@ class Application
      */
     public static function init($configuration)
     {
-        $helperPluginManager = new HelperPluginManager();
-
         $serviceLocator = new ServiceLocator();
+        $helperPluginManager = new HelperPluginManager($serviceLocator);
+
         $serviceLocator->setService('config', $configuration);
         $serviceLocator->setService('Nitrogen\ServiceManager\HelperPluginManager', $helperPluginManager);
 

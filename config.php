@@ -20,11 +20,16 @@ return array(
     ],
     'invokables' => [
         'image'       => 'Serenity\View\Helper\Image',
-        'vehicletype' => 'Serenity\View\Helper\VehicleType'
+        'vehicletype' => 'Serenity\View\Helper\VehicleType',
+        'headmeta'    => 'Serenity\View\Helper\HeadMeta'
     ],
     'factories' => [
         // Database
         'Pdo' => 'Serenity\Factory\PdoFactory',
+
+        // View Helpers (factory)
+        'vehicleCategoryNav' => 'Serenity\Factory\VehicleCategoryNavFactory',
+        'pageNav'            => 'Serenity\Factory\PageNavFactory',
 
         // Mappers
         'Serenity\Mapper\AdminMapper'      => 'Serenity\Factory\AdminMapperFactory',
@@ -65,7 +70,7 @@ return array(
         'Serenity\Service\PageService'       => 'Serenity\Factory\PageServiceFactory',
         'Serenity\Service\VehicleService'    => 'Serenity\Factory\VehicleServiceFactory',
 
-        // Controllers
+        // Controllers (admin)
         'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',
         'AdminSignInController'    => 'Serenity\Factory\AdminSignInControllerFactory',
         'CollectionController'     => 'Serenity\Factory\CollectionControllerFactory',
@@ -73,23 +78,25 @@ return array(
         'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
         'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory',
         'PageController'           => 'Serenity\Factory\PageControllerFactory',
-        'SettingsController'       => 'Serenity\Factory\SettingsControllerFactory'
+        'SettingsController'       => 'Serenity\Factory\SettingsControllerFactory',
+        // Controllers (frontend)
+        'FrontEndController'       => 'Serenity\Factory\FrontEndControllerFactory'
     ],
     'routes' => [
-        'dashboard' => [
-            'path' => '/',
+        'admin_dashboard' => [
+            'path' => '/admin',
             'defaults' => [
                 '_controller' => 'DashboardController:indexAction'
             ]
         ],
-        'image_uploader' => [
-            'path'     => '/image-uploader',
+        'admin_image_uploader' => [
+            'path'     => '/admin/image-uploader',
             'defaults' => [
                 '_controller' => 'ImageUploadController:uploadAction'
             ]
         ],
-        'upload-to-collection' => [
-            'path' => '/image-uploader/{collection_id}',
+        'admin_upload_to_collection' => [
+            'path' => '/admin/image-uploader/{collection_id}',
             'defaults' => [
                 '_controller' => 'ImageUploadController:uploadAction'
             ],
@@ -97,20 +104,20 @@ return array(
                 'collection_id' => '\d+'
             ]
         ],
-        'list_vehicles' => [
-            'path' => '/list-vehicles',
+        'admin_list_vehicles' => [
+            'path' => '/admin/list-vehicles',
             'defaults' => [
                 '_controller' => 'ListVehiclesController:listAction'
             ]
         ],
-        'add_edit_vehicle_add' => [
-            'path' => '/add-edit-vehicle',
+        'admin_add_edit_vehicle_add' => [
+            'path' => '/admin/add-edit-vehicle',
             'defaults' => [
                 '_controller' => 'AddEditVehicleController:addAction',
             ]
         ],
-        'add_edit_vehicle_edit' => [
-            'path' => '/add-edit-vehicle/{vehicle_id}',
+        'admin_add_edit_vehicle_edit' => [
+            'path' => '/admin/add-edit-vehicle/{vehicle_id}',
             'defaults' => [
                 '_controller' => 'AddEditVehicleController:editAction'
             ],
@@ -118,20 +125,20 @@ return array(
                 'vehicle_id' => '\d+'
             ]
         ],
-        'collection-add' => [
-            'path' => '/add-edit-collection',
+        'admin_collection_add' => [
+            'path' => '/admin/add-edit-collection',
             'defaults' => [
                 '_controller' => 'CollectionController:addEditAction'
             ]
         ],
-        'collection-list' => [
-            'path' => '/list-collections',
+        'admin_collection_list' => [
+            'path' => '/admin/list-collections',
             'defaults' => [
                 '_controller' => 'CollectionController:listAction'
             ]
         ],
-        'collection-view' => [
-            'path' => '/view-collection/{collection_id}',
+        'admin_collection_view' => [
+            'path' => '/admin/view-collection/{collection_id}',
             'defaults' => [
                 '_controller' => 'CollectionController:viewAction'
             ],
@@ -139,20 +146,20 @@ return array(
                 'collection_id' => '\d+'
             ]
         ],
-        'page_view' => [
-            'path' => '/list-pages',
+        'admin_page_view' => [
+            'path' => '/admin/list-pages',
             'defaults' => [
                 '_controller' => 'PageController:listAction'
             ]
         ],
-        'page_add' => [
-            'path' => '/add-page',
+        'admin_page_add' => [
+            'path' => '/admin/add-page',
             'defaults' => [
                 '_controller' => 'PageController:addAction'
             ]
         ],
-        'page_edit' => [
-            'path' => '/edit-page/{page_id}',
+        'admin_page_edit' => [
+            'path' => '/admin/edit-page/{page_id}',
             'defaults' => [
                 '_controller' => 'PageController:editAction'
             ],
@@ -160,8 +167,8 @@ return array(
                 'page_id' => '\d+'
             ]
         ],
-        'page_delete' => [
-            'path' => '/delete-page/{page_id}',
+        'admin_page_delete' => [
+            'path' => '/admin/delete-page/{page_id}',
             'defaults' => [
                 '_controller' => 'PageController:deleteAction'
             ],
@@ -169,34 +176,52 @@ return array(
                 'page_id' => '\d+'
             ]
         ],
-        'settings_overview' => [
-            'path'     => '/settings',
+        'admin_page_ordering' => [
+            'path' => '/admin/page-ordering',
+            'defaults' => [
+                '_controller' => 'PageController:orderingAction'
+            ]
+        ],
+        'admin_settings_overview' => [
+            'path'     => '/admin/settings',
             'defaults' => [
                 '_controller' => 'SettingsController:overviewAction'
             ]
         ],
-        'admin_sign_in_controller' => [
-            'path'     => '/admin-sign-in',
+        'admin_sign_in' => [
+            'path'     => '/admin/sign-in',
             'defaults' => [
                 '_controller' => 'AdminSignInController:authAction'
             ]
         ],
         'admin_sign_in_failed' => [
-            'path' => '/admin-sign-in-failed',
+            'path' => '/admin/sign-in-failed',
             'defaults' => [
                 '_controller' => 'AdminSignInController:failedAction'
             ]
         ],
         'admin_sign_out' => [
-            'path' => '/admin-sign-out',
+            'path' => '/admin/sign-out',
             'defaults' => [
                 '_controller' => 'AdminSignInController:signOutAction'
             ]
         ],
         'admin_create_admin_temp' => [
-            'path' => '/admin-create-user',
+            'path' => '/admin/create-user',
             'defaults' => [
                 '_controller' => 'AdminSignInController:createAdminAction'
+            ]
+        ],
+        'frontend_home' => [
+            'path' => '/',
+            'defaults' => [
+                '_controller' => 'FrontEndHomeController:indexAction'
+            ]
+        ],
+        'frontend_display' => [
+            'path'     => '/{url}',
+            'defaults' => [
+                '_controller' => 'FrontEndController:displayAction'
             ]
         ]
     ]

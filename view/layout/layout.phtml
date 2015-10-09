@@ -30,7 +30,7 @@
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div id="nav-dashboard" class="navbar-header">
-            <a class="navbar-brand" href="/">Dashboard</a>
+            <a class="navbar-brand" href="/admin">Dashboard</a>
         </div>
 
         <div>
@@ -42,35 +42,35 @@
 
             <ul class="nav navbar-nav navbar-collapse">
                 <li id="nav-vehicles" class="dropdown">
-                    <a href="/list-vehicles"><span class="glyphicon glyphicon-road"></span> Vehicles <span class="caret"></span></a>
+                    <a href="/admin/list-vehicles"><span class="glyphicon glyphicon-road"></span> Vehicles <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li id="nav-add-vehicle"><a href="/add-edit-vehicle"><span class="glyphicon glyphicon-plus"></span> New Vehicle</a></li>
+                        <li id="nav-add-vehicle"><a href="/admin/add-edit-vehicle"><span class="glyphicon glyphicon-plus"></span> New Vehicle</a></li>
                     </ul>
                 </li>
 
                 <li id="nav-collections" class="dropdown">
-                    <a href="/list-collections"><span class="glyphicon glyphicon-folder-close"></span> Collections <span class="caret"></span></a>
+                    <a href="/admin/list-collections"><span class="glyphicon glyphicon-folder-close"></span> Collections <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li id="nav-add-edit-collection"><a href="/add-edit-collection"><span class="glyphicon glyphicon-plus"></span> New Collection</a></li>
+                        <li id="nav-add-edit-collection"><a href="/admin/add-edit-collection"><span class="glyphicon glyphicon-plus"></span> New Collection</a></li>
                     </ul>
                 </li>
 
-                <li id="nav-upload-images"><a href="/image-uploader"><span class="glyphicon glyphicon-upload"></span> Upload Images</a></li>
+                <li id="nav-upload-images"><a href="/admin/image-uploader"><span class="glyphicon glyphicon-upload"></span> Upload Images</a></li>
 
                 <li id="nav-pages" class="dropdown">
-                    <a href="/list-pages"><span class="glyphicon glyphicon-folder-close"></span> Pages <span class="caret"></span></a>
+                    <a href="/admin/list-pages"><span class="glyphicon glyphicon-folder-close"></span> Pages <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li id="nav-add-edit-page"><a href="/add-page"><span class="glyphicon glyphicon-plus"></span> New Page</a></li>
+                        <li id="nav-add-edit-page"><a href="/admin/add-page"><span class="glyphicon glyphicon-plus"></span> New Page</a></li>
                     </ul>
                 </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-collapse pull-right">
                 <p class="navbar-text"><span class="glyphicon glyphicon-user"></span> <?php echo $this->escapeHtml($admin->getUsername()); ?></p>
-                <li id="nav-cog" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span></a>
+                <li id="nav-cog" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/admin/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li id="nav-cog-settings"><a href="/settings">Settings</a></li>
-                    <li id="nav-cog-sign-out"><a href="/admin-sign-out">Sign out</a></li>
+                    <li id="nav-cog-settings"><a href="/admin/settings">Settings</a></li>
+                    <li id="nav-cog-sign-out"><a href="/admin/sign-out">Sign out</a></li>
                 </ul>
                 </li>
             </ul>

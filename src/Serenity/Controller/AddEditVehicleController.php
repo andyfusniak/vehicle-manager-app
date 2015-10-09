@@ -45,7 +45,7 @@ class AddEditVehicleController extends AbstractController
                 $postProcessedData = $this->form->getData();
                 $postProcessedData['features'] = $data['features'];
                 $this->service->addVehicle($postProcessedData);
-                $this->redirectToRoute('list_vehicles');
+                return $this->redirectToRoute('admin_list_vehicles');
             }
         }
 
@@ -53,7 +53,7 @@ class AddEditVehicleController extends AbstractController
             'form'              => $this->form,
             'featureCheckboxes' => $this->service->generateFeatureCheckboxes(
                                        isset($data['features']) ? $data['features'] : []),
-            'action'            => $this->urlGenerator->generate('add_edit_vehicle_add')
+            'action'            => $this->urlGenerator->generate('admin_add_edit_vehicle_add')
         ]);
         $viewModel->setTemplate('view/add-edit-vehicle/add-edit.phtml');
         return $viewModel;
@@ -71,7 +71,7 @@ class AddEditVehicleController extends AbstractController
                 $postProcessedData = $this->form->getData();
                 $postProcessedData['features'] = $data['features'];
                 $this->service->updateVehicle($postProcessedData);
-                $this->redirectToRoute('list_vehicles');
+                return $this->redirectToRoute('admin_list_vehicles');
             }
         } else {
             $vehicle = $this->service->fetchByVehicleId($vehicleId);
@@ -84,7 +84,7 @@ class AddEditVehicleController extends AbstractController
             'form'              => $this->form,
             'featureCheckboxes' => $this->service->generateFeatureCheckboxes($data['features']),
             'action'            => $this->urlGenerator->generate(
-                'add_edit_vehicle_edit',
+                'admin_add_edit_vehicle_edit',
                 ['vehicle_id' => $vehicleId]
             )
         ]);

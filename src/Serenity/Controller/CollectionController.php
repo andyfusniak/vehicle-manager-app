@@ -61,7 +61,7 @@ class CollectionController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->collectionService->addCollection($data);
-                $this->redirectToRoute('collection-list');
+                return $this->redirectToRoute('admin_collection_list');
             }
         }
 
@@ -101,6 +101,7 @@ class CollectionController extends AbstractController
             }
             $viewModel = new ViewModel();
             $viewModel->setTemplate('view/collection/json-success.phtml');
+            $this->getLayout()->setTemplate('view/layout/emptylayout.phtml');
             return $viewModel;
         }
 

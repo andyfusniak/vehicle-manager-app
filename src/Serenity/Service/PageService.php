@@ -54,10 +54,10 @@ class PageService
         $this->mapper->update($dbData);
     }
 
-    public function fetchAll()
+    public function fetchAll($orderBy = PageMapper::COLUMN_PRIORITY, $orderDirection = 'ASC')
     {
         $objects = [];
-        $pages = $this->mapper->fetchAllAssocArray();
+        $pages = $this->mapper->fetchAllAssocArray($orderBy, $orderDirection);
 
         foreach ($pages as $data) {
             $object = new Page();
@@ -79,6 +79,12 @@ class PageService
         );
     }
 
+
+    public function fetchUrlAndPageNames()
+    {
+        return $this->mapper->fetchUrlAndPageNames();
+    }
+
     public function pageObjectToFormData(Page $page)
     {
         return $this->formHydrator->extract($page);
@@ -96,6 +102,13 @@ class PageService
     public function isUrlTaken($url, $pageId = null)
     {
         return $this->mapper->isUrlTaken($url, $pageId);
+    }
+
+    public function updatePageOrder($data)
+    {
+        if (isset($data['page'])) {
+            $this->mapper->updatePageOrder($data['page']);
+        }
     }
 
     /**

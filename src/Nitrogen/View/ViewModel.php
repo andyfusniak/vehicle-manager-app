@@ -6,11 +6,11 @@ class ViewModel
     /**
      * Parent model capture to
      */
-    protected $captureTo;
+    protected $captureTo = 'content';
 
     /**
      * Child models
-     * @var array
+     * @var array of ViewModel objects
      */
     protected $children = [];
 
@@ -27,7 +27,10 @@ class ViewModel
      */
     protected $template;
 
-    public function __construct($variables = [])
+    /**
+     * @param array $variables
+     */
+    public function __construct(array $variables = [])
     {
         if ($variables === null) {
             $this->variables = [];
