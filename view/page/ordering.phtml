@@ -1,0 +1,30 @@
+<h2>Page Ordering</h2>
+<p class="lead">Drag your pages to suit the order in which you wish them to appear in the menu</p>
+
+
+<script>
+$(function() {
+    $('.sortable').sortable({
+        tolerance: 'pointer',
+        cursor: 'pointer',
+        dropOnEmpty: true,
+        connectWith: '.sortable',
+        update: function (event, ui) {
+            console.log($(this));
+            var data = $(this).sortable('serialize');
+            console.log(data);
+            $.ajax({
+                data: data,
+                type: 'POST',
+                url: '/admin/page-ordering'
+            });
+        }
+    });
+});
+</script>
+
+<ul class="list-group sortable">
+<?php foreach ($pages as $page) : ?>
+    <li id="page-<?php echo $this->escapeHtmlAttr($page->getPageId()); ?>" class="list-group-item"><?php echo $this->escapeHtml($page->getName()); ?></li>
+<?php endforeach ?>
+</ul>

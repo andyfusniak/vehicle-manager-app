@@ -82,7 +82,7 @@ class PageController extends AbstractController
         $viewModel = new ViewModel([
             'form'   => $this->form,
             'action' => $this->urlGenerator->generate(
-                'page_edit',
+                'admin_page_edit',
                 ['page_id' => $pageId]
             )
         ]);
@@ -108,5 +108,25 @@ class PageController extends AbstractController
             $this->service->deletePage((int) $this->getRouteParam('page_id'));
         }
         return $this->redirectToRoute('admin_page_view');
+    }
+
+    public function orderingAction()
+    {
+        if ($this->request->getMethod() === Request::METHOD_POST) {
+            $data = $this->request->request->all();
+
+            $this->service->updatePageOrder($data);
+            $viewModel = new ViewModel();
+            $viewModel->setTemplate('view/page/json-success.phtml');
+            $this->getLayout()->setTemplate('view/layout/emptylayout.phtml');
+            return $viewModel;
+        } else {
+            $viewModel = new ViewModel([
+                'pages' => $this->service->fetchAll()
+            ]);
+            $viewModel->setTemplate('view/page/ordering.phtml');
+            return $viewModel;
+        }
+
     }
 }

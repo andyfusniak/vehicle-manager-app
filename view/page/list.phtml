@@ -6,7 +6,11 @@
     <th>Page Url</th>
     <th>Date added</th>
     <th>Last modified</th>
-    <th>&nbsp;</th>
+    <th>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="/admin/page-ordering">Ordering <span class="glyphicon glyphicon-sort"></span></a></li>
+        </ul>
+    </th>
 </tr>
 <?php foreach ($pages as $p) : ?>
 <?php $pageId = $p->getPageId(); ?>

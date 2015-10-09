@@ -87,7 +87,7 @@ class PageMapper
     /**
      * @return array
      */
-    public function fetchAllAssocArray($orderBy = self::COLUMN_PAGE_ID, $orderDirection = 'DESC')
+    public function fetchAllAssocArray($orderBy = self::COLUMN_PRIORITY, $orderDirection = 'DESC')
     {
         if (!in_array($orderBy, self::$validColumns)) {
             throw new \Exception(sprintf(
@@ -97,12 +97,12 @@ class PageMapper
             ));
         }
 
-        $statement = $this->pdo->prepare(
-            'SELECT * FROM pages ORDER BY :order_by :order_direction'
-        );
-        // TODO can't use bind for these - incorrect lines below
-        $statement->bindValue(':order_by', $orderBy, \PDO::PARAM_STR);
-        $statement->bindValue(':order_direction', ($orderDirection === 'DESC') ? 'DESC' : 'ASC', \PDO::PARAM_STR);
+        $sql = 'SELECT * FROM pages';
+        if (!empty($orderBy)) {
+            $sql .= ' ORDER BY ' . $orderBy . (($orderDirection === 'DESC') ? ' DESC' : ' ASC');
+        }
+
+        $statement = $this->pdo->prepare($sql);
         $statement->execute();
         return $statement->fetchAll();
     }
@@ -172,6 +172,23 @@ class PageMapper
         $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
         $statement->bindValue(':page_id', $data['page_id'], \PDO::PARAM_INT);
         $statement->execute();
+    }
+
+    public function updatePageOrder(array $data)
+    {
+        $this->pdo->beginTransaction();
+
+        $priority = 1;
+        foreach ($data as $value) {
+            $statement = $this->pdo->prepare(
+                'UPDATE pages SET priority = :priority WHERE page_id = :page_id'
+            );
+            $statement->bindValue(':priority', $priority++, \PDO::PARAM_INT);
+            $statement->bindValue(':page_id', (int) $value, \PDO::PARAM_INT);
+            $statement->execute();
+        }
+
+        $this->pdo->commit();
     }
 
     /**

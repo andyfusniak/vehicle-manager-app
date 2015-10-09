@@ -176,6 +176,12 @@ return array(
                 'page_id' => '\d+'
             ]
         ],
+        'admin_page_ordering' => [
+            'path' => '/admin/page-ordering',
+            'defaults' => [
+                '_controller' => 'PageController:orderingAction'
+            ]
+        ],
         'admin_settings_overview' => [
             'path'     => '/admin/settings',
             'defaults' => [
