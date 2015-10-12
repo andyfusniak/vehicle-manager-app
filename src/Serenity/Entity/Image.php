@@ -118,7 +118,11 @@ class Image
 
     public function setPriority($priority)
     {
-        $this->priority = (int) $priority;
+        if ($priority === null) {
+            $this->priority = null;
+        } else {
+            $this->priority = (int) $priority;
+        }
         return $this;
     }
 

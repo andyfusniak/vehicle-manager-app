@@ -60,9 +60,11 @@ class ImageMapper
             $statement1->execute();
             $row = $statement1->fetch(\PDO::FETCH_ASSOC);
             if (is_array($row)) {
-                $next = (int) $row['next'];
-                if ($next === null) {
+                var_dump($row);
+                if ($row['next'] === null) {
                     $next = 1;
+                } else {
+                    $next = (int) $row['next'];
                 }
             } else {
                 $next = 1;
