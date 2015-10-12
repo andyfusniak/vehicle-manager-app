@@ -80,7 +80,8 @@ return array(
         'PageController'           => 'Serenity\Factory\PageControllerFactory',
         'SettingsController'       => 'Serenity\Factory\SettingsControllerFactory',
         // Controllers (frontend)
-        'FrontEndController'       => 'Serenity\Factory\FrontEndControllerFactory'
+        'FrontEndController'       => 'Serenity\Factory\FrontEndControllerFactory',
+        'FrontEndHomeController'   => 'Serenity\Factory\FrontEndHomeControllerFactory'
     ],
     'routes' => [
         'admin_dashboard' => [
@@ -141,6 +142,15 @@ return array(
             'path' => '/admin/view-collection/{collection_id}',
             'defaults' => [
                 '_controller' => 'CollectionController:viewAction'
+            ],
+            'requirements' => [
+                'collection_id' => '\d+'
+            ]
+        ],
+        'admin_collecton_delete' => [
+            'path' => '/admin/delete-collection/{collection_id}',
+            'defaults' => [
+                '_controller' => 'CollectionController:deleteAction'
             ],
             'requirements' => [
                 'collection_id' => '\d+'

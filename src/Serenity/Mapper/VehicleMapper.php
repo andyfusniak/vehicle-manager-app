@@ -20,6 +20,11 @@ class VehicleMapper
     const COLUMN_CREATED       = 'created';
     const COLUMN_MODIFIED      = 'modified';
 
+    const TYPE_CARAVANS    = 'caravans';
+    const TYPE_MOTORHOMES  = 'motorhomes';
+    const TYPE_AWNINGRANGE = 'awningrange';
+    const TYPE_ACCESSORIES = 'accessories';
+    const TYPE_CARS        = 'cars';
 
     // it makes no sense to sort by some fields such as
     // meta keywords, meta description, page_html, markdown
@@ -33,6 +38,14 @@ class VehicleMapper
         self::COLUMN_PAGE_TITLE,
         self::COLUMN_CREATED,
         self::COLUMN_MODIFIED
+    ];
+
+    protected static $vehicleTypes = [
+        self::TYPE_CARAVANS,
+        self::TYPE_MOTORHOMES,
+        self::TYPE_AWNINGRANGE,
+        self::TYPE_ACCESSORIES,
+        self::TYPE_CARS
     ];
 
     /**
@@ -126,10 +139,49 @@ class VehicleMapper
         return $statement->fetchAll();
     }
 
+    public function fetchAllVisibleByCategoryAssocArray($type, $orderBy = self::COLUMN_PRICE, $orderDirection = 'DESC')
+    {
+        if (!in_array($type, self::$vehicleTypes)) {
+            throw new \Exception(sprintf(
+                '%s invalid column passed for type "%s"',
+                __METHOD__,
+                $type
+            ));
+        }
+
+        if (!in_array($orderBy, self::$validSortableColumns)) {
+            throw new \Exception(sprintf(
+                '%s invalid column passed for orderBy "%s"',
+                __METHOD__,
+                $orderBy
+            ));
+        }
+
+        $sql = '
+            SELECT V.*, I.image_id
+            FROM vehicles AS V
+            LEFT JOIN (
+                SELECT image_id, collection_id
+                FROM images AS I
+                WHERE priority = 1
+            ) AS I
+            ON V.collection_id = I.collection_id
+            WHERE V.visible = 1 AND type = :type
+        ';
+        //$sql = 'SELECT * FROM vehicles WHERE type = :type AND visible = 1';
+        if (!empty($orderBy)) {
+            $sql .= ' ORDER BY ' . $orderBy . (($orderDirection === 'DESC') ? ' DESC' : ' ASC');
+        }
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':type', $type, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function fetchVehiclesByDistinctCategoriesPriceDescAssocArray()
     {
         $statement = $this->pdo->prepare('
-            SELECT V.*, C.tagname, C.name AS collection_name
+            SELECT V.*, C.collection_id, C.tagname, C.name AS collection_name
             FROM vehicles AS V
             JOIN collections AS C
                 ON V.collection_id = C.collection_id

@@ -83,7 +83,8 @@ class CollectionController extends AbstractController
 
         $viewModel = new ViewModel([
             'collections'   => $collections,
-            'photoCountMap' => $photoCountMap
+            'photoCountMap' => $photoCountMap,
+            'localTimeZone' => $this->localTimeZone
         ]);
         $viewModel->setTemplate('view/collection/list.phtml');
         return $viewModel;
@@ -113,5 +114,15 @@ class CollectionController extends AbstractController
         ]);
         $viewModel->setTemplate('view/collection/view.phtml');
         return $viewModel;
+    }
+
+    public function deleteAction()
+    {
+        $collectionId = $this->getRouteParam('collection_id');
+
+        if ($collectionId !== null) {
+            $this->collectionService->deleteCollection((int) $collectionId);
+        }
+        return $this->redirectToRoute('admin_collection_list');
     }
 }

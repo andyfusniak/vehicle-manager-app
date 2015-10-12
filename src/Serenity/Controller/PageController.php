@@ -105,7 +105,7 @@ class PageController extends AbstractController
         $pageId = $this->getRouteParam('page_id');
 
         if ($pageId !== null) {
-            $this->service->deletePage((int) $this->getRouteParam('page_id'));
+            $this->service->deletePage((int) $pageId);
         }
         return $this->redirectToRoute('admin_page_view');
     }

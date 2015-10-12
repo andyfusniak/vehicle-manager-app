@@ -1,7 +1,10 @@
 <?php
 //var_dump($collection);
 ?>
-<h2><?php echo $this->escapeHtml($collection->getName()); ?> <kbd class="alert-success"><small><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($collection->getTagname()); ?></kbd></small></h2>
+<h2><?php echo $this->escapeHtml($collection->getName()); ?> <kbd class="alert-success"><small><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($collection->getTagname()); ?></kbd>
+
+
+<span class="badge alert-success"><?php echo $this->escapeHtml(count($images)); ?> images</span></small> </h2>
 <div class="well well-small">
     <p>Created <?php echo $this->showDateTime($collection->getCreated(), $localTimeZone); ?></p>
     <p>Last Modified <?php echo $this->showDateTime($collection->getModified(), $localTimeZone); ?></p>
@@ -74,6 +77,12 @@ $(function() {
 <li id="photo-<?php echo $this->escapeHtmlAttr($i->getImageId()); ?>"class="ui-state-default"><?php echo $this->image($i, 150); ?></li>
 <?php endforeach; ?>
 </ul>
+
+<div class="clearfix">
+</div><ul class="nav nav-pills">
+    <li role="presentation"><a href="/admin/image-uploader/<?php echo $this->escapeHtml($i->getCollectionId()); ?>"><span class="glyphicon glyphicon-upload"></span> Upload</a></li>
+</ul>
+</div>
 
 <script>
 $(function() {
