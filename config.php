@@ -147,6 +147,15 @@ return array(
                 'collection_id' => '\d+'
             ]
         ],
+        'admin_collecton_delete' => [
+            'path' => '/admin/delete-collection/{collection_id}',
+            'defaults' => [
+                '_controller' => 'CollectionController:deleteAction'
+            ],
+            'requirements' => [
+                'collection_id' => '\d+'
+            ]
+        ],
         'admin_page_view' => [
             'path' => '/admin/list-pages',
             'defaults' => [

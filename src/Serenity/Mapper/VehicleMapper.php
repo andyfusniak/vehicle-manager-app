@@ -181,7 +181,7 @@ class VehicleMapper
     public function fetchVehiclesByDistinctCategoriesPriceDescAssocArray()
     {
         $statement = $this->pdo->prepare('
-            SELECT V.*, C.tagname, C.name AS collection_name
+            SELECT V.*, C.collection_id, C.tagname, C.name AS collection_name
             FROM vehicles AS V
             JOIN collections AS C
                 ON V.collection_id = C.collection_id

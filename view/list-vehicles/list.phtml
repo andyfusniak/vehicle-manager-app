@@ -18,11 +18,26 @@ $vehicleId = $v->getVehicleId();
 $visible = $v->getVisible();
 ?>
 <tr>
-    <td><?php echo $this->escapeHtml($v->getPageTitle()); ?><br><kbd class="alert-warning"><a href="<?php echo $this->escapeHtmlAttr('/' . $v->getUrl()); ?>" target="_blank"><span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($v->getUrl()); ?></a></kbd></td>
-    <td><kbd class="alert-success"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($c['tagname']); ?></kbd></td>
-    <td><?php echo $this->showDateTime($v->getModified(), $localTimeZone); ?></td>
+    <td>
+        <?php echo $this->escapeHtml($v->getPageTitle()); ?>
+        <br>
+        <a href="<?php echo $this->escapeHtmlAttr('/' . $v->getUrl()); ?>" target="_blank">
+        <kbd class="alert-warning">
+        <span class="glyphicon glyphicon-link"></span> <?php echo $this->escapeHtml($v->getUrl()); ?></a>
+        </kbd>
+    </td>
+    <td>
+        <?php echo $this->escapeHtml($c['name']); ?>
+        <br>
+        <a href="/admin/view-collection/<?php echo $this->escapeHtmlAttr($c['collection_id']); ?>">
+        <kbd class="alert-success">
+        <span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($c['tagname']); ?></a>
+        </kbd>
+    </td>
+    <td><p><?php echo $this->showDateTime($v->getModified(), $localTimeZone); ?></p></td>
     <td><?php echo ($visible === true) ? '<kbd class="alert-success">VISIBLE</kbd>' : '<kbd class="alert-danger">INVISIBLE</kbd>'; ?></td>
-    <td class="text-right"><?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?><?php echo ($v->getSold() === true) ? ' <br><kbd class="alert-danger">SOLD</kbd> ' : ''; ?></td>
+    <td class="text-right">
+    <?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?><?php echo ($v->getSold() === true) ? ' <br><kbd class="alert-danger">SOLD</kbd> ' : ''; ?></td>
     <td>
         <ul class="nav nav-pills">
             <li role="presentation"><a href="/admin/add-edit-vehicle/<?php echo $this->escapeHtml($vehicleId); ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>

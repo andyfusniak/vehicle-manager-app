@@ -126,4 +126,17 @@ class CollectionMapper
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    /**
+     * @param int $collectionId the collection to delete
+     */
+    public function delete($collectionId)
+    {
+        $statement = $this->pdo->prepare('
+            DELETE FROM collections
+            WHERE collection_id = :collection_id
+        ');
+        $statement->bindValue(':collection_id', $collectionId, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
