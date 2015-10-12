@@ -3,7 +3,7 @@
 <style>
 .sl-vehicle-container {
     display: inline-block;
-    /*max-width: 340px;*/
+    max-width: 340px;
     position: relative;
     margin: 0;
     margin-bottom: 25px;
@@ -79,7 +79,7 @@
         <?php $imageId = $vi['image_id']; ?>
         <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="sl-vehicle-container">
-                <a href="/<?php echo $this->escapeHtmlAttr($v->getUrl()); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtml($imageId); ?>_340.jpg" alt="<?php echo $this->escapeHtmlAttr($v->getPageTitle()); ?>"></a>
+                <a href="/<?php echo $this->escapeHtmlAttr($v->getUrl()); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtml($imageId); ?>_360.jpg" alt="<?php echo $this->escapeHtmlAttr($v->getPageTitle()); ?>"></a>
                 <span class="sl-price"><?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?></span>
 
                 <?php if ($v->getSold() === true) : ?>
