@@ -30,6 +30,9 @@ class PageNav extends AbstractHelper
         $html .= '<div id="nav-dashboard" class="navbar-header">';
 
         foreach ($pageUrlNames as $key => $data) {
+            if ($data['url'] === 'homepage') {
+                $data['url'] = '';
+            }
             $html .= '<a class="navbar-brand" href="/' . $data['url'] . '">' . $data['name'] .'</a>';
         }
         //

@@ -80,7 +80,8 @@ return array(
         'PageController'           => 'Serenity\Factory\PageControllerFactory',
         'SettingsController'       => 'Serenity\Factory\SettingsControllerFactory',
         // Controllers (frontend)
-        'FrontEndController'       => 'Serenity\Factory\FrontEndControllerFactory'
+        'FrontEndController'       => 'Serenity\Factory\FrontEndControllerFactory',
+        'FrontEndHomeController'   => 'Serenity\Factory\FrontEndHomeControllerFactory'
     ],
     'routes' => [
         'admin_dashboard' => [

@@ -94,6 +94,20 @@ class VehicleService
         return $vehiclesMap;
     }
 
+    public function fetchAllVisibleByCategoryAssocArray($type, $orderBy = VehicleMapper::COLUMN_PRICE, $orderDirection = 'DESC')
+    {
+        $vehiclesAssoc = $this->mapper->fetchAllVisibleByCategoryAssocArray($type, $orderBy, $orderDirection);
+        $vehiclesMap = [];
+        foreach ($vehiclesAssoc as $data) {
+
+            $vehiclesMap[] = [
+                'vehicleObj' => $this->dbHydrator->hydrate($data, new Vehicle()),
+                'image_id' => (int) $data['image_id']
+            ];
+        }
+        return $vehiclesMap;
+    }
+
     public function fetchVehicleCategoriesArray()
     {
         return [

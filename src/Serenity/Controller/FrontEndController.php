@@ -25,29 +25,39 @@ class FrontEndController extends AbstractController
         $this->vehicleService = $vehicleService;
     }
 
+    private function category($type)
+    {
+        $viewModel = new ViewModel([
+            'vehiclesMap' => $this->vehicleService->fetchAllVisibleByCategoryAssocArray($type)
+        ]);
+        $viewModel->setTemplate('view/front-end/category.phtml');
+        return $viewModel;
+    }
+
     public function displayAction()
     {
         $url = $this->getRouteParam('url');
 
         // vehicle category e.g. 'awningrange', 'motorhomes'
-        $viewModel = new ViewModel();
         if (in_array($url, $this->vehicleService->fetchVehicleCategoriesArray())) {
-            $viewModel->setTemplate('view/front-end/category.phtml');
-            return $viewModel;
+            return $this->category($url);
         }
 
         // page url e.g. 'contact-us', 'how-to-find-us'
         if ($this->pageService->isUrlTaken($url)) {
+            $viewModel = new ViewModel();
             $viewModel->setTemplate('view/front-end/page.phtml');
             return $viewModel;
         }
 
         // vehicle url e.g. 'schooner-motorhome-2015-model'
         if ($this->vehicleService->isUrlTaken($url)) {
+            $viewModel = new ViewModel();
             $viewModel->setTemplate('view/front-end/vehicle.phtml');
             return $viewModel;
         }
 
+        $viewModel = new ViewModel();
         $viewModel->setTemplate('view/front-end/display.phtml');
         return $viewModel;
     }
