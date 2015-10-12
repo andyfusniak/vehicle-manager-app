@@ -7,24 +7,32 @@
     <th>Name</th>
     <th>Tag</th>
     <th># Images</th>
+    <td>Last modified</td>
     <th>&nbsp;</th>
 </tr>
 <?php foreach ($collections as $c) : ?>
 <?php $collectionId = $c->getCollectionId(); ?>
 <?php $numPhotos = $photoCountMap[$collectionId]; ?>
+<?php $isDisabled = ($numPhotos > 0) ? true : false; ?>
+<?php $disabledClass = ($numPhotos > 0) ? ' disabled' : ''; ?>
 <tr>
     <!--<td><?php echo $this->escapeHtml($collectionId); ?></td>-->
     <td><?php echo $this->escapeHtml($c->getName()); ?></td>
     <td><kbd class="alert-success"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($c->getTagname()); ?></kbd></td>
     <td><span class="badge"><?php echo $this->escapeHtml($numPhotos); ?></span></td>
+    <td><?php echo $this->showDateTime($c->getModified(), $localTimeZone); ?></td>
     <!--<td><a class="disabled" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>-->
     <td>
         <ul class="nav nav-pills">
             <li role="presentation"><a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
-            <li role="presentation" class="dropdown<?php echo ($numPhotos > 0) ? ' disabled' : ''; ?>">
+            <li role="presentation" class="dropdown<?php echo $disabledClass; ?>">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-trash"></span> <span class="caret"></span> Del</a>
                 <ul class="dropdown-menu">
-                    <li role="presentation"><a href="#">Confirm</a></li>
+                <?php if ($isDisabled) : ?>
+                    <li role="presentation"><a href="/admin/list-collections">! contains images</a></li>
+                <?php else : ?>
+                    <li role="presentation"><a href="/admin/delete-collection/<?php echo $this->escapeHtml($c->getCollectionId()); ?>">Confirm</a></li>
+                <?php endif ?>
                 </ul>
             </li>
             <li role="presentation"><a href="/admin/image-uploader/<?php echo $this->escapeHtml($collectionId); ?>"><span class="glyphicon glyphicon-upload"></span> Upload</a></li>

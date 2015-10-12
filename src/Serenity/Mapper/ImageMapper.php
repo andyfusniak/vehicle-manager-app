@@ -45,23 +45,63 @@ class ImageMapper
      */
     public function insert(Image $image)
     {
+        $this->pdo->beginTransaction();
         $data = $this->hydrator->extract($image);
-        $statement = $this->pdo->prepare(
-            'INSERT INTO images (image_id, collection_id, original_name, size, mime_type, extension, checksum, width, height, aspect, is_portrait, created, modified) VALUES (null, :collection_id, :original_name, :size, :mime_type, :extension, :checksum, :width, :height, :aspect, :is_portrait, NOW(), NOW())'
-        );
+
+        $statement1 = $this->pdo->prepare('
+            SELECT MAX(priority) + 1 AS next
+            FROM images
+            WHERE collection_id = :collection_id
+        ');
+        $statement1->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
+        $statement1->execute();
+        $row = $statement1->fetch(\PDO::FETCH_ASSOC);
+        if (is_array($row)) {
+            $next = (int) $row['next'];
+            if ($next === null) {
+                $next = 1;
+            }
+        } else {
+            $next = 1;
+        }
+
+        $statement2 = $this->pdo->prepare('
+            INSERT INTO images (
+                image_id, collection_id, priority, original_name, size,
+                mime_type, extension, checksum, width, height,
+                aspect, is_portrait, created, modified
+            ) VALUES (
+                null, :collection_id, :priority, :original_name, :size,
+                :mime_type, :extension, :checksum, :width, :height,
+                :aspect, :is_portrait, NOW(), NOW()
+            )
+        ');
         unset($data['image_id']);
-        $statement->bindValue(':original_name', $data['original_name'], \PDO::PARAM_STR);
-        $statement->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
-        $statement->bindValue(':size', $data['size'], \PDO::PARAM_INT);
-        $statement->bindValue(':mime_type', $data['mime_type'], \PDO::PARAM_STR);
-        $statement->bindValue(':extension', $data['extension'], \PDO::PARAM_STR);
-        $statement->bindValue(':checksum', $data['checksum'], \PDO::PARAM_STR);
-        $statement->bindValue(':width', $data['width'], \PDO::PARAM_INT);
-        $statement->bindValue(':height', $data['height'], \PDO::PARAM_INT);
-        $statement->bindValue(':aspect', $data['aspect'], \PDO::PARAM_STR);
-        $statement->bindValue(':is_portrait', $data['is_portrait'], \PDO::PARAM_BOOL);
-        $statement->execute();
-        return $this->pdo->lastInsertId();
+        $statement2->bindValue(':original_name', $data['original_name'], \PDO::PARAM_STR);
+        $statement2->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
+        $statement2->bindValue(':priority', $next, \PDO::PARAM_INT);
+        $statement2->bindValue(':size', $data['size'], \PDO::PARAM_INT);
+        $statement2->bindValue(':mime_type', $data['mime_type'], \PDO::PARAM_STR);
+        $statement2->bindValue(':extension', $data['extension'], \PDO::PARAM_STR);
+        $statement2->bindValue(':checksum', $data['checksum'], \PDO::PARAM_STR);
+        $statement2->bindValue(':width', $data['width'], \PDO::PARAM_INT);
+        $statement2->bindValue(':height', $data['height'], \PDO::PARAM_INT);
+        $statement2->bindValue(':aspect', $data['aspect'], \PDO::PARAM_STR);
+        $statement2->bindValue(':is_portrait', $data['is_portrait'], \PDO::PARAM_BOOL);
+        $statement2->execute();
+        $lastInsertId = $this->pdo->lastInsertId();
+
+        $statement3 = $this->pdo->prepare('
+            UPDATE collections
+            SET modified = NOW()
+            WHERE collection_id = :collection_id
+        ');
+        $statement3->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
+        $statement3->execute();
+
+        $this->pdo->commit();
+
+        return $lastInsertId;
     }
 
     public function fetchByCollectionId($collectionId, $orderBy = [], $orderDirection = 'ASC')

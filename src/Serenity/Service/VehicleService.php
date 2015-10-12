@@ -85,8 +85,9 @@ class VehicleService
             $vehiclesMap[$type][] = [
                 'vehicleObj' => $this->dbHydrator->hydrate($data, new Vehicle()),
                 'collection' => [
-                    'tagname' => $data['tagname'],
-                    'name'    => $data['collection_name']
+                    'collection_id' => $data['collection_id'],
+                    'tagname'       => $data['tagname'],
+                    'name'          => $data['collection_name']
                 ]
             ];
         }

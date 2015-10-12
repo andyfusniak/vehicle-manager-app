@@ -136,4 +136,14 @@ class CollectionService
             $this->imageService->fetchAllByCollectionId($collectionId, ['priority', 'collection_id'])
         );
     }
+
+    /**
+     * Permanently remove a collection
+     *
+     * @param int $collectionId the collection to delete
+     */
+    public function deleteCollection($collectionId)
+    {
+        $this->mapper->delete((int) $collectionId);
+    }
 }
