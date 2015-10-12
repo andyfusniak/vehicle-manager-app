@@ -14,6 +14,11 @@ class Image
     protected $collectionId;
 
     /**
+     * @var int display priority
+     */
+    protected $priority;
+
+    /**
      * @var string original name of the file
      */
     protected $originalName;
@@ -109,6 +114,17 @@ class Image
     public function getCollectionId()
     {
         return $this->collectionId;
+    }
+
+    public function setPriority($priority)
+    {
+        $this->priority = (int) $priority;
+        return $this;
+    }
+
+    public function getPriority()
+    {
+        return $this->priority;
     }
 
     /**

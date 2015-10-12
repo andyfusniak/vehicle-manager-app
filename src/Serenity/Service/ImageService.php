@@ -39,7 +39,6 @@ class ImageService
         if (isset($config['serenityleisure']['web_image_sizes']) &&
             is_array($config['serenityleisure']['web_image_sizes'])) {
             $this->defaultSizes = $config['serenityleisure']['web_image_sizes'];
-            var_dump($this->defaultSizes);
         }
     }
 
@@ -75,9 +74,11 @@ class ImageService
                 // a primary key value back from the mapper to name the file
                 // symfony guessExtension returns 'jpeg' not 'jpg' so we inject it into Image class
                 // to convert it
+                // priority = null since we don't know what's already in the db
                 $image = new Image();
                 $image->setOriginalName($originalName)
                       ->setCollectionId((int) $collectionId)
+                      ->setPriority(null)
                       ->setSize($file->getClientSize())
                       ->setMimeType($file->getMimeType())
                       ->setExtension($file->guessExtension())
