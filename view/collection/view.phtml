@@ -1,7 +1,10 @@
 <?php
 //var_dump($collection);
 ?>
-<h2><?php echo $this->escapeHtml($collection->getName()); ?> <kbd class="alert-success"><small><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($collection->getTagname()); ?></kbd></small></h2>
+<h2><?php echo $this->escapeHtml($collection->getName()); ?> <kbd class="alert-success"><small><span class="glyphicon glyphicon-tag"></span> <?php echo $this->escapeHtml($collection->getTagname()); ?></kbd>
+
+
+<span class="badge alert-success"><?php echo $this->escapeHtml(count($images)); ?> images</span></small> </h2>
 <div class="well well-small">
     <p>Created <?php echo $this->showDateTime($collection->getCreated(), $localTimeZone); ?></p>
     <p>Last Modified <?php echo $this->showDateTime($collection->getModified(), $localTimeZone); ?></p>
