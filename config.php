@@ -15,8 +15,9 @@ return array(
         ]
     ],
     'serenityleisure' => [
-        'upload_dir' => __DIR__ . '/uploads',
-        'web_dir'    => __DIR__ . '/public/images/vehicles'
+        'upload_dir'       => __DIR__ . '/uploads',
+        'web_dir'          => __DIR__ . '/public/images/vehicles',
+        'web_image_sizes'  => [150, 360, 720]
     ],
     'invokables' => [
         'image'       => 'Serenity\View\Helper\Image',

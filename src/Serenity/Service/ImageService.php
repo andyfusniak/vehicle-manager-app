@@ -23,7 +23,10 @@ class ImageService
      */
     protected $dbHydrator;
 
-    protected static $defaultSizes = [50, 100, 150, 200, 250, 300, 340, 350, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000];
+    /**
+     * @var array
+     */
+    protected $defaultSizes;
 
     /**
      * @param array $config application configuration
@@ -33,6 +36,11 @@ class ImageService
         $this->config = $config;
         $this->mapper = $mapper;
         $this->dbHydrator = $dbHydrator;
+        if (isset($config['serenityleisure']['web_image_sizes']) &&
+            is_array($config['serenityleisure']['web_image_sizes'])) {
+            $this->defaultSizes = $config['serenityleisure']['web_image_sizes'];
+            var_dump($this->defaultSizes);
+        }
     }
 
     public function aspectRatioFromWidthAndHeight($width, $height)
@@ -86,7 +94,7 @@ class ImageService
                 );
 
                 // generate the web images
-                $this->generateImages($image, self::$defaultSizes);
+                $this->generateImages($image, $this->defaultSizes);
 
                 if ($valid) {
                     $valid = false;
