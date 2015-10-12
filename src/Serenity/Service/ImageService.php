@@ -23,7 +23,10 @@ class ImageService
      */
     protected $dbHydrator;
 
-    protected static $defaultSizes = [50, 100, 150, 200, 250, 300, 340, 350, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000];
+    /**
+     * @var array
+     */
+    protected $defaultSizes;
 
     /**
      * @param array $config application configuration
@@ -33,6 +36,10 @@ class ImageService
         $this->config = $config;
         $this->mapper = $mapper;
         $this->dbHydrator = $dbHydrator;
+        if (isset($config['serenityleisure']['web_image_sizes']) &&
+            is_array($config['serenityleisure']['web_image_sizes'])) {
+            $this->defaultSizes = $config['serenityleisure']['web_image_sizes'];
+        }
     }
 
     public function aspectRatioFromWidthAndHeight($width, $height)
@@ -67,9 +74,11 @@ class ImageService
                 // a primary key value back from the mapper to name the file
                 // symfony guessExtension returns 'jpeg' not 'jpg' so we inject it into Image class
                 // to convert it
+                // priority = null since we don't know what's already in the db
                 $image = new Image();
                 $image->setOriginalName($originalName)
                       ->setCollectionId((int) $collectionId)
+                      ->setPriority(null)
                       ->setSize($file->getClientSize())
                       ->setMimeType($file->getMimeType())
                       ->setExtension($file->guessExtension())
@@ -86,7 +95,7 @@ class ImageService
                 );
 
                 // generate the web images
-                $this->generateImages($image, self::$defaultSizes);
+                $this->generateImages($image, $this->defaultSizes);
 
                 if ($valid) {
                     $valid = false;

@@ -102,7 +102,7 @@ class VehicleMapper
 
     /**
      * @param int $vehicleId the primary key
-     * @return array associative array of details
+     * @return Vehicle object
      */
     public function fetchByVehicleId($vehicleId)
     {
@@ -110,6 +110,22 @@ class VehicleMapper
             'SELECT * FROM vehicles WHERE vehicle_id = :vehicle_id'
         );
         $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $this->dbHydrator->hydrate($statement->fetch(\PDO::FETCH_ASSOC), new Vehicle());
+    }
+
+    /**
+     * @param string $url the url slug of the vehicle
+     * @return Vehicle object
+     */
+    public function fetchByUrl($url)
+    {
+        $statement = $this->pdo->prepare('
+            SELECT * FROM vehicles
+            WHERE url = :url
+        ');
+        $statement->bindValue(':url', $url, \PDO::PARAM_STR);
         $statement->execute();
 
         return $this->dbHydrator->hydrate($statement->fetch(\PDO::FETCH_ASSOC), new Vehicle());

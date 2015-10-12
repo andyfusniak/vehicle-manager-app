@@ -1,6 +1,8 @@
 <?php
 namespace Serenity\Entity;
 
+use Serenity\Entity\Collection;
+
 class Vehicle
 {
     /**
@@ -78,6 +80,11 @@ class Vehicle
      * @var array $features array of features for this vehicle
      */
     protected $features = [];
+
+    /**
+     * @var Collection|null $collection container object loaded with Image objects
+     */
+    protected $collection;
 
     /**
      * @var \DateTime created datetime object
@@ -238,6 +245,17 @@ class Vehicle
     public function getPageHtml()
     {
         return $this->pageHtml;
+    }
+
+    public function setCollection(Collection $collection)
+    {
+        $this->collection = $collection;
+        return $this;
+    }
+
+    public function getCollection()
+    {
+        return $this->collection;
     }
 
     /**

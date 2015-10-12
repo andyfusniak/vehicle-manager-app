@@ -17,7 +17,8 @@ class VehicleServiceFactory implements FactoryInterface
         return new VehicleService(
             $serviceLocator->get('Serenity\Mapper\VehicleMapper'),
             $serviceLocator->get('Serenity\Hydrator\VehicleFormHydrator'),
-            $serviceLocator->get('Serenity\Hydrator\VehicleDbHydrator')
+            $serviceLocator->get('Serenity\Hydrator\VehicleDbHydrator'),
+            $serviceLocator->get('Serenity\Service\CollectionService')
         );
     }
 }

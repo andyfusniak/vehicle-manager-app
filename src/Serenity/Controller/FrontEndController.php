@@ -34,6 +34,22 @@ class FrontEndController extends AbstractController
         return $viewModel;
     }
 
+    private function vehicle($url)
+    {
+        $vehicle = $this->vehicleService->fetchFullByUrl($url);
+        $collection = $vehicle->getCollection();
+        $images = $collection->getImages();
+
+        $viewModel = new ViewModel([
+            'vehicle'    => $vehicle,
+            'collection' => $collection,
+            'images'     => $images,
+            'hasImages'  => (count($images) > 0) ? true : false
+        ]);
+        $viewModel->setTemplate('view/front-end/vehicle.phtml');
+        return $viewModel;
+    }
+
     public function displayAction()
     {
         $url = $this->getRouteParam('url');
@@ -52,9 +68,7 @@ class FrontEndController extends AbstractController
 
         // vehicle url e.g. 'schooner-motorhome-2015-model'
         if ($this->vehicleService->isUrlTaken($url)) {
-            $viewModel = new ViewModel();
-            $viewModel->setTemplate('view/front-end/vehicle.phtml');
-            return $viewModel;
+            return $this->vehicle($url);
         }
 
         $viewModel = new ViewModel();
