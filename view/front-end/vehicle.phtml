@@ -1,4 +1,6 @@
-<h1>Vehicle Full View</h1>
+<?php $this->headMeta()->setMetaKeywords($vehicle->getMetaKeywords())
+                       ->setMetaDescription($vehicle->getMetaDesc())
+                       ->setTitle($vehicle->getPageTitle()); ?>
 <?php echo $this->vehicleCategoryNav(); ?>
 <?php //var_dump($images); ?>
 <style>
@@ -79,7 +81,7 @@ div.sl-vehicle-features ul {
 <?php endif ?>
 
 <div class="col-md-5 sl-vehicle-features">
-    <h3 class="sl-summary-heading">Unicorn Cartagena, Twin Axle, Fixed Island Transverse Bed, Alde Heating</h3>
+    <!--<h5 class="sl-summary-heading"><?php //echo $this->escapeHtml($vehicle->getMetaDesc()); ?></h5>-->
     <ul>
         <li><span class="glyphicon glyphicon-ok success"></span> 4 Berth</li>
         <li><span class="glyphicon glyphicon-ok success"></span> Fixed Island Bed</li>
@@ -87,21 +89,13 @@ div.sl-vehicle-features ul {
         <li><span class="glyphicon glyphicon-ok success"></span> Separate Shower</li>
         <li><span class="glyphicon glyphicon-ok success"></span> Solar Panel</li>
     </ul>
-
-    <p>Two owners from new, 17,000 miles with full service history. An abundance of space is very apparent to the interior, to include a very large bathroom, plus a fixed island bed allowing movement around both sides.</p>
-    <!--<p>L shaped lounge finished in sumptious soft connoly hide with a further bench seat opposite, making comfortable seating for 5 or 6 persons. With the Captains chairs swivelled around, there is even more space, and concertina blinds all round ensure complete privacy at night, to include a full electric blind to the windscreen</p>-->
+    <p><?php echo $this->escapeHtml($vehicle->getMetaDesc()); ?></p>
 </div>
 
 <div class="clearfix visible-md-block visible-lg-block"></div>
+
 <div class="sl-vehicle-main">
-<p>L shaped lounge finished in sumptious soft connoly hide with a further bench seat opposite, making comfortable seating for 5 or 6 persons. With the Captains chairs swivelled around, there is even more space, and concertina blinds all round ensure complete privacy at night, to include a full electric blind to the windscreen.</p>
-
-<p>Auto hydraulic jacks were an expensive option on this model, however they are present, allowing you to just pull up, press a button, and the Concorde levels itself out  automatically with ease.
-Alde heating, Truma habitation air conditioning, coffee machine, inverter, electric awning, electric 2 fold step, keyless entry, oyster twin skuse satellite with twin flatscreen televisions, 8 speaker music system, satellite navigation, reversing camera.</p>
-
-<p>The large rear bedroom is sumptious luxury for a motorhome. A large fixed island bed with memory foam mattress, Remis skylight, Remis blinds, filtered air conditioning, radiators plus a 20 inch Avtex television. The room can be left as an ensuite to the bathroom, or can be segregated allowing access to the bathroom for guests at night without disturbing.</p>
-
-<p>A seperate integrater power shower and a bathroom with a ceramic aircraft style toilet inc macerator, large integrated sink plus an abundance of storage.</p>
+    <?php echo $vehicle->getPageHtml(); ?>
 </div>
 
 </div>

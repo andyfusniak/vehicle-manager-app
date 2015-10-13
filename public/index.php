@@ -3,6 +3,8 @@ chdir(dirname(__DIR__));
 
 // Setup autoloading
 require_once './vendor/autoload.php';
+require_once './vendor/erusev/parsedown/Parsedown.php';
+
 $config = require 'config.php';
 
 use Nitrogen\Mvc\Application;

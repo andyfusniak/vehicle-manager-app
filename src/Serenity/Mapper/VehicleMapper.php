@@ -59,13 +59,21 @@ class VehicleMapper
     protected $dbHydrator;
 
     /**
+     * @var Parsedown
+     */
+    protected $parsedown;
+
+    /**
      * @param \PDO $pdo the database adapter
      * @param VehicleDbHydrator $dbHydrator the hydrator object
      */
-    public function __construct(\PDO $pdo, VehicleDbHydrator $dbHydrator)
+    public function __construct(\PDO $pdo,
+                                VehicleDbHydrator $dbHydrator,
+                                \Parsedown $parsedown)
     {
         $this->pdo = $pdo;
         $this->dbHydrator = $dbHydrator;
+        $this->parsedown = $parsedown;
     }
 
     /**
@@ -79,14 +87,16 @@ class VehicleMapper
         $data = $this->dbHydrator->extract($vehicle);
         $statement = $this->pdo->prepare('
             INSERT INTO vehicles (vehicle_id, type, visible, sold, url, price, meta_keywords, meta_desc, page_title, collection_id, markdown, page_html, features, created, modified)
-            VALUES (null, :type, 1, 0, :url, :price, :meta_keywords, :meta_desc, :page_title, :collection_id, :markdown, :page_html, :features, NOW(), NOW())
+            VALUES (null, :type, :visible, :sold, :url, :price, :meta_keywords, :meta_desc, :page_title, :collection_id, :markdown, :page_html, :features, NOW(), NOW())
         ');
         unset($data['vehicle_id']);
-        unset($data['visible']);
-        unset($data['sold']);
+        unset($data['page_html']);
         unset($data['created']);
         unset($data['modified']);
+
         $statement->bindValue(':type', $data['type'], \PDO::PARAM_STR);
+        $statement->bindValue(':visible', $data['visible'], \PDO::PARAM_INT);
+        $statement->bindValue(':sold', $data['sold'], \PDO::PARAM_INT);
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
         $statement->bindValue(':price', $data['price'], \PDO::PARAM_INT);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
@@ -94,7 +104,7 @@ class VehicleMapper
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
         $statement->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
-        $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
+        $statement->bindValue(':page_html', $this->parsedown->text($data['markdown']), \PDO::PARAM_STR);
         $statement->bindValue(':features', $data['features'], \PDO::PARAM_STR);
         $statement->execute();
         return $this->pdo->lastInsertId();
@@ -234,6 +244,7 @@ class VehicleMapper
      */
     public function update($data)
     {
+        unset($data['page_html']);
         $statement = $this->pdo->prepare('
             UPDATE vehicles
             SET type = :type,
@@ -261,7 +272,7 @@ class VehicleMapper
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
         $statement->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
-        $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
+        $statement->bindValue(':page_html', $this->parsedown->text($data['markdown']), \PDO::PARAM_STR);
         $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
         $statement->bindValue(':features', $data['features'], \PDO::PARAM_STR);
         $statement->execute();
