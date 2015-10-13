@@ -17,7 +17,8 @@ class PageMapperFactory implements FactoryInterface
     {
         return new PageMapper(
             $serviceLocator->get('Pdo'),
-            $serviceLocator->get('Serenity\Hydrator\PageDbHydrator')
+            $serviceLocator->get('Serenity\Hydrator\PageDbHydrator'),
+            $serviceLocator->get('Parsedown')
         );
     }
 }

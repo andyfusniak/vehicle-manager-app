@@ -59,7 +59,7 @@ class VehicleMapper
     protected $dbHydrator;
 
     /**
-     * @var Parsedown
+     * @var \Parsedown
      */
     protected $parsedown;
 
