@@ -106,3 +106,8 @@ div.sl-vehicle-features ul {
     left: -4px;
     top: -3px
 }
+
+/* markdown */
+.table {
+    width: initial;
+}
