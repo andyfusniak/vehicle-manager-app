@@ -41,13 +41,17 @@ class VehicleCategoryNav extends AbstractHelper
         }
     }
 
-    public function __invoke()
+    public function __invoke($activeTab = null)
     {
         $vehicleTypes = $this->vehicleService->fetchVehicleCategoriesArray();
-        $html = '<ul class="nav nav-tabs">';
+        $html = '<ul id="sl-category-tabs" class="nav nav-tabs">';
 
         foreach ($vehicleTypes as $name) {
-            $html .= '<li id="nav-' .$name . '" role="presentation"><a href="/' . $name . '">' . $this->vehicleType($name) . '</a></li>';
+            $html .= '<li id="nav-' .$name . '" role="presentation"';
+            if ($name === $activeTab) {
+                $html .= ' class="active"';
+            }
+            $html .= '><a href="/' . $name . '">' . $this->vehicleType($name) . '</a></li>';
         }
 
         $html .= '</ul>';

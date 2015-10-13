@@ -28,7 +28,8 @@ class FrontEndController extends AbstractController
     private function category($type)
     {
         $viewModel = new ViewModel([
-            'vehiclesMap' => $this->vehicleService->fetchAllVisibleByCategoryAssocArray($type)
+            'vehiclesMap' => $this->vehicleService->fetchAllVisibleByCategoryAssocArray($type),
+            'type'        => $type
         ]);
         $viewModel->setTemplate('view/front-end/category.phtml');
         return $viewModel;
@@ -50,6 +51,15 @@ class FrontEndController extends AbstractController
         return $viewModel;
     }
 
+    private function page($url)
+    {
+        $viewModel = new ViewModel([
+            'page' => $this->pageService->fetchPageByUrl($url)
+        ]);
+        $viewModel->setTemplate('view/front-end/page.phtml');
+        return $viewModel;
+    }
+
     public function displayAction()
     {
         $url = $this->getRouteParam('url');
@@ -61,9 +71,7 @@ class FrontEndController extends AbstractController
 
         // page url e.g. 'contact-us', 'how-to-find-us'
         if ($this->pageService->isUrlTaken($url)) {
-            $viewModel = new ViewModel();
-            $viewModel->setTemplate('view/front-end/page.phtml');
-            return $viewModel;
+            return $this->page($url);
         }
 
         // vehicle url e.g. 'schooner-motorhome-2015-model'

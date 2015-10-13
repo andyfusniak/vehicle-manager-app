@@ -3,6 +3,7 @@ namespace Serenity\Mapper;
 
 use Serenity\Entity\Page;
 use Serenity\Hydrator\PageDbHydrator;
+use Serenity\Service\SerenityParsedown;
 
 class PageMapper
 {
@@ -34,13 +35,21 @@ class PageMapper
     protected $dbHydrator;
 
     /**
+     * @var SerenityParsedown
+     */
+    protected $parsedown;
+
+    /**
      * @param \PDO $pdo the database adapter
      * @param PageDbHydrator $dbHydrator the database hydrator
      */
-    public function __construct(\PDO $pdo, PageDbHydrator $dbHydrator)
+    public function __construct(\PDO $pdo,
+                                PageDbHydrator $dbHydrator,
+                                SerenityParsedown $parsedown)
     {
         $this->pdo = $pdo;
         $this->dbHydrator = $dbHydrator;
+        $this->parsedown = $parsedown;
     }
 
     /**
@@ -55,17 +64,24 @@ class PageMapper
         unset($data['page_id']);
         unset($data['created']);
         unset($data['modified']);
+        unset($data['page_html']);
 
-        $statement = $this->pdo->prepare(
-            'INSERT INTO pages (page_id, url, name, meta_keywords, meta_desc, page_title, markdown, page_html, created, modified) VALUES (null, :url, :name, :meta_keywords, :meta_desc, :page_title, :markdown, :page_html, NOW(), NOW())'
-        );
+        $statement = $this->pdo->prepare('
+            INSERT INTO pages (
+                page_id, url, name, meta_keywords, meta_desc,
+                page_title, markdown, page_html, created, modified
+            ) VALUES (
+                null, :url, :name, :meta_keywords, :meta_desc, :page_title,
+                :markdown, :page_html, NOW(), NOW()
+            )
+        ');
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
         $statement->bindValue(':name', $data['name'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
-        $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
+        $statement->bindValue(':page_html', $this->parsedown->text($data['markdown']), \PDO::PARAM_STR);
         $statement->execute();
         return $this->pdo->lastInsertId();
     }
@@ -82,6 +98,24 @@ class PageMapper
         $statement->bindValue(':page_id', (int) $pageId, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param string $url the url slug for the page
+     * @return Page
+     */
+    public function fetchPageByUrl($url)
+    {
+        $statement = $this->pdo->prepare('
+            SELECT *
+            FROM pages
+            WHERE url = :url
+        ');
+        $statement->bindValue(':url', (string) $url, \PDO::PARAM_STR);
+        $statement->execute();
+        return $this->dbHydrator->hydrate(
+            $statement->fetch(\PDO::FETCH_ASSOC), new Page()
+        );
     }
 
     /**
@@ -151,6 +185,7 @@ class PageMapper
      */
     public function update($data)
     {
+        unset($data['page_html']);
         $statement = $this->pdo->prepare('
             UPDATE pages
             SET url = :url,
@@ -169,7 +204,7 @@ class PageMapper
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
         $statement->bindValue(':page_title', $data['page_title'], \PDO::PARAM_STR);
         $statement->bindValue(':markdown', $data['markdown'], \PDO::PARAM_STR);
-        $statement->bindValue(':page_html', $data['page_html'], \PDO::PARAM_STR);
+        $statement->bindValue(':page_html', $this->parsedown->text($data['markdown']), \PDO::PARAM_STR);
         $statement->bindValue(':page_id', $data['page_id'], \PDO::PARAM_INT);
         $statement->execute();
     }

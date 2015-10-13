@@ -29,13 +29,17 @@ class PageNav extends AbstractHelper
         $html .= '<div class="container-fluid">';
         $html .= '<div id="nav-dashboard" class="navbar-header">';
 
+        $html .= '<ul class="nav navbar-nav">';
         foreach ($pageUrlNames as $key => $data) {
             if ($data['url'] === 'homepage') {
                 $data['url'] = '';
             }
+            $html .= '<li id="nav-' . $data['url'] . '">';
             $html .= '<a class="navbar-brand" href="/' . $data['url'] . '">' . $data['name'] .'</a>';
+            $html .= '</li>';
         }
-        //
+        $html .= '</ul>';
+
         $html .= '</div>';
         $html .= '</div>';
         $html .= '</nav>';
