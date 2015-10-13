@@ -64,6 +64,7 @@ class PageController extends AbstractController
 
             if ($this->form->isValid()) {
                 $this->service->updatePage($this->form->getData());
+                die('a');
                 return $this->redirectToRoute('admin_page_view');
             }
 

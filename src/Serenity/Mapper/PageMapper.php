@@ -3,6 +3,7 @@ namespace Serenity\Mapper;
 
 use Serenity\Entity\Page;
 use Serenity\Hydrator\PageDbHydrator;
+use Serenity\Service\SerenityParsedown;
 
 class PageMapper
 {
@@ -34,7 +35,7 @@ class PageMapper
     protected $dbHydrator;
 
     /**
-     * @var \Parsedown
+     * @var SerenityParsedown
      */
     protected $parsedown;
 
@@ -44,7 +45,7 @@ class PageMapper
      */
     public function __construct(\PDO $pdo,
                                 PageDbHydrator $dbHydrator,
-                                \Parsedown $parsedown)
+                                SerenityParsedown $parsedown)
     {
         $this->pdo = $pdo;
         $this->dbHydrator = $dbHydrator;
@@ -97,6 +98,24 @@ class PageMapper
         $statement->bindValue(':page_id', (int) $pageId, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param string $url the url slug for the page
+     * @return Page
+     */
+    public function fetchPageByUrl($url)
+    {
+        $statement = $this->pdo->prepare('
+            SELECT *
+            FROM pages
+            WHERE url = :url
+        ');
+        $statement->bindValue(':url', (string) $url, \PDO::PARAM_STR);
+        $statement->execute();
+        return $this->dbHydrator->hydrate(
+            $statement->fetch(\PDO::FETCH_ASSOC), new Page()
+        );
     }
 
     /**

@@ -73,13 +73,19 @@ class PageService
      */
     public function fetchPageByPageId($pageId)
     {
-        $page = new Page();
         return $this->dbHydrator->hydrate(
-            $this->mapper->fetchByPageIdAssocArray($pageId), $page
+            $this->mapper->fetchByPageIdAssocArray($pageId), new Page()
         );
     }
 
-
+    /**
+     * @param string $url the url slug for this page
+     * @return Page object
+     */
+    public function fetchPageByUrl($url)
+    {
+        return $this->mapper->fetchPageByUrl($url);
+    }
     public function fetchUrlAndPageNames($orderBy = PageMapper::COLUMN_PRIORITY, $orderDirection = 'ASC')
     {
         return $this->mapper->fetchUrlAndPageNames($orderBy, $orderDirection);

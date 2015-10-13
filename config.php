@@ -70,7 +70,7 @@ return array(
         'Serenity\Service\ImageService'      => 'Serenity\Factory\ImageServiceFactory',
         'Serenity\Service\PageService'       => 'Serenity\Factory\PageServiceFactory',
         'Serenity\Service\VehicleService'    => 'Serenity\Factory\VehicleServiceFactory',
-        'Parsedown'                          => 'Serenity\Factory\ParsedownFactory',
+        'Serenity\Service\SerenityParsedown' => 'Serenity\Factory\SerenityParsedownFactory',
 
         // Controllers (admin)
         'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',

@@ -3,6 +3,7 @@ namespace Serenity\Mapper;
 
 use Serenity\Entity\Vehicle;
 use Serenity\Hydrator\VehicleDbHydrator;
+use Serenity\Service\SerenityParsedown;
 
 class VehicleMapper
 {
@@ -59,7 +60,7 @@ class VehicleMapper
     protected $dbHydrator;
 
     /**
-     * @var \Parsedown
+     * @var SerenityParsedown
      */
     protected $parsedown;
 
@@ -69,7 +70,7 @@ class VehicleMapper
      */
     public function __construct(\PDO $pdo,
                                 VehicleDbHydrator $dbHydrator,
-                                \Parsedown $parsedown)
+                                SerenityParsedown $parsedown)
     {
         $this->pdo = $pdo;
         $this->dbHydrator = $dbHydrator;

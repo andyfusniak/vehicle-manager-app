@@ -1,2 +1,5 @@
-<h1>Page View</h1>
+<?php $this->headMeta()->setMetaKeywords($page->getMetaKeywords())
+                       ->setMetaDescription($page->getMetaDesc())
+                       ->setTitle($page->getPageTitle()); ?>
 <?php echo $this->vehicleCategoryNav(); ?>
+<?php echo $page->getPageHtml(); ?>

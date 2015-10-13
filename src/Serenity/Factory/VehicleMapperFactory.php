@@ -18,7 +18,7 @@ class VehicleMapperFactory implements FactoryInterface
         return new VehicleMapper(
             $serviceLocator->get('Pdo'),
             $serviceLocator->get('Serenity\Hydrator\VehicleDbHydrator'),
-            $serviceLocator->get('Parsedown')
+            $serviceLocator->get('Serenity\Service\SerenityParsedown')
         );
     }
 }
