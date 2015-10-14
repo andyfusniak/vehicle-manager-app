@@ -28,9 +28,35 @@ class FrontEndController extends AbstractController
     private function category($type)
     {
         $viewModel = new ViewModel([
-            'vehiclesMap' => $this->vehicleService->fetchAllVisibleByCategoryAssocArray($type)
+            'vehiclesMap' => $this->vehicleService->fetchAllVisibleByCategoryAssocArray($type),
+            'type'        => $type
         ]);
         $viewModel->setTemplate('view/front-end/category.phtml');
+        return $viewModel;
+    }
+
+    private function vehicle($url)
+    {
+        $vehicle = $this->vehicleService->fetchFullByUrl($url);
+        $collection = $vehicle->getCollection();
+        $images = $collection->getImages();
+
+        $viewModel = new ViewModel([
+            'vehicle'    => $vehicle,
+            'collection' => $collection,
+            'images'     => $images,
+            'hasImages'  => (count($images) > 0) ? true : false
+        ]);
+        $viewModel->setTemplate('view/front-end/vehicle.phtml');
+        return $viewModel;
+    }
+
+    private function page($url)
+    {
+        $viewModel = new ViewModel([
+            'page' => $this->pageService->fetchPageByUrl($url)
+        ]);
+        $viewModel->setTemplate('view/front-end/page.phtml');
         return $viewModel;
     }
 
@@ -45,16 +71,12 @@ class FrontEndController extends AbstractController
 
         // page url e.g. 'contact-us', 'how-to-find-us'
         if ($this->pageService->isUrlTaken($url)) {
-            $viewModel = new ViewModel();
-            $viewModel->setTemplate('view/front-end/page.phtml');
-            return $viewModel;
+            return $this->page($url);
         }
 
         // vehicle url e.g. 'schooner-motorhome-2015-model'
         if ($this->vehicleService->isUrlTaken($url)) {
-            $viewModel = new ViewModel();
-            $viewModel->setTemplate('view/front-end/vehicle.phtml');
-            return $viewModel;
+            return $this->vehicle($url);
         }
 
         $viewModel = new ViewModel();

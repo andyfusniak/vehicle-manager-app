@@ -48,21 +48,29 @@ class ImageMapper
         $this->pdo->beginTransaction();
         $data = $this->hydrator->extract($image);
 
-        $statement1 = $this->pdo->prepare('
-            SELECT MAX(priority) + 1 AS next
-            FROM images
-            WHERE collection_id = :collection_id
-        ');
-        $statement1->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
-        $statement1->execute();
-        $row = $statement1->fetch(\PDO::FETCH_ASSOC);
-        if (is_array($row)) {
-            $next = (int) $row['next'];
-            if ($next === null) {
+        // if the priority is null use the next available one
+        // by inspecting the database
+        if ($image->getPriority() === null) {
+            $statement1 = $this->pdo->prepare('
+                SELECT MAX(priority) + 1 AS next
+                FROM images
+                WHERE collection_id = :collection_id
+            ');
+            $statement1->bindValue(':collection_id', $data['collection_id'], \PDO::PARAM_INT);
+            $statement1->execute();
+            $row = $statement1->fetch(\PDO::FETCH_ASSOC);
+            if (is_array($row)) {
+                var_dump($row);
+                if ($row['next'] === null) {
+                    $next = 1;
+                } else {
+                    $next = (int) $row['next'];
+                }
+            } else {
                 $next = 1;
             }
         } else {
-            $next = 1;
+            $next = $image->getPriority();
         }
 
         $statement2 = $this->pdo->prepare('

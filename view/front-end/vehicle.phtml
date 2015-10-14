@@ -1,70 +1,29 @@
-<h1>Vehicle Full View</h1>
-<?php echo $this->vehicleCategoryNav(); ?>
+<?php $this->headMeta()->setMetaKeywords($vehicle->getMetaKeywords())
+                       ->setMetaDescription($vehicle->getMetaDesc())
+                       ->setTitle($vehicle->getPageTitle()); ?>
+<?php echo $this->vehicleCategoryNav($vehicle->getType()); ?>
 
-<style>
-body {
-    font-size: 16px;
-}
-.carousel-inner > .item > img {
-    margin: 0 auto;
-}
-.carousel-control.left,
-.carousel-control.right {
-    background-image: none
-}
-#carousel-example-generic {
-    margin: 0;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.sl-vehicle-features {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-div.sl-vehicle-features ul {
-    list-style: none;
-    padding-left: 0px;
-    line-height: 1.7em;
-}
-@media (min-width: 992px) {
-    .sl-summary-heading {
-        margin-top: -3px;
-    }
-    .sl-vehicle-features {
-        padding-left: 40px;
-    }
-}
-@media (min-width: 992px) {
-    .sl-vehicle-main {
-        padding-top: 20px;
-    }
-}
-</style>
 <div class="container">
-
-<h3>2014 Buccaneer Schooner 4 Berth Motor Move</h3>
+<h3><?php echo $this->escapeHtml($vehicle->getPageTitle()); ?></h3>
+<?php if ($hasImages) : ?>
 <div id="carousel-example-generic" class="carousel slide col-md-7" data-ride="carousel" data-interval="false" data-wrap="false">
+
 <!-- Indicators -->
 <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+<?php foreach ($images as $i) : ?>
+<?php $priority = $i->getPriority(); ?>
+    <li data-target="#carousel-example-generic" data-slide-to="<?php echo $this->escapeHtmlAttr($priority - 1); ?>"<?php echo ($priority === 1) ? ' class="active"' : '' ?>></li>
+<?php endforeach ?>
 </ol>
 
 <!-- Wrapper for slides -->
 <div class="carousel-inner" role="listbox">
-    <div class="item active">
-        <img class="img-responsive" src="/images/vehicles/59_800.jpg" alt="...">
+<?php foreach ($images as $i) : ?>
+<?php $priority = $i->getPriority(); ?>
+    <div class="item<?php echo ($priority === 1) ? ' active' : '' ?>">
+        <img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($i->getImageId()) ?>_720.jpg" alt="...">
     </div>
-
-    <div class="item">
-        <img class="img-responsive" src="/images/vehicles/60_800.jpg" alt="...">
-    </div>
-
-    <div class="item">
-        <img class="img-responsive" src="/images/vehicles/61_800.jpg" alt="...">
-    </div>
+<?php endforeach ?>
 </div>
 
 <!-- Controls -->
@@ -77,31 +36,24 @@ div.sl-vehicle-features ul {
   <span class="sr-only">Next</span>
 </a>
 </div>
+<?php endif ?>
 
 <div class="col-md-5 sl-vehicle-features">
-    <h3 class="sl-summary-heading">Unicorn Cartagena, Twin Axle, Fixed Island Transverse Bed, Alde Heating</h3>
+
     <ul>
-        <li><span class="glyphicon glyphicon-ok success"></span> 4 Berth</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> Fixed Island Bed</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> U Shaped Lounge</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> Separate Shower</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> Solar Panel</li>
+    <?php foreach ($vehicle->getFeatures() as $feature) : ?>
+    <li><span class="glyphicon glyphicon-ok success"></span> <?php echo $this->vehicleFeature($feature); ?></li>
+    <?php endforeach ?>
     </ul>
 
-    <p>Two owners from new, 17,000 miles with full service history. An abundance of space is very apparent to the interior, to include a very large bathroom, plus a fixed island bed allowing movement around both sides.</p>
-    <!--<p>L shaped lounge finished in sumptious soft connoly hide with a further bench seat opposite, making comfortable seating for 5 or 6 persons. With the Captains chairs swivelled around, there is even more space, and concertina blinds all round ensure complete privacy at night, to include a full electric blind to the windscreen</p>-->
+    <!--<h5 class="sl-summary-heading"><?php //echo $this->escapeHtml($vehicle->getMetaDesc()); ?></h5>-->
+    <p><?php echo $this->escapeHtml($vehicle->getMetaDesc()); ?></p>
 </div>
 
 <div class="clearfix visible-md-block visible-lg-block"></div>
+
 <div class="sl-vehicle-main">
-<p>L shaped lounge finished in sumptious soft connoly hide with a further bench seat opposite, making comfortable seating for 5 or 6 persons. With the Captains chairs swivelled around, there is even more space, and concertina blinds all round ensure complete privacy at night, to include a full electric blind to the windscreen.</p>
-
-<p>Auto hydraulic jacks were an expensive option on this model, however they are present, allowing you to just pull up, press a button, and the Concorde levels itself out  automatically with ease.
-Alde heating, Truma habitation air conditioning, coffee machine, inverter, electric awning, electric 2 fold step, keyless entry, oyster twin skuse satellite with twin flatscreen televisions, 8 speaker music system, satellite navigation, reversing camera.</p>
-
-<p>The large rear bedroom is sumptious luxury for a motorhome. A large fixed island bed with memory foam mattress, Remis skylight, Remis blinds, filtered air conditioning, radiators plus a 20 inch Avtex television. The room can be left as an ensuite to the bathroom, or can be segregated allowing access to the bathroom for guests at night without disturbing.</p>
-
-<p>A seperate integrater power shower and a bathroom with a ceramic aircraft style toilet inc macerator, large integrated sink plus an abundance of storage.</p>
+    <?php echo $vehicle->getPageHtml(); ?>
 </div>
 
 </div>

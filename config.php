@@ -15,13 +15,15 @@ return array(
         ]
     ],
     'serenityleisure' => [
-        'upload_dir' => __DIR__ . '/uploads',
-        'web_dir'    => __DIR__ . '/public/images/vehicles'
+        'upload_dir'       => __DIR__ . '/uploads',
+        'web_dir'          => __DIR__ . '/public/images/vehicles',
+        'web_image_sizes'  => [150, 360, 720]
     ],
     'invokables' => [
-        'image'       => 'Serenity\View\Helper\Image',
-        'vehicletype' => 'Serenity\View\Helper\VehicleType',
-        'headmeta'    => 'Serenity\View\Helper\HeadMeta'
+        'image'          => 'Serenity\View\Helper\Image',
+        'vehicletype'    => 'Serenity\View\Helper\VehicleType',
+        'vehiclefeature' => 'Serenity\View\Helper\VehicleFeature',
+        'headmeta'       => 'Serenity\View\Helper\HeadMeta'
     ],
     'factories' => [
         // Database
@@ -69,6 +71,7 @@ return array(
         'Serenity\Service\ImageService'      => 'Serenity\Factory\ImageServiceFactory',
         'Serenity\Service\PageService'       => 'Serenity\Factory\PageServiceFactory',
         'Serenity\Service\VehicleService'    => 'Serenity\Factory\VehicleServiceFactory',
+        'Serenity\Service\SerenityParsedown' => 'Serenity\Factory\SerenityParsedownFactory',
 
         // Controllers (admin)
         'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',

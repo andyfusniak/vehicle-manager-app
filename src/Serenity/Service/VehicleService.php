@@ -6,6 +6,7 @@ use Serenity\Entity\VehicleFeatures;
 use Serenity\Hydrator\VehicleDbHydrator;
 use Serenity\Hydrator\VehicleFormHydrator;
 use Serenity\Mapper\VehicleMapper;
+use Serenity\Service\CollectionService;
 
 class VehicleService
 {
@@ -24,13 +25,20 @@ class VehicleService
      */
     protected $dbHydrator;
 
+    /**
+     * @var CollectionService
+     */
+    protected $collectionService;
+
     public function __construct(VehicleMapper $mapper,
                                 VehicleFormHydrator $formHydrator,
-                                VehicleDbHydrator $dbHydrator)
+                                VehicleDbHydrator $dbHydrator,
+                                CollectionService $collectionService)
     {
         $this->mapper = $mapper;
         $this->formHydrator = $formHydrator;
         $this->dbHydrator = $dbHydrator;
+        $this->collectionService = $collectionService;
     }
 
     /**
@@ -52,6 +60,25 @@ class VehicleService
     public function fetchByVehicleId($vehicleId)
     {
         return $this->mapper->fetchByVehicleId($vehicleId);
+    }
+
+    /**
+     * @param string $url the url slug of the vehicle to fetch
+     * @return Vehicle object
+     */
+    public function fetchFullByUrl($url)
+    {
+        $vehicle = $this->mapper->fetchByUrl($url);
+
+        $vehicle->setCollection(
+            $this->collectionService->fetchCollection($vehicle->getCollectionId())
+        );
+        return $vehicle;
+    }
+
+    public function fetchVehicleNameMappings()
+    {
+        return VehicleFeatures::$titles;
     }
 
     public function vehicleObjectToFormData(Vehicle $vehicle)

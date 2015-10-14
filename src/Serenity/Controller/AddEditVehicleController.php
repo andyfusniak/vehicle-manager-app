@@ -43,7 +43,9 @@ class AddEditVehicleController extends AbstractController
 
             if ($this->form->isValid()) {
                 $postProcessedData = $this->form->getData();
-                $postProcessedData['features'] = $data['features'];
+                if (isset($data['features'])) {
+                    $postProcessedData['features'] = $data['features'];
+                }
                 $this->service->addVehicle($postProcessedData);
                 return $this->redirectToRoute('admin_list_vehicles');
             }
@@ -69,7 +71,9 @@ class AddEditVehicleController extends AbstractController
 
             if ($this->form->isValid()) {
                 $postProcessedData = $this->form->getData();
-                $postProcessedData['features'] = $data['features'];
+                if (isset($data['features'])) {
+                    $postProcessedData['features'] = $data['features'];
+                }
                 $this->service->updateVehicle($postProcessedData);
                 return $this->redirectToRoute('admin_list_vehicles');
             }
