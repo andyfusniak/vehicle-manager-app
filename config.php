@@ -20,9 +20,10 @@ return array(
         'web_image_sizes'  => [150, 360, 720]
     ],
     'invokables' => [
-        'image'       => 'Serenity\View\Helper\Image',
-        'vehicletype' => 'Serenity\View\Helper\VehicleType',
-        'headmeta'    => 'Serenity\View\Helper\HeadMeta'
+        'image'          => 'Serenity\View\Helper\Image',
+        'vehicletype'    => 'Serenity\View\Helper\VehicleType',
+        'vehiclefeature' => 'Serenity\View\Helper\VehicleFeature',
+        'headmeta'       => 'Serenity\View\Helper\HeadMeta'
     ],
     'factories' => [
         // Database

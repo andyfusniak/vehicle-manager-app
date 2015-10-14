@@ -39,14 +39,14 @@
 <?php endif ?>
 
 <div class="col-md-5 sl-vehicle-features">
-    <!--<h5 class="sl-summary-heading"><?php //echo $this->escapeHtml($vehicle->getMetaDesc()); ?></h5>-->
+
     <ul>
-        <li><span class="glyphicon glyphicon-ok success"></span> 4 Berth</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> Fixed Island Bed</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> U Shaped Lounge</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> Separate Shower</li>
-        <li><span class="glyphicon glyphicon-ok success"></span> Solar Panel</li>
+    <?php foreach ($vehicle->getFeatures() as $feature) : ?>
+    <li><span class="glyphicon glyphicon-ok success"></span> <?php echo $this->vehicleFeature($feature); ?></li>
+    <?php endforeach ?>
     </ul>
+
+    <!--<h5 class="sl-summary-heading"><?php //echo $this->escapeHtml($vehicle->getMetaDesc()); ?></h5>-->
     <p><?php echo $this->escapeHtml($vehicle->getMetaDesc()); ?></p>
 </div>
 
