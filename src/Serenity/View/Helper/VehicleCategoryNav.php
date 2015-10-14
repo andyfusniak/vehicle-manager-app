@@ -44,7 +44,7 @@ class VehicleCategoryNav extends AbstractHelper
     public function __invoke($activeTab = null)
     {
         $vehicleTypes = $this->vehicleService->fetchVehicleCategoriesArray();
-        $html = '<ul id="sl-category-tabs" class="nav nav-tabs">';
+        $html = '<div class="container"><ul id="sl-category-tabs" class="nav nav-tabs">';
 
         foreach ($vehicleTypes as $name) {
             $html .= '<li id="nav-' .$name . '" role="presentation"';
@@ -54,7 +54,7 @@ class VehicleCategoryNav extends AbstractHelper
             $html .= '><a href="/' . $name . '">' . $this->vehicleType($name) . '</a></li>';
         }
 
-        $html .= '</ul>';
+        $html .= '</ul></div>';
         return $html;
     }
 }

@@ -16,29 +16,36 @@ class PageNav extends AbstractHelper
         $this->pageService = $pageService;
     }
 
-    public function __invoke()
+    public function __invoke($url = null)
     {
-        return $this->render();
+        return $this->render($url);
     }
 
-    protected function render()
+    protected function render($url)
     {
         $pageUrlNames = $this->pageService->fetchUrlAndPageNames();
 
-        $html = '<nav class="navbar navbar-static-top">';
-        $html .= '<div class="container-fluid">';
-        $html .= '<div id="nav-dashboard" class="navbar-header">';
+        $html = '<nav class="navbar navbar-default navbar-static-top sl-top-nav">';
+        $html .= '<div class="container">';
+        $html .= '<div id="nav-dashboard" class="navbar-header active">';
+        $html .= '<a class="navbar-brand" href="/"><img class="sl-top-logo" src="images/serenity-logo-xs.png"></a>';
+        $html .= '</div>';
 
-        $html .= '<ul class="nav navbar-nav">';
+        $html .= '<div>';
         foreach ($pageUrlNames as $key => $data) {
             if ($data['url'] === 'homepage') {
-                $data['url'] = '';
+                continue;
             }
-            $html .= '<li id="nav-' . $data['url'] . '">';
-            $html .= '<a class="navbar-brand" href="/' . $data['url'] . '">' . $data['name'] .'</a>';
-            $html .= '</li>';
+            $html .= '<ul class="nav navbar-nav navbar-collapse">';
+            $html .= '<li id="nav-' . $data['url'] . '"';
+            if ($url === $data['url']) {
+                $html .= ' class="active"';
+            }
+            $html .= '>';
+            $html .= '<a href="/' . $data['url'] . '">' . $data['name'] .'</a></li>';
+            $html .= '</ul>';
         }
-        $html .= '</ul>';
+        $html .= '</div>';
 
         $html .= '</div>';
         $html .= '</div>';

@@ -86,6 +86,7 @@ class PageService
     {
         return $this->mapper->fetchPageByUrl($url);
     }
+
     public function fetchUrlAndPageNames($orderBy = PageMapper::COLUMN_PRIORITY, $orderDirection = 'ASC')
     {
         return $this->mapper->fetchUrlAndPageNames($orderBy, $orderDirection);

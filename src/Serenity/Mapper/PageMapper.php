@@ -102,7 +102,7 @@ class PageMapper
 
     /**
      * @param string $url the url slug for the page
-     * @return Page
+     * @return Page|null null indicates not found
      */
     public function fetchPageByUrl($url)
     {
@@ -113,9 +113,12 @@ class PageMapper
         ');
         $statement->bindValue(':url', (string) $url, \PDO::PARAM_STR);
         $statement->execute();
-        return $this->dbHydrator->hydrate(
-            $statement->fetch(\PDO::FETCH_ASSOC), new Page()
-        );
+        $row = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($row === false) {
+            return null;
+        }
+
+        return $this->dbHydrator->hydrate($row, new Page());
     }
 
     /**
