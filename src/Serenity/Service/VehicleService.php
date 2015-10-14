@@ -76,6 +76,11 @@ class VehicleService
         return $vehicle;
     }
 
+    public function fetchVehicleNameMappings()
+    {
+        return VehicleFeatures::$titles;
+    }
+
     public function vehicleObjectToFormData(Vehicle $vehicle)
     {
         return $this->formHydrator->extract($vehicle);
