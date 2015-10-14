@@ -1,1 +1,15 @@
-<h1>Home Page</h1>
+<?php if ($page !== null) : ?>
+<?php $this->headMeta()->setMetaKeywords($page->getMetaKeywords())
+                       ->setMetaDescription($page->getMetaDesc())
+                       ->setTitle($page->getPageTitle()); ?>
+    <?php echo $this->pageNav($page->getUrl()); ?>
+</div>
+<?php else : ?>
+<?php echo $this->pageNav(); ?>
+<?php endif ?>
+
+<?php echo $this->vehicleCategoryNav(); ?>
+
+<?php if ($page !== null) : ?>
+<?php echo $page->getPageHtml(); ?>
+<?php endif ?>
