@@ -18,13 +18,17 @@
 </ol>
 
 <!-- Wrapper for slides -->
-<div class="carousel-inner" role="listbox">
+<div class="carousel-inner sl-vehicle-full-container" role="listbox">
 <?php foreach ($images as $i) : ?>
 <?php $priority = $i->getPriority(); ?>
     <div class="item<?php echo ($priority === 1) ? ' active' : '' ?>">
         <img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($i->getImageId()) ?>_720.jpg" alt="...">
     </div>
 <?php endforeach ?>
+<span class="sl-price"><?php echo $this->price($vehicle->getPrice(), 'GBP', ['decimal_places' => 0]); ?></span>
+<?php if ($vehicle->getSold() === true) : ?>
+<span class="label label-danger" style="font-size: 16px;" >SOLD</span>
+<?php endif ?>
 </div>
 
 <!-- Controls -->

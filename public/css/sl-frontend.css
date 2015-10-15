@@ -121,10 +121,13 @@ div.sl-vehicle-features ul {
     text-decoration: none;
     color: #777777;
 }
-.sl-vehicle-container .label {
+.sl-vehicle-container .label, .sl-vehicle-full-container .label {
     position:absolute;
     left: -4px;
-    top: -3px
+    top: -3px;
+}
+.sl-vehicle-full-container {
+    overflow: visible;
 }
 
 /* markdown */
