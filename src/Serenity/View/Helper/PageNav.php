@@ -24,32 +24,21 @@ class PageNav extends AbstractHelper
     protected function render($url)
     {
         $pageUrlNames = $this->pageService->fetchUrlAndPageNames();
-
-        $html = '<nav class="navbar navbar-default navbar-static-top sl-top-nav">';
-        $html .= '<div class="container">';
-        $html .= '<div id="nav-dashboard" class="navbar-header active">';
-        $html .= '<a class="navbar-brand" href="/"><img class="sl-top-logo" src="images/serenity-logo-xs.png"></a>';
-        $html .= '</div>';
-
-        $html .= '<div>';
+        $html = '<ul class="nav nav-pills">';
         foreach ($pageUrlNames as $key => $data) {
+            // skip the homepage as this is static on the lower nav
             if ($data['url'] === 'homepage') {
                 continue;
             }
-            $html .= '<ul class="nav navbar-nav navbar-collapse">';
-            $html .= '<li id="nav-' . $data['url'] . '"';
+
+            $html .= '<li role="presentation" id="nav-' . $data['url'] . '"';
             if ($url === $data['url']) {
                 $html .= ' class="active"';
             }
             $html .= '>';
             $html .= '<a href="/' . $data['url'] . '">' . $data['name'] .'</a></li>';
-            $html .= '</ul>';
         }
-        $html .= '</div>';
-
-        $html .= '</div>';
-        $html .= '</div>';
-        $html .= '</nav>';
+        $html .= '</ul>';
         return $html;
     }
 }
