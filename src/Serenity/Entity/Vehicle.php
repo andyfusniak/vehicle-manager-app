@@ -12,8 +12,7 @@ class Vehicle
         'caravans',
         'motorhomes',
         'awningrange',
-        'accessories',
-        'cars'
+        'accessories'
     );
 
     /**

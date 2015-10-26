@@ -142,8 +142,7 @@ class VehicleService
             'caravans',
             'motorhomes',
             'awningrange',
-            'accessories',
-            'cars'
+            'accessories'
         ];
     }
 
