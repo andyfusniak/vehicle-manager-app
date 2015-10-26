@@ -25,7 +25,6 @@ class VehicleMapper
     const TYPE_MOTORHOMES  = 'motorhomes';
     const TYPE_AWNINGRANGE = 'awningrange';
     const TYPE_ACCESSORIES = 'accessories';
-    const TYPE_CARS        = 'cars';
 
     // it makes no sense to sort by some fields such as
     // meta keywords, meta description, page_html, markdown
@@ -45,8 +44,7 @@ class VehicleMapper
         self::TYPE_CARAVANS,
         self::TYPE_MOTORHOMES,
         self::TYPE_AWNINGRANGE,
-        self::TYPE_ACCESSORIES,
-        self::TYPE_CARS
+        self::TYPE_ACCESSORIES
     ];
 
     /**
@@ -215,7 +213,7 @@ class VehicleMapper
             WHERE V.type IN (
                 SELECT DISTINCT V.type FROM vehicles
             )
-            ORDER BY FIELD(V.type, "caravans", "motorhomes", "awningrange", "accessories", "cars"), price DESC
+            ORDER BY FIELD(V.type, "caravans", "motorhomes", "awningrange", "accessories"), price DESC
         ');
         $statement->execute();
         return $statement->fetchAll();
@@ -281,6 +279,6 @@ class VehicleMapper
 
 
     // ORDER BY FIELD(noticeBy, 'all','auto','email','mobile','nothing')
-    // ORDER BY FIELD(type, 'cars', 'motorhomes', 'accessories', 'caravans', 'awningrange');
+    // ORDER BY FIELD(type, 'motorhomes', 'accessories', 'caravans', 'awningrange');
 
 }

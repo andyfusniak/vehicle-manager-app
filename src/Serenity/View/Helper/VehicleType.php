@@ -20,9 +20,6 @@ class VehicleType extends AbstractHelper
             case 'accessories':
                 return 'Accessories';
                 break;
-            case 'cars':
-                return 'Cars';
-                break;
             default:
                 return 'Unknown';
         }
