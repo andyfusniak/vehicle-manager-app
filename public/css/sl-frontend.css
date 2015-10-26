@@ -1,8 +1,112 @@
 body {
-    font-size: 16px;
+    background: url('/images/background_full.jpg') no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-.sl-top-logo {
-    margin-top: -14px;
+body {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#sl-header {
+    background-image: url(/images/logo-header-background.png);
+    background-repeat: no-repeat;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+#sl-header .sl-logo-spacing {
+    padding-top: 200px;
+}
+#sl-header .nav li a {
+    color: #10069F;
+    background-color: #f8c88d;
+    font-weight: bold;
+}
+#sl-header .nav-pills li:first-child {
+    padding-left: 0px;
+}
+#sl-header .nav-pills li {
+    padding-left: 4px;
+}
+#sl-header .nav-pills li a {
+    border-radius: 0px;
+}
+
+ul#sl-category-tabs {
+    margin: 0;
+}
+#sl-category-tabs.nav li a {
+    background-color: #29306f;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 0px;
+}
+#sl-category-tabs.nav li.active a {
+    background-color: #e18734;
+    color: #fff;
+}
+#sl-category-tabs li:first-child {
+    padding-left: 0px;
+}
+#sl-category-tabs li {
+    padding-left: 4px;
+}
+
+
+#sl-header h1 {
+    font-family: Bitter;
+    font-weight: bold;
+    font-size: 50px;
+    letter-spacing: 0.1em;
+    color: #e18734;
+}
+#sl-header p:first-of-type {
+    font-weight: bold;
+}
+#sl-header p:last-of-type {
+    font-size: 14px;
+}
+#sl-logo {
+    margin: 0;
+}
+
+#sl-main-area {
+    margin: 0;
+    opacity: 0.7;
+    background-color: #fff;
+}
+
+#sl-footer-blue {
+    font-weight: normal;
+    padding-top: 15px;
+    padding-left: 10px;
+    background-color: #29306f;
+    height: 52px;
+}
+#sl-footer-blue p {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: normal;
+    font-size: 12px;
+    color: white;
+}
+#sl-footer-blue a {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: normal;
+    font-size: 12px;
+    color: white;
+}
+#sl-footer-white {
+    padding-left: 10px;
+    padding-top: 15px;
+    font-size: 12px;
+    background-color: #fff;
+    color: #000;
+    height: 80px;
 }
 
 .carousel-inner > .item > img {
