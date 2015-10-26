@@ -25,13 +25,13 @@ body {
     background-color: #f8c88d;
     font-weight: bold;
 }
-#sl-header .nav-pills li:first-child {
+#sl-header li:first-child {
     padding-left: 0px;
 }
-#sl-header .nav-pills li {
+#sl-header li {
     padding-left: 4px;
 }
-#sl-header .nav-pills li a {
+#sl-header li a {
     border-radius: 0px;
 }
 
@@ -75,8 +75,9 @@ ul#sl-category-tabs {
 
 #sl-main-area {
     margin: 0;
-    opacity: 0.7;
-    background-color: #fff;
+    /*opacity: 0.7;*/
+    /*background-color: #fff;*/
+    background: rgba(255, 255, 255, 0.7)
 }
 
 #sl-footer-blue {
@@ -175,6 +176,8 @@ div.sl-vehicle-features ul {
     padding: 0;
     height: auto;
     font-family: Lato, Helvetica, Arial, sans-serif;
+    opacity: 1;
+    background-color: white;
 }
 .sl-vehicle-container img {
     vertical-align: middle;

@@ -1,9 +1,6 @@
-<?php echo $this->pageNav(); ?>
 <?php $this->headMeta()->setMetaKeywords($vehicle->getMetaKeywords())
                        ->setMetaDescription($vehicle->getMetaDesc())
                        ->setTitle($vehicle->getPageTitle()); ?>
-<?php echo $this->vehicleCategoryNav($vehicle->getType()); ?>
-
 <div class="container">
 <h3><?php echo $this->escapeHtml($vehicle->getPageTitle()); ?></h3>
 <?php if ($hasImages) : ?>

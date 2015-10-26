@@ -41,8 +41,7 @@ class VehicleCategoryNav extends AbstractHelper
     public function __invoke($activeTab = null)
     {
         $vehicleTypes = $this->vehicleService->fetchVehicleCategoriesArray();
-        $html = '<ul id="sl-category-tabs" class="nav nav-pills">';
-
+        $html = '<ul id="sl-category-tabs" class="nav nav-justified">';
 
         $html .= '<li id="nav-home" role="presentation"';
         if ($activeTab === 'homepage') {
