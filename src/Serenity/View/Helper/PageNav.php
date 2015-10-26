@@ -24,7 +24,7 @@ class PageNav extends AbstractHelper
     protected function render($url)
     {
         $pageUrlNames = $this->pageService->fetchUrlAndPageNames();
-        $html = '<ul class="nav nav-pills">';
+        $html = '<ul class="nav nav-justified">';
         foreach ($pageUrlNames as $key => $data) {
             // skip the homepage as this is static on the lower nav
             if ($data['url'] === 'homepage') {

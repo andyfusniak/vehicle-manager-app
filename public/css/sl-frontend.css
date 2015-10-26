@@ -25,13 +25,13 @@ body {
     background-color: #f8c88d;
     font-weight: bold;
 }
-#sl-header .nav-pills li:first-child {
+#sl-header li:first-child {
     padding-left: 0px;
 }
-#sl-header .nav-pills li {
+#sl-header li {
     padding-left: 4px;
 }
-#sl-header .nav-pills li a {
+#sl-header li a {
     border-radius: 0px;
 }
 
