@@ -10,16 +10,17 @@ class PageFormHydrator extends AbstractFormHydrator
     public function extract($object)
     {
         return [
-            'page-id'       => (string) $object->getPageId(),
-            'url'           => $object->getUrl(),
-            'name'          => $object->getName(),
-            'meta-keywords' => $object->getMetaKeywords(),
-            'meta-desc'     => $object->getMetaDesc(),
-            'page-title'    => $object->getPageTitle(),
-            'markdown'      => $object->getMarkdown(),
-            'page-html'     => $object->getPageHtml(),
-            'created'       => $object->getCreated()->format('Y-m-d H:i:s'),
-            'modified'      => $object->getModified()->format('Y-m-d H:i:s')
+            'page-id'         => (string) $object->getPageId(),
+            'layout-position' => $object->getLayoutPosition(),
+            'url'             => $object->getUrl(),
+            'name'            => $object->getName(),
+            'meta-keywords'   => $object->getMetaKeywords(),
+            'meta-desc'       => $object->getMetaDesc(),
+            'page-title'      => $object->getPageTitle(),
+            'markdown'        => $object->getMarkdown(),
+            'page-html'       => $object->getPageHtml(),
+            'created'         => $object->getCreated()->format('Y-m-d H:i:s'),
+            'modified'        => $object->getModified()->format('Y-m-d H:i:s')
         ];
     }
 
@@ -31,6 +32,7 @@ class PageFormHydrator extends AbstractFormHydrator
             $pageId = null;
         }
         $object->setPageId($pageId)
+               ->setLayoutPosition($data['layout-position'])
                ->setUrl($data['url'])
                ->setName($data['name'])
                ->setMetaKeywords($data['meta-keywords'])

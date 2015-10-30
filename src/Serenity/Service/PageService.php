@@ -125,4 +125,13 @@ class PageService
     {
         $this->mapper->delete((int) $pageId);
     }
+
+    public function selectBoxLayoutPositions()
+    {
+        return [
+            'top'    => 'Top Nav Bar',
+            'main'   => 'Main/Central Nav Bar',
+            'footer' => 'Footer Link'
+        ];
+    }
 }

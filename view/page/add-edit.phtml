@@ -30,6 +30,16 @@
 </div>
 
 <div class="form-group">
+<label for="layout-position">Layout Position</label>
+<?php
+    $layoutPosition = $form->get('layout-position')
+                           ->setAttribute('class', 'form-control');
+    echo $this->formSelect($layoutPosition);
+    echo $this->formElementErrors($layoutPosition);
+?>
+</div>
+
+<div class="form-group">
 <label for="meta-keywords">Meta Keywords</label>
 <?php
     $metaKeywords = $form->get('meta-keywords')->setAttribute('class', 'form-control')

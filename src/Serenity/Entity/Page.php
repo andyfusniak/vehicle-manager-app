@@ -4,9 +4,28 @@ namespace Serenity\Entity;
 class Page
 {
     /**
+     * @var array list of valid layout positions
+     */
+    private static $validLayoutPositions = [
+        'top',
+        'main',
+        'footer'
+    ];
+
+    /**
      * @var int|null page id
      */
     protected $pageId;
+
+    /**
+     * @var int priority
+     */
+    protected $priority;
+
+    /**
+     * @var string layout position for rendering
+     */
+    protected $layoutPosition;
 
     /**
      * @var string the part url of this page
@@ -75,6 +94,40 @@ class Page
         return $this->pageId;
     }
 
+    /**
+     * @param int $priority display priority relative to the layout position group
+     * @return Page
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = (int) $priority;
+        return $this;
+    }
+
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    public function setLayoutPosition($layoutPosition)
+    {
+        if (!in_array($layoutPosition, self::$validLayoutPositions)) {
+            throw new \InvalidArgumentException(sprintf(
+                '%s: expects a value of {%s}.  Value of "%s" passed',
+                __METHOD__,
+                implode(',', self::$validLayoutPositions),
+                $layoutPosition
+            ));
+        }
+        $this->layoutPosition = $layoutPosition;
+        return $this;
+    }
+
+    public function getLayoutPosition()
+    {
+        return $this->layoutPosition;
+    }
+
     public function setName($name)
     {
         $this->name = (string) $name;
@@ -97,7 +150,7 @@ class Page
         return $this->url;
     }
 
-        public function setMetaKeywords($metaKeywords)
+    public function setMetaKeywords($metaKeywords)
     {
         $this->metaKeywords = (string) $metaKeywords;
         return $this;

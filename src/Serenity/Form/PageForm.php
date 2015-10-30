@@ -7,11 +7,13 @@ use Nitrogen\ServiceManager\HelperPluginManager;
 use Nitrogen\Validator\ValidatorChain;
 
 use Serenity\Validator\PageUrlTakenValidator;
+use Serenity\Service\PageService;
 
 class PageForm extends Form
 {
     public function __construct(HelperPluginManager $helperPluginManager,
-                                PageUrlTakenValidator $pageUrlTakenValidator)
+                                PageUrlTakenValidator $pageUrlTakenValidator,
+                                PageService $pageService)
     {
         // page-id
         $pageId = new Element\Hidden('page-id');
@@ -22,6 +24,14 @@ class PageForm extends Form
         $urlChain->attach('validatornotempty')
                  ->attach($pageUrlTakenValidator);
         $url->setValidatorChain($urlChain);
+
+        // layout-position
+        $layoutPosition = new Element\Select('layout-position');
+        $layoutPosition->setValueOptions($pageService->selectBoxLayoutPositions())
+                       ->setEmptyOption('--select--');
+        $layoutPositionChain = new ValidatorChain($helperPluginManager);
+        $layoutPositionChain->attach('validatornotempty');
+        $layoutPosition->setValidatorChain($layoutPositionChain);
 
         // name
         $name = new Element\Text('name');
@@ -43,6 +53,7 @@ class PageForm extends Form
         $this->add([
             $pageId,
             $url,
+            $layoutPosition,
             $name,
             $metaKeywords,
             $metaDesc,

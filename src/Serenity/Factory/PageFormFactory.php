@@ -18,7 +18,8 @@ class PageFormFactory implements FactoryInterface
     {
         return new PageForm(
             $serviceLocator->get('Nitrogen\ServiceManager\HelperPluginManager'),
-            $serviceLocator->get('Serenity\Validator\PageUrlTakenValidator')
+            $serviceLocator->get('Serenity\Validator\PageUrlTakenValidator'),
+            $serviceLocator->get('Serenity\Service\PageService')
         );
     }
 }

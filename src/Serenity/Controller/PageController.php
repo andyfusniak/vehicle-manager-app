@@ -43,7 +43,7 @@ class PageController extends AbstractController
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-                $this->service->addPage($data);
+                $this->service->addPage($this->form->getData());
                 return $this->redirectToRoute('admin_page_view');
             }
         }

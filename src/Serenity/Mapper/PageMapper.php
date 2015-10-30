@@ -68,14 +68,17 @@ class PageMapper
 
         $statement = $this->pdo->prepare('
             INSERT INTO pages (
-                page_id, url, name, meta_keywords, meta_desc,
+                page_id, priority, layout_position,
+                url, name, meta_keywords, meta_desc,
                 page_title, markdown, page_html, created, modified
             ) VALUES (
-                null, :url, :name, :meta_keywords, :meta_desc, :page_title,
-                :markdown, :page_html, NOW(), NOW()
+                null, 1, :layout_position,
+                :url, :name, :meta_keywords, :meta_desc,
+                :page_title, :markdown, :page_html, NOW(), NOW()
             )
         ');
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
+        $statement->bindValue(':layout_position', $data['layout_position'], \PDO::PARAM_STR);
         $statement->bindValue(':name', $data['name'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
@@ -192,6 +195,7 @@ class PageMapper
         $statement = $this->pdo->prepare('
             UPDATE pages
             SET url = :url,
+                layout_position = :layout_position,
                 name = :name,
                 meta_keywords = :meta_keywords,
                 meta_desc = :meta_desc,
@@ -202,6 +206,7 @@ class PageMapper
             WHERE page_id = :page_id
         ');
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
+        $statement->bindValue(':layout_position', $data['layout_position'], \PDO::PARAM_STR);
         $statement->bindValue(':name', $data['name'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
