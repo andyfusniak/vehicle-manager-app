@@ -36,13 +36,14 @@
             <p>Pioneer Unit &middot; Station Road &middot; Warmley &middot; Bristol &middot; BS30 8XH</p>
             <p>Opening Hours: Monday - Friday 8:30am - 6pm &middot; Saturday 9am - 5pm &middot; Sunday 10am - 5pm</p>
         </div>
-
     </div>
 </div>
 
 <div class="container">
     <?php echo $this->vehicleCategoryNav('motorhomes'); ?>
+</div>
 
+<div class="container">
     <div id="sl-main-area">
         <?php echo $content; ?>
     </div>
@@ -50,7 +51,7 @@
 
 <div class="container">
     <div id="sl-footer-blue">
-        <p><a href="#">Accessibility</a> &nbsp;&middot;&nbsp; <a href="#">Terms &amp; Conditions</a> &nbsp;&middot;&nbsp; <a href="#">Privacy</a> &nbsp;&middot;&nbsp; <a href="#">Finance</a> &nbsp;&middot;&nbsp; <a href="#">FAQ</a></p>
+        <?php echo $this->footerNav(); ?>
     </div>
     <div id="sl-footer-white">
         <p>&copy; Serenity Leisure 2015, Registered in England and Wales. All rights reserved.<br>

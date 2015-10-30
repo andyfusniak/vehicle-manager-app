@@ -4,20 +4,19 @@ namespace Serenity\Factory;
 use Nitrogen\ServiceManager\FactoryInterface;
 use Nitrogen\ServiceManager\ServiceLocatorInterface;
 
-use Serenity\View\Helper\VehicleCategoryNav;
+use Serenity\View\Helper\FooterNav;
 
-class VehicleCategoryNavFactory implements FactoryInterface
+class FooterNavFactory implements FactoryInterface
 {
     /**
-     * Create a VehicleCategoryNav instance
+     * Create a FooterNav instance
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @return VehicleCategoryNav
+     * @return FooterNav
      */
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new VehicleCategoryNav(
-            $serviceLocator->get('Serenity\Service\VehicleService'),
+        return new FooterNav(
             $serviceLocator->get('Serenity\Service\PageService')
         );
     }

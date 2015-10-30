@@ -2,6 +2,7 @@
 namespace Serenity\View\Helper;
 
 use Nitrogen\View\Helper\AbstractHelper;
+use Serenity\Entity\Page;
 use Serenity\Service\PageService;
 
 class PageNav extends AbstractHelper
@@ -23,10 +24,10 @@ class PageNav extends AbstractHelper
 
     protected function render($url)
     {
-        $pageUrlNames = $this->pageService->fetchUrlAndPageNames();
+        $pageUrlNames = $this->pageService->fetchUrlAndPageNamesByLayoutPosition(Page::LAYOUT_POSITION_TOP);
         $html = '<ul class="nav nav-justified">';
         foreach ($pageUrlNames as $key => $data) {
-            // skip the homepage as this is static on the lower nav
+            // skip the homepage as this is static on the main nav
             if ($data['url'] === 'homepage') {
                 continue;
             }

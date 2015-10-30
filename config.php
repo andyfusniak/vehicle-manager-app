@@ -33,6 +33,7 @@ return array(
         // View Helpers (factory)
         'vehicleCategoryNav' => 'Serenity\Factory\VehicleCategoryNavFactory',
         'pageNav'            => 'Serenity\Factory\PageNavFactory',
+        'footerNav'          => 'Serenity\Factory\FooterNavFactory',
 
         // Mappers
         'Serenity\Mapper\AdminMapper'      => 'Serenity\Factory\AdminMapperFactory',

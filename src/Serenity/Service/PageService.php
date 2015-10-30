@@ -104,9 +104,13 @@ class PageService
         return $this->mapper->fetchPageByUrl($url);
     }
 
-    public function fetchUrlAndPageNames($orderBy = PageMapper::COLUMN_PRIORITY, $orderDirection = 'ASC')
+    public function fetchUrlAndPageNamesByLayoutPosition($layoutPosition, $orderBy = PageMapper::COLUMN_PRIORITY, $orderDirection = 'ASC')
     {
-        return $this->mapper->fetchUrlAndPageNames($orderBy, $orderDirection);
+        return $this->mapper->fetchUrlAndPageNamesByLayoutPositionAssocArray(
+            $layoutPosition,
+            $orderBy,
+            $orderDirection
+        );
     }
 
     public function pageObjectToFormData(Page $page)

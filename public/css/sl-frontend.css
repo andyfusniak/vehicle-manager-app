@@ -35,6 +35,12 @@ body {
     border-radius: 0px;
 }
 
+.sl-page {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
 ul#sl-category-tabs {
     margin: 0;
 }
