@@ -17,22 +17,24 @@ class PageDbHydrator extends AbstractDbHydrator
         }
 
         return [
-            'page_id'       => $object->getPageId(),
-            'url'           => $object->getUrl(),
-            'name'          => $object->getName(),
-            'meta_keywords' => $object->getMetaKeywords(),
-            'meta_desc'     => $object->getMetaDesc(),
-            'page_title'    => $object->getPageTitle(),
-            'markdown'      => $object->getMarkdown(),
-            'page_html'     => $object->getPageHtml(),
-            'created'       => $object->getCreated(),
-            'modified'      => $object->getModified()
+            'page_id'         => $object->getPageId(),
+            'layout_position' => $object->getLayoutPosition(),
+            'url'             => $object->getUrl(),
+            'name'            => $object->getName(),
+            'meta_keywords'   => $object->getMetaKeywords(),
+            'meta_desc'       => $object->getMetaDesc(),
+            'page_title'      => $object->getPageTitle(),
+            'markdown'        => $object->getMarkdown(),
+            'page_html'       => $object->getPageHtml(),
+            'created'         => $object->getCreated(),
+            'modified'        => $object->getModified()
         ];
     }
 
     public function hydrate(array $data, $object)
     {
         $object->setPageId((int) $data['page_id'])
+               ->setLayoutPosition($data['layout_position'])
                ->setUrl($data['url'])
                ->setName($data['name'])
                ->setMetaKeywords($data['meta_keywords'])

@@ -8,12 +8,12 @@ class Vehicle
     /**
      * @var array list of valid vehicle types
      */
-    private static $validVehicleTypes = array(
+    private static $validVehicleTypes = [
         'caravans',
         'motorhomes',
         'awningrange',
         'accessories'
-    );
+    ];
 
     /**
      * @var int vehicle unique id (primary key)

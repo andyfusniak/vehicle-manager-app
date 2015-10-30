@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Nitrogen\Mvc\Controller\AbstractController;
 use Nitrogen\View\ViewModel;
 
+use Serenity\Entity\Page;
 use Serenity\Form\PageForm;
 use Serenity\Service\PageService;
 
@@ -43,7 +44,7 @@ class PageController extends AbstractController
             $this->form->setData($data);
 
             if ($this->form->isValid()) {
-                $this->service->addPage($data);
+                $this->service->addPage($this->form->getData());
                 return $this->redirectToRoute('admin_page_view');
             }
         }
@@ -93,7 +94,9 @@ class PageController extends AbstractController
     public function listAction()
     {
         $viewModel = new ViewModel([
-            'pages'         => $this->service->fetchAll(),
+            'pages_top'     => $this->service->fetchAllByLayoutPosition(Page::LAYOUT_POSITION_TOP),
+            'pages_main'    => $this->service->fetchAllByLayoutPosition(Page::LAYOUT_POSITION_MAIN),
+            'pages_footer'  => $this->service->fetchAllByLayoutPosition(Page::LAYOUT_POSITION_FOOTER),
             'localTimeZone' => $this->localTimeZone
         ]);
         $viewModel->setTemplate('view/page/list.phtml');
@@ -112,6 +115,8 @@ class PageController extends AbstractController
 
     public function orderingAction()
     {
+        $layoutPosition = $this->getRouteParam('layout_position');
+
         if ($this->request->getMethod() === Request::METHOD_POST) {
             $data = $this->request->request->all();
 
@@ -122,7 +127,8 @@ class PageController extends AbstractController
             return $viewModel;
         } else {
             $viewModel = new ViewModel([
-                'pages' => $this->service->fetchAll()
+                'pages' => $this->service->fetchAllByLayoutPosition($layoutPosition),
+                'layoutPosition' => $layoutPosition
             ]);
             $viewModel->setTemplate('view/page/ordering.phtml');
             return $viewModel;

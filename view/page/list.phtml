@@ -6,13 +6,20 @@
     <th>Page Url</th>
     <th>Date added</th>
     <th>Last modified</th>
+    <th>Change Ordering</th>
+</tr>
+
+<?php foreach (['pages_top', 'pages_main', 'pages_footer'] as $section) : ?>
+<?php $layoutPosition = substr($section, strpos($section, "_") + 1); ?>
+<tr class="info">
+    <th colspan="4"><?php echo $this->escapeHtml($this->pageLayoutPosition($layoutPosition)); ?> <span class="badge"><?php echo $this->escapeHtml(count($$section)); ?></span></th>
     <th>
         <ul class="nav nav-pills">
-            <li role="presentation"><a href="/admin/page-ordering">Ordering <span class="glyphicon glyphicon-sort"></span></a></li>
+            <li role="presentation"><a href="/admin/page-ordering/<?php echo $this->escapeHtml($layoutPosition); ?>">Ordering <span class="glyphicon glyphicon-sort"></span></a></li>
         </ul>
     </th>
 </tr>
-<?php foreach ($pages as $p) : ?>
+<?php foreach ($$section as $p) : ?>
 <?php $pageId = $p->getPageId(); ?>
 <tr>
     <td><?php echo $this->escapeHtml($p->getName()); ?></td>
@@ -32,6 +39,8 @@
     </td>
 </tr>
 <?php endforeach; ?>
+<?php endforeach; ?>
+
 </table>
 
 <script>

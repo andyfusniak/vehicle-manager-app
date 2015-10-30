@@ -1,4 +1,4 @@
-<h2>Add Vehicle</h2>
+<h2>New Page</h2>
 <p class="lead">Enter the details for your new vehicle</p>
 
 <div class="container">
@@ -26,6 +26,16 @@
                             ->setAttribute('placeholder', 'e.g. contact-us or about-us');
     echo $this->formText($url);
     echo $this->formElementErrors($url);
+?>
+</div>
+
+<div class="form-group">
+<label for="layout-position">Layout Position</label>
+<?php
+    $layoutPosition = $form->get('layout-position')
+                           ->setAttribute('class', 'form-control');
+    echo $this->formSelect($layoutPosition);
+    echo $this->formElementErrors($layoutPosition);
 ?>
 </div>
 

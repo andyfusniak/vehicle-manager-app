@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `pages` (
   `page_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `priority` int(10) unsigned NOT NULL DEFAULT 1,
+  `layout_position` enum('top','main','footer') CHARACTER SET ascii NOT NULL,
   `url` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `meta_keywords` text NOT NULL,
@@ -12,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`page_id`),
   KEY `priority` (`priority`),
+  KEY `layout_position` (`layout_position`),
   UNIQUE KEY `url` (`url`),
   KEY `name` (`name`),
   KEY `created` (`created`),

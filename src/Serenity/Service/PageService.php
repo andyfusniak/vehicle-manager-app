@@ -67,6 +67,23 @@ class PageService
         return $objects;
     }
 
+    public function fetchAllByLayoutPosition($layoutPosition, $orderBy = PageMapper::COLUMN_PRIORITY, $orderDirection = 'ASC')
+    {
+        $objects = [];
+        $pages = $this->mapper->fetchAllByLayoutPositionAssocArray(
+            $layoutPosition,
+            $orderBy,
+            $orderDirection
+        );
+
+        foreach ($pages as $data) {
+            $object = new Page();
+            $objects[] = $this->dbHydrator->hydrate($data, $object);
+        }
+
+        return $objects;
+    }
+
     /**
      * @param int $pageId the unique page id
      * @return Page a page object complete with data
@@ -124,5 +141,10 @@ class PageService
     public function deletePage($pageId)
     {
         $this->mapper->delete((int) $pageId);
+    }
+
+    public function selectBoxLayoutPositions()
+    {
+        return Page::$layoutPositionTitles;
     }
 }
