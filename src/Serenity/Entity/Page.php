@@ -16,6 +16,12 @@ class Page
         self::LAYOUT_POSITION_FOOTER
     ];
 
+    public static $layoutPositionTitles = [
+        self::LAYOUT_POSITION_TOP    => 'Top Nav Bar',
+        self::LAYOUT_POSITION_MAIN   => 'Main/Central Nav Bar',
+        self::LAYOUT_POSITION_FOOTER => 'Footer Link'
+    ];
+
     /**
      * @var int|null page id
      */

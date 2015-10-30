@@ -145,10 +145,6 @@ class PageService
 
     public function selectBoxLayoutPositions()
     {
-        return [
-            'top'    => 'Top Nav Bar',
-            'main'   => 'Main/Central Nav Bar',
-            'footer' => 'Footer Link'
-        ];
+        return Page::$layoutPositionTitles;
     }
 }

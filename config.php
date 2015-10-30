@@ -20,10 +20,11 @@ return array(
         'web_image_sizes'  => [150, 360, 720]
     ],
     'invokables' => [
-        'image'          => 'Serenity\View\Helper\Image',
-        'vehicletype'    => 'Serenity\View\Helper\VehicleType',
-        'vehiclefeature' => 'Serenity\View\Helper\VehicleFeature',
-        'headmeta'       => 'Serenity\View\Helper\HeadMeta'
+        'image'              => 'Serenity\View\Helper\Image',
+        'vehicletype'        => 'Serenity\View\Helper\VehicleType',
+        'vehiclefeature'     => 'Serenity\View\Helper\VehicleFeature',
+        'headmeta'           => 'Serenity\View\Helper\HeadMeta',
+        'pagelayoutposition' => 'Serenity\View\Helper\PageLayoutPosition'
     ],
     'factories' => [
         // Database
@@ -190,9 +191,12 @@ return array(
             ]
         ],
         'admin_page_ordering' => [
-            'path' => '/admin/page-ordering',
+            'path' => '/admin/page-ordering/{layout_position}',
             'defaults' => [
                 '_controller' => 'PageController:orderingAction'
+            ],
+            'requirements' => [
+                'layout_position' => '[a-z]+'
             ]
         ],
         'admin_settings_overview' => [

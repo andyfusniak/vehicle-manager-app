@@ -10,11 +10,12 @@
 </tr>
 
 <?php foreach (['pages_top', 'pages_main', 'pages_footer'] as $section) : ?>
+<?php $layoutPosition = substr($section, strpos($section, "_") + 1); ?>
 <tr class="info">
-    <th colspan="4">Top Navigation <span class="badge"><?php echo $this->escapeHtml(count($$section)); ?></span></th>
+    <th colspan="4"><?php echo $this->escapeHtml($this->pageLayoutPosition($layoutPosition)); ?> <span class="badge"><?php echo $this->escapeHtml(count($$section)); ?></span></th>
     <th>
         <ul class="nav nav-pills">
-            <li role="presentation"><a href="/admin/page-ordering">Ordering <span class="glyphicon glyphicon-sort"></span></a></li>
+            <li role="presentation"><a href="/admin/page-ordering/<?php echo $this->escapeHtml($layoutPosition); ?>">Ordering <span class="glyphicon glyphicon-sort"></span></a></li>
         </ul>
     </th>
 </tr>

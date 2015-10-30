@@ -115,6 +115,8 @@ class PageController extends AbstractController
 
     public function orderingAction()
     {
+        $layoutPosition = $this->getRouteParam('layout_position');
+
         if ($this->request->getMethod() === Request::METHOD_POST) {
             $data = $this->request->request->all();
 
@@ -125,7 +127,8 @@ class PageController extends AbstractController
             return $viewModel;
         } else {
             $viewModel = new ViewModel([
-                'pages' => $this->service->fetchAll()
+                'pages' => $this->service->fetchAllByLayoutPosition($layoutPosition),
+                'layoutPosition' => $layoutPosition
             ]);
             $viewModel->setTemplate('view/page/ordering.phtml');
             return $viewModel;
