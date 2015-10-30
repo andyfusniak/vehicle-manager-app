@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Nitrogen\Mvc\Controller\AbstractController;
 use Nitrogen\View\ViewModel;
 
+use Serenity\Entity\Page;
 use Serenity\Form\PageForm;
 use Serenity\Service\PageService;
 
@@ -93,7 +94,9 @@ class PageController extends AbstractController
     public function listAction()
     {
         $viewModel = new ViewModel([
-            'pages'         => $this->service->fetchAll(),
+            'pages_top'     => $this->service->fetchAllByLayoutPosition(Page::LAYOUT_POSITION_TOP),
+            'pages_main'    => $this->service->fetchAllByLayoutPosition(Page::LAYOUT_POSITION_MAIN),
+            'pages_footer'  => $this->service->fetchAllByLayoutPosition(Page::LAYOUT_POSITION_FOOTER),
             'localTimeZone' => $this->localTimeZone
         ]);
         $viewModel->setTemplate('view/page/list.phtml');

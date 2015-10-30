@@ -147,6 +147,35 @@ class PageMapper
         return $statement->fetchAll();
     }
 
+    public function fetchAllByLayoutPositionAssocArray($layoutPosition, $orderBy = self::COLUMN_PRIORITY, $orderDirection = 'DESC')
+    {
+        if (!in_array($layoutPosition, Page::$validLayoutPositions)) {
+            throw new \InvalidArgumentException(sprintf(
+                '%s: expects a value of {%s}.  Value of "%s" passed',
+                __METHOD__,
+                implode(',', Page::$validLayoutPositions),
+                $layoutPosition
+            ));
+        }
+
+        if (!in_array($orderBy, self::$validColumns)) {
+            throw new \Exception(sprintf(
+                '%s invalid column passed for orderBy "%s"',
+                __METHOD__,
+                $orderBy
+            ));
+        }
+
+        $sql = 'SELECT * FROM pages WHERE layout_position = :layout_position';
+        if (!empty($orderBy)) {
+            $sql .= ' ORDER BY ' . $orderBy . (($orderDirection === 'DESC') ? ' DESC' : ' ASC');
+        }
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':layout_position', $layoutPosition, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function fetchUrlAndPageNames($orderBy = self::COLUMN_PRIORITY, $orderDirection = 'DESC')
     {
         if (!in_array($orderBy, self::$validColumns)) {

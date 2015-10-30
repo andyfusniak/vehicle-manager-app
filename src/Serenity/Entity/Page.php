@@ -3,13 +3,17 @@ namespace Serenity\Entity;
 
 class Page
 {
+    const LAYOUT_POSITION_TOP    = 'top';
+    const LAYOUT_POSITION_MAIN   = 'main';
+    const LAYOUT_POSITION_FOOTER = 'footer';
+
     /**
      * @var array list of valid layout positions
      */
-    private static $validLayoutPositions = [
-        'top',
-        'main',
-        'footer'
+    public static $validLayoutPositions = [
+        self::LAYOUT_POSITION_TOP,
+        self::LAYOUT_POSITION_MAIN,
+        self::LAYOUT_POSITION_FOOTER
     ];
 
     /**
