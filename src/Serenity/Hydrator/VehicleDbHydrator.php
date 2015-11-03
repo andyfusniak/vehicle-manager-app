@@ -26,6 +26,8 @@ class VehicleDbHydrator extends AbstractDbHydrator
             'type'          => $vehicle->getType(),
             'visible'       => ($vehicle->getVisible() === true) ? 1 : 0,
             'sold'          => ($vehicle->getSold() === true) ? 1 : 0,
+            'new'           => ($vehicle->getNew() === true) ? 1 : 0,
+            'featured'      => ($vehicle->getFeatured() === true) ? 1 : 0,
             'url'           => $vehicle->getUrl(),
             'price'         => $vehicle->getPrice(),
             'meta_keywords' => $vehicle->getMetaKeywords(),
@@ -52,6 +54,8 @@ class VehicleDbHydrator extends AbstractDbHydrator
                 ->setType($data['type'])
                 ->setVisible(((int) $data['visible'] === 1) ? true : false)
                 ->setSold(((int) $data['sold'] === 1) ? true : false)
+                ->setNew((int) $data['new'] === 1 ? true : false)
+                ->setFeatured((int) $data['featured'] === 1 ? true : false)
                 ->setUrl(($data['url'] === null) ? '' : $data['url'])
                 ->setPrice((int) $data['price'])
                 ->setMetaKeywords(($data['meta_keywords'] === null) ? '' : $data['meta_keywords'])

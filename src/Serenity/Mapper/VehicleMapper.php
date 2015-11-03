@@ -12,6 +12,8 @@ class VehicleMapper
     const COLUMN_VISIBLE       = 'visible';
     const COLUMN_SOLD          = 'sold';
     const COLUMN_URL           = 'url';
+    const COLUMN_NEW           = 'new';
+    const COLUMN_FEATURED      = 'featured';
     const COLUMN_PRICE         = 'price';
     const COLUMN_META_KEYWORDS = 'meta_keywords';
     const COLUMN_META_DESC     = 'meta_desc';
@@ -33,6 +35,8 @@ class VehicleMapper
         self::COLUMN_TYPE,
         self::COLUMN_VISIBLE,
         self::COLUMN_SOLD,
+        self::COLUMN_NEW,
+        self::COLUMN_FEATURED,
         self::COLUMN_URL,
         self::COLUMN_PRICE,
         self::COLUMN_PAGE_TITLE,
@@ -85,8 +89,15 @@ class VehicleMapper
     {
         $data = $this->dbHydrator->extract($vehicle);
         $statement = $this->pdo->prepare('
-            INSERT INTO vehicles (vehicle_id, type, visible, sold, url, price, meta_keywords, meta_desc, page_title, collection_id, markdown, page_html, features, created, modified)
-            VALUES (null, :type, :visible, :sold, :url, :price, :meta_keywords, :meta_desc, :page_title, :collection_id, :markdown, :page_html, :features, NOW(), NOW())
+            INSERT INTO vehicles (
+                vehicle_id, type, visible, sold, url, `new`, featured, price,
+                meta_keywords, meta_desc, page_title, collection_id,
+                markdown, page_html, features, created, modified
+            ) VALUES (
+                null, :type, :visible, :sold, :url, :new, featured, :price,
+                :meta_keywords, :meta_desc, :page_title, :collection_id,
+                :markdown, :page_html, :features, NOW(), NOW()
+            )
         ');
         unset($data['vehicle_id']);
         unset($data['page_html']);
@@ -96,6 +107,8 @@ class VehicleMapper
         $statement->bindValue(':type', $data['type'], \PDO::PARAM_STR);
         $statement->bindValue(':visible', $data['visible'], \PDO::PARAM_INT);
         $statement->bindValue(':sold', $data['sold'], \PDO::PARAM_INT);
+        $statement->bindValue(':new', $data['new'], \PDO::PARAM_INT);
+        $statement->bindValue(':featured', $data['featured'], \PDO::PARAM_INT);
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
         $statement->bindValue(':price', $data['price'], \PDO::PARAM_INT);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
@@ -265,6 +278,7 @@ class VehicleMapper
                 url = :url,
                 visible = :visible,
                 sold = :sold,
+                new = :new,
                 price = :price,
                 meta_keywords = :meta_keywords,
                 meta_desc = :meta_desc,
@@ -280,6 +294,7 @@ class VehicleMapper
         $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
         $statement->bindValue(':visible', $data['visible'], \PDO::PARAM_INT);
         $statement->bindValue(':sold', $data['sold'], \PDO::PARAM_INT);
+        $statement->bindValue(':new', $data['new'], \PDO::PARAM_INT);
         $statement->bindValue(':price', $data['price'], \PDO::PARAM_INT);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);

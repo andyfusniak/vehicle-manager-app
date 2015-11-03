@@ -49,6 +49,15 @@
 ?>
 </div>
 
+<div class="form-group sl-short-input">
+<label for="new">New</label>
+<?php
+    $new = $form->get('new')->setAttribute('class', 'form-control');
+    echo $this->formSelect($new);
+    echo $this->formElementErrors($new);
+?>
+</div>
+
 <div class="form-group">
 <label for="url">URL</label>
 <?php
