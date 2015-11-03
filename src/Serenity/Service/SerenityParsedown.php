@@ -10,7 +10,7 @@ class SerenityParsedown extends \Parsedown
         return $image;
     }
 
-    protected function blockTable($line, array $block)
+    protected function blockTable($line, array $block = null)
     {
         $table = parent::blockTable($line, $block);;
         $table['element']['attributes']['class'] = 'table';
