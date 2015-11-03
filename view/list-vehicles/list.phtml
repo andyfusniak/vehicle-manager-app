@@ -19,6 +19,9 @@ $visible = $v->getVisible();
 ?>
 <tr>
     <td>
+        <?php if ($v->getFeatured() === true) : ?>
+        <kbd class="alert-info"><span class="glyphicon glyphicon-star"></span> FEATURED</kbd>
+        <?php endif; ?>
         <?php echo $this->escapeHtml($v->getPageTitle()); ?>
         <br>
         <a href="<?php echo $this->escapeHtmlAttr('/' . $v->getUrl()); ?>" target="_blank">
@@ -35,7 +38,13 @@ $visible = $v->getVisible();
         </kbd>
     </td>
     <td><p><?php echo $this->showDateTime($v->getModified(), $localTimeZone); ?></p></td>
-    <td><?php echo ($visible === true) ? '<kbd class="alert-success">VISIBLE</kbd>' : '<kbd class="alert-danger">INVISIBLE</kbd>'; ?></td>
+
+    <td>
+        <?php echo ($visible === true) ? '<kbd class="alert-success">VISIBLE</kbd>' : '<kbd class="alert-danger">INVISIBLE</kbd>'; ?>
+        <?php if ($v->getNew() === true) : ?>
+            <br><kbd class="alert-info">NEW</kbd>
+        <?php endif; ?>
+    </td>
     <td class="text-right">
     <?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?><?php echo ($v->getSold() === true) ? ' <br><kbd class="alert-danger">SOLD</kbd> ' : ''; ?></td>
     <td>

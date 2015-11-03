@@ -26,7 +26,7 @@ class Vehicle
     protected $type;
 
     /**
-     * @var bool visible
+     * @var bool
      */
     protected $visible;
 
@@ -34,6 +34,16 @@ class Vehicle
      * @var bool sold
      */
     protected $sold;
+
+    /**
+     * @var bool
+     */
+    protected $new;
+
+    /**
+     * @var bool
+     */
+    protected $featured;
 
     /**
      * @var string slug url for this vehicle
@@ -145,6 +155,28 @@ class Vehicle
     public function getSold()
     {
         return $this->sold;
+    }
+
+    public function setNew($new)
+    {
+        $this->new = (bool) $new;
+        return $this;
+    }
+
+    public function getNew()
+    {
+        return $this->new;
+    }
+
+    public function setFeatured($featured)
+    {
+        $this->featured = (bool) $featured;
+        return $this;
+    }
+
+    public function getFeatured()
+    {
+        return $this->featured;
     }
 
     public function setUrl($url)

@@ -14,6 +14,8 @@ class VehicleFormHydrator extends AbstractFormHydrator
             'type'       => $object->getType(),
             'visible'    => ($object->getVisible() === true) ? '1' : '0',
             'sold'       => ($object->getSold() === true) ? '1' : '0',
+            'new'        => ($object->getNew() === true ? '1' : '0'),
+            'featured'   => ($object->getFeatured() === true ? '1' : '0'),
             'url'        => ($object->getUrl() === null) ? '' : $object->getUrl(),
             'price'      => ($object->getPrice() === null) ? '': (string) $object->getPrice(),
             'meta-keywords' => ($object->getMetaKeywords() === null) ? '' : $object->getMetaKeywords(),
@@ -32,6 +34,8 @@ class VehicleFormHydrator extends AbstractFormHydrator
                ->setType($data['type'])
                ->setVisible(($data['visible'] === '1') ? true : false)
                ->setSold(($data['sold'] === '1') ? true : false)
+               ->setNew(($data['new'] === '1' ? true : false))
+               ->setFeatured($data['featured'] === '1' ? true: false)
                ->setUrl($data['url'])
                ->setPrice((int) $data['price'])
                ->setMetaKeywords($data['meta-keywords'])

@@ -56,6 +56,13 @@ class VehicleForm extends Form
             '1' => 'Yes',
         ));
 
+        // new
+        $new = new Element\Select('new');
+        $new->setValueOptions(array(
+            '0' => 'No',
+            '1' => 'Yes',
+        ));
+
         // url
         $url = new Element\Text('url');
         $urlChain = new ValidatorChain($helperPluginManager);
@@ -89,6 +96,7 @@ class VehicleForm extends Form
             $type,
             $visible,
             $sold,
+            $new,
             $url,
             $price,
             $metaKeywords,
