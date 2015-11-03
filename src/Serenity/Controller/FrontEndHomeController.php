@@ -27,8 +27,11 @@ class FrontEndHomeController extends AbstractController
 
     public function indexAction()
     {
+        $featuredVehicle = $this->vehicleService->fetchFeaturedVehicle();
+
         $viewModel = new ViewModel([
-            'page' => $this->pageService->fetchPageByUrl('homepage')
+            'page'            => $this->pageService->fetchPageByUrl('homepage'),
+            'featuredVehicle' => $featuredVehicle
         ]);
         $viewModel->setTemplate('view/front-end/home.phtml');
         return $viewModel;

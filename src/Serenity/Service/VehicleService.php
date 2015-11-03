@@ -63,6 +63,14 @@ class VehicleService
     }
 
     /**
+     * @return Vehicle|null
+     */
+    public function fetchFeaturedVehicle()
+    {
+        return $this->mapper->fetchFeaturedVehicle();
+    }
+
+    /**
      * @param string $url the url slug of the vehicle to fetch
      * @return Vehicle object
      */

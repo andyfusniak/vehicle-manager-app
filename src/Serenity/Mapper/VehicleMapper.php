@@ -154,6 +154,21 @@ class VehicleMapper
     }
 
     /**
+     * Fetch the featured vehicle
+     * @return Vehicle|null
+     */
+    public function fetchFeaturedVehicle()
+    {
+        $statement = $this->pdo->prepare('
+            SELECT * FROM vehicles
+            WHERE featured = 1
+            LIMIT 1
+        ');
+        $statement->execute();
+        return $this->dbHydrator->hydrate($statement->fetch(\PDO::FETCH_ASSOC), new Vehicle());
+    }
+
+    /**
      * Retrieves a list of vehicle id and names only
      *
      * @return array
