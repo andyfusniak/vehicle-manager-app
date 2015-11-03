@@ -216,7 +216,7 @@ class ImageService
 
         // format is $data['delete'] = 'photo-123'
         if (isset($data['delete'])) {
-            $parts = split('-', $data['delete']);
+            $parts = preg_split('/-/', $data['delete']);
             $imageId = end($parts);
 
             $this->destroyImages($imageId);

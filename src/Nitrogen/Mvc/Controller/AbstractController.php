@@ -94,7 +94,7 @@ abstract class AbstractController
     {
         $this->request = $request;
         $this->response = $response;
-        list($service, $action) = split(':', $this->match['_controller']);
+        list($service, $action) = preg_split('/:/', $this->match['_controller']);
         return $this->$action();
     }
 

@@ -40,7 +40,7 @@ try {
 
     $generator = new Routing\Generator\UrlGenerator($application->getRoutes(), $context);
 
-    list($service, $action) = split(':', $parameters['_controller']);
+    list($service, $action) = preg_split('/:/', $parameters['_controller']);
 
     $controller = $serviceLocator->get($service);
     $controller->setMatch($parameters);
