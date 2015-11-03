@@ -136,6 +136,21 @@ class VehicleService
         return $vehiclesMap;
     }
 
+    /**
+     * @return array an associative array of vehicle ids and names for
+     *               display select box
+     */
+    public function selectBoxFeaturedVehicles()
+    {
+        $valueOptions = [];
+        $vehicles = $this->mapper->fetchVehicleIdAndNameAssocArray();
+        foreach ($vehicles as $v) {
+            $key = $v['vehicle_id'];
+            $valueOptions[$key] = $v['page_title'] . ' (' . $v['url'] . ')';
+        }
+        return $valueOptions;
+    }
+
     public function fetchVehicleCategoriesArray()
     {
         return [
@@ -157,6 +172,16 @@ class VehicleService
         unset($dbData['created']);
         unset($dbData['modified']);
         $this->mapper->update($dbData);
+    }
+
+    /**
+     * Make the given vehicle featured
+     *
+     * @param int $vehicleId the vehicle to be featured
+     */
+    public function featureVehicle($vehicleId)
+    {
+        $this->mapper->featuredVehicle((int) $vehicleId);
     }
 
     /**

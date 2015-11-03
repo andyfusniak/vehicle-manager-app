@@ -1,0 +1,30 @@
+<h2>Featured Vehicles</h2>
+<p class="lead">Use this form to set the featured vehicle typically shown on the home page layout.</p>
+
+<div class="container">
+<form class="sl-form form-horizontal" method="post" action="/admin/featured-vehicles">
+
+<div class="form-group">
+<label for="featured-vehicle-id">Vehicle to feature</label>
+<?php
+    $featuredVehicleId = $form->get('featured-vehicle-id')
+                              ->setAttribute('id', 'featured-vehicle-id')
+                              ->setAttribute('class', 'form-control');
+    echo $this->formSelect($featuredVehicleId);
+    echo $this->formElementErrors($featuredVehicleId);
+?>
+</div>
+
+<div class="form-group">
+    <button class="btn-lg btn-success">Save</button>
+</div>
+
+</form>
+</div>
+
+<script>
+$(function() {
+    $('#nav-vehicles').addClass('active');
+    $('#nav-featured-vehicles').addClass('active');
+});
+</script>

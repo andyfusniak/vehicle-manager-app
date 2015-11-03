@@ -4,6 +4,8 @@ CREATE TABLE `vehicles` (
   `type` enum('caravans','motorhomes','awningrange','accessories') CHARACTER SET ascii NOT NULL,
   `visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `sold` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `new` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `featured` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `url` varchar(255) NOT NULL,
   `price` int(10) unsigned NOT NULL DEFAULT '0',
   `meta_keywords` text NOT NULL,
@@ -24,6 +26,8 @@ CREATE TABLE `vehicles` (
   KEY `created` (`created`),
   KEY `visible` (`visible`),
   KEY `sold` (`sold`),
+  KEY `new` (`new`),
+  KEY `featured` (`featured`),
   CONSTRAINT `collection_id_fk`
     FOREIGN KEY (`collection_id`)
       REFERENCES `collections` (`collection_id`)

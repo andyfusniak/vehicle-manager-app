@@ -3,7 +3,7 @@ return array(
     // database
     'db' => [
         'hostname' => 'localhost',
-        'database' => 'serenityleisure',
+        'database' => 'serenity-nuc-local',
         'username' => 'root',
         'password' => 'mysql'
     ],
@@ -53,11 +53,12 @@ return array(
         'Serenity\Hydrator\VehicleFormHydrator'    => 'Serenity\Factory\VehicleFormHydratorFactory',
 
         // Forms
-        'Serenity\Form\AdminSignInForm' => 'Serenity\Factory\AdminSignInFormFactory',
-        'Serenity\Form\CollectionForm'  => 'Serenity\Factory\CollectionFormFactory',
-        'Serenity\Form\ImageUploadForm' => 'Serenity\Factory\ImageUploadFormFactory',
-        'Serenity\Form\PageForm'        => 'Serenity\Factory\PageFormFactory',
-        'Serenity\Form\VehicleForm'     => 'Serenity\Factory\VehicleFormFactory',
+        'Serenity\Form\AdminSignInForm'      => 'Serenity\Factory\AdminSignInFormFactory',
+        'Serenity\Form\CollectionForm'       => 'Serenity\Factory\CollectionFormFactory',
+        'Serenity\Form\ImageUploadForm'      => 'Serenity\Factory\ImageUploadFormFactory',
+        'Serenity\Form\PageForm'             => 'Serenity\Factory\PageFormFactory',
+        'Serenity\Form\VehicleForm'          => 'Serenity\Factory\VehicleFormFactory',
+        'Serenity\Form\FeaturedVehiclesForm' => 'Serenity\Factory\FeaturedVehiclesFormFactory',
 
         // Validators
         'Serenity\Validator\CollectionTagnameTakenValidator' => 'Serenity\Factory\CollectionTagnameTakenValidatorFactory',
@@ -76,14 +77,15 @@ return array(
         'Serenity\Service\SerenityParsedown' => 'Serenity\Factory\SerenityParsedownFactory',
 
         // Controllers (admin)
-        'AddEditVehicleController' => 'Serenity\Factory\AddEditVehicleControllerFactory',
-        'AdminSignInController'    => 'Serenity\Factory\AdminSignInControllerFactory',
-        'CollectionController'     => 'Serenity\Factory\CollectionControllerFactory',
-        'DashboardController'      => 'Serenity\Factory\DashboardControllerFactory',
-        'ImageUploadController'    => 'Serenity\Factory\ImageUploadControllerFactory',
-        'ListVehiclesController'   => 'Serenity\Factory\ListVehiclesControllerFactory',
-        'PageController'           => 'Serenity\Factory\PageControllerFactory',
-        'SettingsController'       => 'Serenity\Factory\SettingsControllerFactory',
+        'AddEditVehicleController'   => 'Serenity\Factory\AddEditVehicleControllerFactory',
+        'AdminSignInController'      => 'Serenity\Factory\AdminSignInControllerFactory',
+        'CollectionController'       => 'Serenity\Factory\CollectionControllerFactory',
+        'DashboardController'        => 'Serenity\Factory\DashboardControllerFactory',
+        'FeaturedVehiclesController' => 'Serenity\Factory\FeaturedVehiclesControllerFactory',
+        'ImageUploadController'      => 'Serenity\Factory\ImageUploadControllerFactory',
+        'ListVehiclesController'     => 'Serenity\Factory\ListVehiclesControllerFactory',
+        'PageController'             => 'Serenity\Factory\PageControllerFactory',
+        'SettingsController'         => 'Serenity\Factory\SettingsControllerFactory',
         // Controllers (frontend)
         'FrontEndController'       => 'Serenity\Factory\FrontEndControllerFactory',
         'FrontEndHomeController'   => 'Serenity\Factory\FrontEndHomeControllerFactory'
@@ -129,6 +131,12 @@ return array(
             ],
             'requirements' => [
                 'vehicle_id' => '\d+'
+            ]
+        ],
+        'admin_featured_vehicle' => [
+            'path' => '/admin/featured-vehicles',
+            'defaults' => [
+                '_controller' => 'FeaturedVehiclesController:featuredAction'
             ]
         ],
         'admin_collection_add' => [

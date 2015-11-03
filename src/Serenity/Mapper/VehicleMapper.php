@@ -141,6 +141,21 @@ class VehicleMapper
     }
 
     /**
+     * Retrieves a list of vehicle id and names only
+     *
+     * @return array
+     */
+    public function fetchVehicleIdAndNameAssocArray()
+    {
+        $statement = $this->pdo->prepare('
+            SELECT vehicle_id, url, page_title
+            FROM vehicles
+        ');
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    /**
      * @return array
      */
     public function fetchAllAssocArray($orderBy = self::COLUMN_VEHICLE_ID, $orderDirection = 'DESC')
@@ -275,6 +290,29 @@ class VehicleMapper
         $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
         $statement->bindValue(':features', $data['features'], \PDO::PARAM_STR);
         $statement->execute();
+    }
+
+    /**
+     * Feature the given vehicle and unfeatured the rest (mutually exclusively)
+     *
+     * @param int $vehicleId the vehicle to feature
+     */
+    public function featuredVehicle($vehicleId)
+    {
+        $this->pdo->beginTransaction();
+
+        $statement1 = $this->pdo->prepare('
+            UPDATE vehicles SET featured = 0
+        ');
+        $statement1->execute();
+
+        $statement2 = $this->pdo->prepare('
+            UPDATE vehicles SET featured = 1 WHERE vehicle_id = :vehicle_id
+        ');
+        $statement2->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
+        $statement2->execute();
+
+        $this->pdo->commit();
     }
 
 
