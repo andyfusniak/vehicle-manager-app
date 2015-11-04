@@ -1,5 +1,11 @@
-<div class="container">
-    <div class="row">
+<?php $this->vehicleCategoryNav()->setUrl($url); ?>
+<div class="sl-inner-whiteboard">
+    Welcome to the <?php echo $this->vehicleType($url); ?> section of Serenity. Take
+    a browse at what we have advertised. If you cant find what you're looking
+    for, feel free to Contact Us where we will try our best to help you.
+</div>
+
+    <!--<div class="row">-->
         <?php $i = 1; ?>
         <?php foreach ($vehiclesMap as $vi) : ?>
         <?php $v = $vi['vehicleObj']; ?>
@@ -7,7 +13,7 @@
         <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="sl-vehicle-container">
                 <a href="/<?php echo $this->escapeHtmlAttr($v->getUrl()); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtml($imageId); ?>_360.jpg" alt="<?php echo $this->escapeHtmlAttr($v->getPageTitle()); ?>"></a>
-                <span class="sl-price"><?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?></span>
+                <!--<span class="sl-price"><?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?></span>-->
 
                 <?php if ($v->getSold() === true) : ?>
                 <span class="label label-danger" style="font-size: 16px;" >SOLD</span>
@@ -15,6 +21,7 @@
 
                 <div class="sl-vehicle-details">
                     <h1><a href="/<?php echo $this->escapeHtmlAttr($v->getUrl()); ?>"><?php echo $this->escapeHtml($v->getPageTitle()); ?></a></h1>
+                    <h2><?php echo $this->price($v->getPrice(), 'GBP', ['decimal_places' => 0]); ?></h2>
                     <p><a href="/<?php echo $this->escapeHtmlAttr($v->getUrl()); ?>"><?php echo $this->escapeHtml($v->getMetaDesc()); ?></a></p>
                 </div>
             </div>
@@ -27,5 +34,4 @@
         <?php endif ?>
         <?php $i++; ?>
         <?php endforeach ?>
-    </div>
-</div>
+    <!--</div>-->

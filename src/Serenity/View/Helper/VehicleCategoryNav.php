@@ -18,6 +18,11 @@ class VehicleCategoryNav extends AbstractHelper
      */
     protected $pageService;
 
+    /**
+     * @var string
+     */
+    protected $url;
+
     public function __construct(VehicleService $vehicleService,
                                 PageService $pageService)
     {
@@ -37,7 +42,7 @@ class VehicleCategoryNav extends AbstractHelper
                 return 'Motorhomes';
                 break;
             case 'awningrange':
-                return 'Awning Range';
+                return 'Awning&nbsp;Range';
                 break;
             case 'accessories':
                 return 'Accessories';
@@ -47,21 +52,32 @@ class VehicleCategoryNav extends AbstractHelper
         }
     }
 
-    public function __invoke($activeTab = null)
+    public function __invoke()
+    {
+        return $this;
+    }
+
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    public function __toString()
     {
         $vehicleTypes = $this->vehicleService->fetchVehicleCategoriesArray();
         $pageUrlNames = $this->pageService->fetchUrlAndPageNamesByLayoutPosition(Page::LAYOUT_POSITION_MAIN);
         $html = '<ul id="sl-category-tabs" class="nav nav-justified">';
 
         $html .= '<li id="nav-home" role="presentation"';
-        if ($activeTab === 'homepage') {
+        if ($this->url === 'homepage') {
             $html .= ' class="active"';
         }
         $html .= '><a href="/">HOME</a>';
 
         foreach ($vehicleTypes as $name) {
             $html .= '<li id="nav-' .$name . '" role="presentation"';
-            if ($name === $activeTab) {
+            if ($name === $this->url) {
                 $html .= ' class="active"';
             }
             $html .= '><a href="/' . $name . '">' . $this->vehicleType($name) . '</a></li>';
@@ -74,10 +90,10 @@ class VehicleCategoryNav extends AbstractHelper
             }
 
             $html .= '<li id="nav-' . $data['url'] . '" role="presentation"';
-            if ($activeTab === $data['url']) {
+            if ($this->url === $data['url']) {
                 $html .= ' class="active"';
             }
-            $html .= '><a href="/' . $data['url'] . '">' . $data['name'] .'</a></li>';
+            $html .= '><a href="/' . $data['url'] . '">' . preg_replace('/ /', '&nbsp;', $data['name']) .'</a></li>';
         }
 
         $html .= '</ul>';

@@ -1,7 +1,7 @@
 <?php $this->headMeta()->setMetaKeywords($vehicle->getMetaKeywords())
                        ->setMetaDescription($vehicle->getMetaDesc())
                        ->setTitle($vehicle->getPageTitle()); ?>
-<div class="container">
+<div class="sl-inner-whiteboard">
 <h3><?php echo $this->escapeHtml($vehicle->getPageTitle()); ?></h3>
 <?php if ($hasImages) : ?>
 <div id="carousel-example-generic" class="carousel slide col-md-7" data-ride="carousel" data-interval="false" data-wrap="false">
