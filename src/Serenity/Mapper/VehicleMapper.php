@@ -160,12 +160,20 @@ class VehicleMapper
     public function fetchFeaturedVehicle()
     {
         $statement = $this->pdo->prepare('
-            SELECT * FROM vehicles
-            WHERE featured = 1
+            SELECT V.*, I.image_id
+            FROM vehicles AS V
+            LEFT JOIN (
+                SELECT image_id, collection_id
+                FROM images AS I
+                WHERE priority = 1
+            ) AS I
+            ON V.collection_id = I.collection_id
+            WHERE V.featured = 1
             LIMIT 1
         ');
+
         $statement->execute();
-        return $this->dbHydrator->hydrate($statement->fetch(\PDO::FETCH_ASSOC), new Vehicle());
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
