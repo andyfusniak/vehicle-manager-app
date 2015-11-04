@@ -12,17 +12,28 @@ class PageNav extends AbstractHelper
      */
     protected $pageService;
 
+    /**
+     * @var string
+     */
+    protected $url;
+
     public function __construct(PageService $pageService)
     {
         $this->pageService = $pageService;
     }
 
-    public function __invoke($url = null)
+    public function __invoke()
     {
-        return $this->render($url);
+        return $this;
     }
 
-    protected function render($url)
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    public function __toString()
     {
         $pageUrlNames = $this->pageService->fetchUrlAndPageNamesByLayoutPosition(Page::LAYOUT_POSITION_TOP);
         $html = '<ul class="nav nav-justified">';
@@ -32,12 +43,12 @@ class PageNav extends AbstractHelper
                 continue;
             }
 
-            $html .= '<li role="presentation" id="nav-' . $data['url'] . '"';
-            if ($url === $data['url']) {
+            $html .= '<li role="presentation" id="nav-' . $data['url'] . '">';
+            $html .= '<a href="/' . $data['url'] . '"';
+            if ($this->url === $data['url']) {
                 $html .= ' class="active"';
             }
-            $html .= '>';
-            $html .= '<a href="/' . $data['url'] . '">' . $data['name'] .'</a></li>';
+            $html .= '>' . preg_replace('/ /', '&nbsp;', $data['name']) . '</a></li>';
         }
         $html .= '</ul>';
         return $html;

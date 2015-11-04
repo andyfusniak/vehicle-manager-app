@@ -30,6 +30,7 @@ class FrontEndHomeController extends AbstractController
         $featuredVehicle = $this->vehicleService->fetchFeaturedVehicle();
 
         $viewModel = new ViewModel([
+            'url'             => 'homepage',
             'page'            => $this->pageService->fetchPageByUrl('homepage'),
             'featuredVehicle' => $featuredVehicle
         ]);

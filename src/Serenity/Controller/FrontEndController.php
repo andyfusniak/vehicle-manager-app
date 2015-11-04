@@ -28,6 +28,7 @@ class FrontEndController extends AbstractController
     private function category($type)
     {
         $viewModel = new ViewModel([
+            'url'         => $type,
             'vehiclesMap' => $this->vehicleService->fetchAllVisibleByCategoryAssocArray($type),
             'type'        => $type
         ]);
@@ -42,6 +43,7 @@ class FrontEndController extends AbstractController
         $images = $collection->getImages();
 
         $viewModel = new ViewModel([
+            'url'        => $url,
             'vehicle'    => $vehicle,
             'collection' => $collection,
             'images'     => $images,
@@ -54,6 +56,7 @@ class FrontEndController extends AbstractController
     private function page($url)
     {
         $viewModel = new ViewModel([
+            'url'  => $url,
             'page' => $this->pageService->fetchPageByUrl($url)
         ]);
         $viewModel->setTemplate('view/front-end/page.phtml');

@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-7 col-lg-7">
-            <?php echo $this->pageNav(null); ?>
+            <?php echo $this->pageNav(); ?>
 
             <h1>0117 967 5577</h1>
             <p>Pioneer Unit &middot; Station Road &middot; Warmley &middot; Bristol &middot; BS30 8XH</p>
@@ -43,10 +43,17 @@
     <?php echo $this->vehicleCategoryNav('motorhomes'); ?>
 </div>
 
+<!--
 <div class="container">
-    <div id="sl-main-area">
-        <?php echo $content; ?>
-    </div>
+     <?php //echo $content; ?>
+</div>
+-->
+<div class="container">
+<div id="sl-outer-chalk">
+    <!--<div id="sl-inner-whiteboard">-->
+    <?php echo $content; ?>
+    <!--</div>-->
+</div>
 </div>
 
 <div class="container">
