@@ -12,8 +12,21 @@
     </div>
 </div>
 <div class="col-lg-4">
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-</div>
-</div>
 
+    <div class="sl-vehicle-container-header">
+        FEATURED VEHICLE
+    </div>
+    <div class="sl-vehicle-container">
+        <a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtml($fv['image_id']); ?>_360.jpg" alt="<?php echo $this->escapeHtmlAttr($fv['page_title']); ?>"></a>
+        <!--<span class="sl-price"><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></span>-->
+        <?php if ($fv['sold'] === '1') : ?>
+        <span class="label label-danger" style="font-size: 16px;" >SOLD</span>
+        <?php endif ?>
+        <div class="sl-vehicle-details">
+        <h1><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['page_title']); ?></a></h1>
+        <h2><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></h2>
+        <p><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['meta_desc']); ?></a></p>
+    </div>
+</div>
+</div>
 <?php endif ?>
