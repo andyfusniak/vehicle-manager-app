@@ -151,6 +151,12 @@ return array(
                 'id'      => '\d+'
             ]
         ],
+        'admin_markdown_editor_post' => [
+            'path' => '/admin/markdown-editor/edit/{section}',
+            'defaults' => [
+                '_controller' => 'MarkdownEditorController:editAction'
+            ]
+        ],
         'admin_collection_add' => [
             'path' => '/admin/add-edit-collection',
             'defaults' => [

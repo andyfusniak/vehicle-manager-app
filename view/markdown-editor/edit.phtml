@@ -3,12 +3,8 @@
 <p class="lead">Advanced markdown editor</p>
 
 <div class="container">
-<form class="sl-form form-horizontal" method="post" action="/admin/markdown-editor/edit">
-<?php
-    $id = $form->get('id');
-    echo $this->formHidden($id);
-?>
 
+<form class="sl-form form-horizontal">
 <div class="form-group">
 <label for="element">
 <select id="element" name="element">
@@ -314,9 +310,13 @@ Our `6 month warranty` provides the assurance you need.
 
 </label>
 </div>
+</form>
 
-
-
+<form class="sl-form form-horizontal" method="post" action="/admin/markdown-editor/edit/<?php echo $this->escapeHtmlAttr($section) ?>">
+<?php
+    $id = $form->get('id');
+    echo $this->formHidden($id);
+?>
 <div class="form-group">
 <label for="markdown">Markdown</label>
 <?php
