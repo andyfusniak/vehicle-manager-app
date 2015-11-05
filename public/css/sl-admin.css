@@ -7,6 +7,20 @@
 .sl-markdown, .sl-fixed-width {
     font-family: monospace;
 }
+.sl-markdown-advanced {
+	font-family: monospace;
+	min-height: 400px;
+}
+.sl-markdown-example {
+    font-family: monospace;
+    min-height: auto;
+    min-width: 600px;
+    overflow: hidden;
+    resize: none;
+}
+#sl-markdown-example-html {
+}
+
 .center {
      float: none;
      margin-left: auto;

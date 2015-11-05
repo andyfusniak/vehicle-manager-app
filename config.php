@@ -56,6 +56,7 @@ return array(
         'Serenity\Form\AdminSignInForm'      => 'Serenity\Factory\AdminSignInFormFactory',
         'Serenity\Form\CollectionForm'       => 'Serenity\Factory\CollectionFormFactory',
         'Serenity\Form\ImageUploadForm'      => 'Serenity\Factory\ImageUploadFormFactory',
+        'Serenity\Form\MarkdownEditorForm'   => 'Serenity\Factory\MarkdownEditorFormFactory',
         'Serenity\Form\PageForm'             => 'Serenity\Factory\PageFormFactory',
         'Serenity\Form\VehicleForm'          => 'Serenity\Factory\VehicleFormFactory',
         'Serenity\Form\FeaturedVehiclesForm' => 'Serenity\Factory\FeaturedVehiclesFormFactory',
@@ -84,6 +85,7 @@ return array(
         'FeaturedVehiclesController' => 'Serenity\Factory\FeaturedVehiclesControllerFactory',
         'ImageUploadController'      => 'Serenity\Factory\ImageUploadControllerFactory',
         'ListVehiclesController'     => 'Serenity\Factory\ListVehiclesControllerFactory',
+        'MarkdownEditorController'   => 'Serenity\Factory\MarkdownEditorControllerFactory',
         'PageController'             => 'Serenity\Factory\PageControllerFactory',
         'SettingsController'         => 'Serenity\Factory\SettingsControllerFactory',
         // Controllers (frontend)
@@ -137,6 +139,22 @@ return array(
             'path' => '/admin/featured-vehicles',
             'defaults' => [
                 '_controller' => 'FeaturedVehiclesController:featuredAction'
+            ]
+        ],
+        'admin_markdown_editor' => [
+            'path' => '/admin/markdown-editor/edit/{section}/{id}',
+            'defaults' => [
+                '_controller' => 'MarkdownEditorController:editAction'
+            ],
+            'requirements' => [
+                'section' => '^(vehicle|page)$',
+                'id'      => '\d+'
+            ]
+        ],
+        'admin_markdown_editor_post' => [
+            'path' => '/admin/markdown-editor/edit/{section}',
+            'defaults' => [
+                '_controller' => 'MarkdownEditorController:editAction'
             ]
         ],
         'admin_collection_add' => [

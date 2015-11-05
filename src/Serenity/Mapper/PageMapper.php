@@ -205,6 +205,28 @@ class PageMapper
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Fetch the markdown only by page id
+     *
+     * @param int $pageId the primary key
+     * @return string markdown text
+     */
+    public function fetchMarkdownOnlyByPageId($pageId)
+    {
+        $statement = $this->pdo->prepare('
+            SELECT markdown
+            FROM pages
+            WHERE page_id = :page_id
+        ');
+        $statement->bindValue(':page_id', (int) $pageId, \PDO::PARAM_INT);
+        $statement->execute();
+        $row = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($row === false) {
+            return null;
+        }
+        return $row['markdown'];
+    }
+
     public function isUrlTaken($url, $pageId = null)
     {
         $sql ='SELECT url FROM pages WHERE url = :url';
@@ -254,6 +276,27 @@ class PageMapper
         $statement->bindValue(':page_id', $data['page_id'], \PDO::PARAM_INT);
         $statement->execute();
     }
+
+    /**
+     * Update the markdown only for a given page id
+     *
+     * @param int $pageId the primary key
+     * @param string $markdown the new markdown text
+     */
+    public function updateMarkdownOnly($pageId, $markdown)
+    {
+        $statement = $this->pdo->prepare('
+            UPDATE pages
+            SET markdown = :markdown,
+                page_html = :page_html
+            WHERE page_id = :page_id
+        ');
+        $statement->bindValue(':page_id', (int) $pageId, \PDO::PARAM_INT);
+        $statement->bindValue(':markdown', $markdown, \PDO::PARAM_STR);
+        $statement->bindValue(':page_html', $this->parsedown->text($markdown), \PDO::PARAM_STR);
+        $statement->execute();
+    }
+
 
     public function updatePageOrder(array $data)
     {

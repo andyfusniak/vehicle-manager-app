@@ -177,6 +177,28 @@ class VehicleMapper
     }
 
     /**
+     * Fetch the markdown only by vehicle id
+     *
+     * @param int $vehicleId the primary key
+     * @return string markdown text
+     */
+    public function fetchMarkdownOnlyByVehicleId($vehicleId)
+    {
+        $statement = $this->pdo->prepare('
+            SELECT markdown
+            FROM vehicles
+            WHERE vehicle_id = :vehicle_id
+        ');
+        $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
+        $statement->execute();
+        $row = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($row === false) {
+            return null;
+        }
+        return $row['markdown'];
+    }
+
+    /**
      * Retrieves a list of vehicle id and names only
      *
      * @return array
@@ -327,6 +349,26 @@ class VehicleMapper
         $statement->bindValue(':page_html', $this->parsedown->text($data['markdown']), \PDO::PARAM_STR);
         $statement->bindValue(':vehicle_id', $data['vehicle_id'], \PDO::PARAM_INT);
         $statement->bindValue(':features', $data['features'], \PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    /**
+     * Update the markdown only for a given vehicle id
+     *
+     * @param int $vehicleId the primary key
+     * @param string $markdown the new markdown text
+     */
+    public function updateMarkdownOnly($vehicleId, $markdown)
+    {
+        $statement = $this->pdo->prepare('
+            UPDATE vehicles
+            SET markdown = :markdown,
+                page_html = :page_html
+            WHERE vehicle_id = :vehicle_id
+        ');
+        $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
+        $statement->bindValue(':markdown', $markdown, \PDO::PARAM_STR);
+        $statement->bindValue(':page_html', $this->parsedown->text($markdown), \PDO::PARAM_STR);
         $statement->execute();
     }
 

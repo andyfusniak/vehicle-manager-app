@@ -193,6 +193,28 @@ class VehicleService
     }
 
     /**
+     * Fetch the markdown only for a given vehicle
+     *
+     * @param int $vehicleId the vehicle primary key
+     * @return string markdown text
+     */
+    public function fetchMarkdownOnlyByVehicleId($vehicleId)
+    {
+        return $this->mapper->fetchMarkdownOnlyByVehicleId((int) $vehicleId);
+    }
+
+    /**
+     * Update the markdown only for a given vehicle
+     *
+     * @param int $vehicleId the vehicle id to update
+     * @param string $markdown the new markdown text
+     */
+    public function updateMarkdownOnly($vehicleId, $markdown)
+    {
+        return $this->mapper->updateMarkdownOnly($vehicleId, $markdown);
+    }
+
+    /**
      *
      * See page service similar function for explanation
      *

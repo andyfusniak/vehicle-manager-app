@@ -132,6 +132,28 @@ class PageService
         return $this->mapper->isUrlTaken($url, $pageId);
     }
 
+    /**
+     * Fetch the markdown only for a given page
+     *
+     * @param int $pageId the page primary key
+     * @return string markdown text
+     */
+    public function fetchMarkdownOnlyByPageId($pageId)
+    {
+        return $this->mapper->fetchMarkdownOnlyByPageId((int) $pageId);
+    }
+
+    /**
+     * Update the markdown only for a given page
+     *
+     * @param int $pageId the page id to update
+     * @param string $markdown the new markdown text
+     */
+    public function updateMarkdownOnly($pageId, $markdown)
+    {
+        return $this->mapper->updateMarkdownOnly($pageId, $markdown);
+    }
+
     public function updatePageOrder($data)
     {
         if (isset($data['page'])) {
