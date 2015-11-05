@@ -38,7 +38,7 @@
     </optgroup>
 
     <optgroup label="Images and Links">
-        <option value="markdown-image">Image</option>
+        <option value="markdown-external-image">External Image</option>
         <option value="markdown-link">Link</option>
     </optgroup>
 
@@ -146,6 +146,13 @@ $(function() {
             </ul>
             </li>
         </ul>
+    </div>
+
+    <div class="markdown-external-image" style="display: none">
+        <img alt="Alt text" src="http://www.caravanguard.co.uk/banners/images/caravanguard-banner2.gif">
+    </div>
+    <div class="markdown-link" style="display: none">
+        <a href="http://www.google.co.uk">Google UK</a>
     </div>
 
     <div class="markdown-table-two-by-two-with-header" style="display: none">
@@ -290,6 +297,18 @@ Our `6 month warranty` provides the assurance you need.
 <div class="heading-h6" style="display: none">
 <textarea class="sl-markdown-example" name="example-text-h6" readonly="readonly">
 # Heading six
+</textarea>
+</div>
+
+<div class="markdown-external-image" style="display: none">
+<textarea class="sl-markdown-example" name="example-image" readonly="readonly">
+![Alt text](http://www.caravanguard.co.uk/banners/images/caravanguard-banner2.gif)
+</textarea>
+</div>
+
+<div class="markdown-link" style="display: none">
+<textarea class="sl-markdown-example" name="example-link" readonly="readonly">
+[Google UK](http://www.google.co.uk)
 </textarea>
 </div>
 
