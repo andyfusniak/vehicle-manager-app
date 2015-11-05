@@ -8,6 +8,8 @@ use Nitrogen\View\ViewModel;
 use Nitrogen\Mvc\Controller\AbstractController;
 
 use Serenity\Form\MarkdownEditorForm;
+use Serenity\Service\VehicleService;
+use Serenity\Service\PageService;
 
 class MarkdownEditorController extends AbstractController
 {

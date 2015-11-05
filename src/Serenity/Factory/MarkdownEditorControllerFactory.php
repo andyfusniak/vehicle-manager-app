@@ -17,7 +17,9 @@ class MarkdownEditorControllerFactory implements FactoryInterface
     public static function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new MarkdownEditorController(
-            $serviceLocator->get('Serenity\Form\MarkdownEditorForm')
+            $serviceLocator->get('Serenity\Form\MarkdownEditorForm'),
+            $serviceLocator->get('Serenity\Service\VehicleService'),
+            $serviceLocator->get('Serenity\Service\PageService')
         );
     }
 }

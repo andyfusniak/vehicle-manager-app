@@ -10,6 +10,295 @@
 ?>
 
 <div class="form-group">
+<label for="element">
+<select id="element" name="element">
+    <optgroup label="Text">
+        <option value="text-normal">Normal Text</option>
+        <option value="text-bold">Bold Text</option>
+        <option value="text-italic">Italic Text</option>
+        <option value="text-bold-italic">Bold/Italic Cominbation</option>
+        <option value="text-strikethrough">Strikethrough</option>
+    </optgroup>
+
+    <optgroup label="Lists">
+        <option value="lists-bullets">Bullet points</option>
+        <option value="lists-numbered">Numbered list</option>
+        <option value="lists-bullets-with-subs">Bullet points with sub points</option>
+    </optgroup>
+
+    <optgroup label="Header and Quotes">
+        <option value="block-quote">Block Quote</option>
+        <option value="inline-quote">Inline Quote</option>
+        <option value="heading-h1">Heading 1</option>
+        <option value="heading-h2">Heading 2</option>
+        <option value="heading-h3">Heading 3</option>
+        <option value="heading-h4">Heading 4</option>
+        <option value="heading-h5">Heading 5</option>
+        <option value="heading-h6">Heading 6</option>
+    </optgroup>
+
+    <optgroup label="Images and Links">
+        <option value="markdown-image">Image</option>
+        <option value="markdown-link">Link</option>
+    </optgroup>
+
+    <optgroup label="Table">
+        <option value="markdown-table-two-by-two-with-header">2x2 Table grid with table header</option>
+    </optgroup>
+</select>
+</label>
+</div>
+
+<script>
+$(function() {
+    var previous = $("#element").val();
+    $("#element").focus(function() {
+        previous = this.value;
+    }).change(function() {
+        $("." + previous).hide();
+        $("." + $(this).val()).show();
+        previous = this.value;
+    });
+});
+</script>
+
+<div id="sl-markdown-example-html" class="form-group">
+    <div class="text-normal">
+        <p>This is normal text.</p>
+    </div>
+
+    <div class="text-bold" style="display: none">
+        <p>This is an example <strong>bold text</strong> in your page.</p>
+    </div>
+
+    <div class="text-italic" style="display: none">
+        <p>This is an example of <em>italic</em> text.</p>
+    </div>
+
+    <div class="text-bold-italic" style="display: none">
+        <p><em>You <strong>can</strong> combine them</em></p>
+    </div>
+
+    <div class="text-strikethrough" style="display: none">
+        <p>Reductions on prices. Was <del>&pound;9000</del> and now &pound;8295</p>
+    </div>
+
+    <div class="block-quote" style="display: none">
+        <blockquote>
+            <p>The true sign of intelligence is not knowledge but imagination.<br>Albert Einstein</p>
+        </blockquote>
+    </div>
+
+    <div class="inline-quote" style="display: none">
+        <p>Our <code>6 month warranty</code> provides the assurance you need.</p>
+    </div>
+
+
+    <div class="heading-h1" style="display: none">
+        <h1>Heading One</h1>
+    </div>
+
+    <div class="heading-h2" style="display: none">
+        <h2>Heading Two</h2>
+    </div>
+
+    <div class="heading-h3" style="display: none">
+        <h3>Heading Three</h3>
+    </div>
+
+    <div class="heading-h4" style="display: none">
+        <h4>Heading Four</h4>
+    </div>
+
+    <div class="heading-h5" style="display: none">
+        <h5>Heading Five</h5>
+    </div>
+
+    <div class="heading-h6" style="display: none">
+        <h6>Heading Six</h6>
+    </div>
+
+    <div class="lists-bullets" style="display: none">
+        <p>My shopping list</p>
+        <ul>
+            <li>Bread</li>
+            <li>Milk</li>
+            <li>Sugar</li>
+        </ul>
+    </div>
+
+    <div class="lists-numbered" style="display: none">
+        <ol>
+            <li>Item One</li>
+            <li>Item Two</li>
+            <li>Item Three</li>
+        </ol>
+    </div>
+
+    <div class="lists-bullets-with-subs" style="display: none">
+        <p>Alternatively,</p>
+        <ul>
+            <li>Dashes work just as well</li>
+            <li>And if you have sub points, put two spaces before the dash or star:
+            <ul>
+                <li>Like this</li>
+                <li>And this</li>
+            </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="markdown-table-two-by-two-with-header" style="display: none">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>First Header</th>
+                <th>Second Header</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Content from cell 1</td>
+                <td>Content from cell 2</td>
+            </tr>
+            <tr>
+                <td>Content from cell 3</td>
+                <td>Content from cell 4</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="form-group">
+<label for="example-text">Markdown text to use</label>
+
+<div class="text-normal">
+<textarea class="sl-markdown-example" name="example-text-normal" readonly="readonly">
+This is normal text.
+</textarea>
+</div>
+
+<div class="text-bold" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-bold" readonly="readonly">
+This is an example **bold text** in your page.
+</textarea>
+</div>
+
+<div class="text-italic" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-italic" readonly="readonly">
+This is an example of _italic_ text.
+</textarea>
+</div>
+
+<div class="text-bold-italic" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-bold-italic" readonly="readonly">
+_You **can** combine them_
+</textarea>
+</div>
+
+<div class="text-strikethrough" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-strikethrough" readonly="readonly">
+Reductions on prices. Was ~~&pound;9000~~ and now &pound;8295
+</textarea>
+</div>
+
+
+
+<div class="lists-bullets" style="display: none">
+<textarea rows="5" class="sl-markdown-example" name="example-text-lists-bullets" readonly="readonly">
+My shopping list
+* Bread
+* Milk
+* Sugar
+</textarea>
+</div>
+
+<div class="lists-numbered" style="display: none">
+<textarea rows="4" class="sl-markdown-example" name="example-text-lists-numbered" readonly="readonly">
+1. Item One
+2. Item Two
+3. Item Three
+</textarea>
+</div>
+
+<div class="lists-bullets-with-subs" style="display: none">
+<textarea rows="7" class="sl-markdown-example" name="example-text-lists-bullets" readonly="readonly">
+Alternatively,
+
+- Dashes work just as well
+- And if you have sub points, put two spaces before the dash or star:
+  - Like this
+  - And this
+</textarea>
+</div>
+
+
+<div class="markdown-table-two-by-two-with-header" style="display: none">
+<textarea rows="7" class="sl-markdown-example" name="example-text-lists-bullets" readonly="readonly">
+First Header        | Second Header
+------------------- | -------------------
+Content from cell 1 | Content from cell 2
+Content from cell 3 | Content from cell 4
+</textarea>
+</div>
+
+
+<div class="block-quote" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-quotation" readonly="readonly">
+> The true sign of intelligence is not knowledge but imagination.
+> Albert Einstein
+</textarea>
+</div>
+
+<div class="inline-quote" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-quotation" readonly="readonly">
+Our `6 month warranty` provides the assurance you need.
+</textarea>
+</div>
+
+<div class="heading-h1" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-h1" readonly="readonly">
+# Heading one
+</textarea>
+</div>
+
+<div class="heading-h2" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-h2" readonly="readonly">
+# Heading two
+</textarea>
+</div>
+
+<div class="heading-h3" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-h3" readonly="readonly">
+# Heading three
+</textarea>
+</div>
+
+<div class="heading-h4" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-h4" readonly="readonly">
+# Heading four
+</textarea>
+</div>
+
+<div class="heading-h5" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-h5" readonly="readonly">
+# Heading five
+</textarea>
+</div>
+
+<div class="heading-h6" style="display: none">
+<textarea class="sl-markdown-example" name="example-text-h6" readonly="readonly">
+# Heading six
+</textarea>
+</div>
+
+</label>
+</div>
+
+
+
+<div class="form-group">
 <label for="markdown">Markdown</label>
 <?php
     $markdown = $form->get('markdown')->setAttribute('class', ['form-control', 'sl-markdown-advanced'])

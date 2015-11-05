@@ -3,7 +3,7 @@ return array(
     // database
     'db' => [
         'hostname' => 'localhost',
-        'database' => 'serenityleisure',
+        'database' => 'serenity-nuc-local',
         'username' => 'root',
         'password' => 'mysql'
     ],
