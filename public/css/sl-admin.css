@@ -7,6 +7,10 @@
 .sl-markdown, .sl-fixed-width {
     font-family: monospace;
 }
+.sl-markdown-advanced {
+	font-family: monospace;
+	min-height: 400px;
+}
 .center {
      float: none;
      margin-left: auto;
