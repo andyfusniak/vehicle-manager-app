@@ -137,6 +137,40 @@ class CollectionService
         );
     }
 
+    public function getVehicleSelectorHtml($collectionId, $numImagePerRow = 5)
+    {
+        $collection = $this->fetchCollection($collectionId);
+
+        $html = '<table class="sl-image-selector-table"><tr>';
+
+        /** @var Serenity\Entity\Image */
+        $count = 0;
+        foreach ($collection->getImages() as $image) {
+            if ($count % $numImagePerRow === 0) {
+                $html .= '<tr>';
+            }
+            $html .= '<td><img class="sl-selectable-image" width="100px" src="/images/vehicles/' . $image->getImageId() . '_150.jpg"></td>';
+            $count++;
+            if ($count % $numImagePerRow === 0) {
+                $html .= '</tr>';
+            }
+        }
+
+        // add remaining table cells to complete the row
+        // if we didn't finish on the end of row boundary
+        if (($count % $numImagePerRow) > 0) {
+            $remainingSlots = $numImagePerRow - ($count % $numImagePerRow);
+            $html .= '<!--' . $count . ' / ' . $remainingSlots . '-->';
+            for ($i = 0; $i < $remainingSlots; $i++) {
+                $html .= '<td>&nbsp;</td>';
+            }
+            $html .= '</tr>';
+        }
+
+        $html .= '</html>';
+        return $html;
+    }
+
     /**
      * Permanently remove a collection
      *

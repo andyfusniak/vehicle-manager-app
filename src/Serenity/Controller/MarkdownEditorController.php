@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Nitrogen\View\ViewModel;
 use Nitrogen\Mvc\Controller\AbstractController;
 
+use Serenity\Form\ImageSelectorForm;
 use Serenity\Form\MarkdownEditorForm;
+use Serenity\Service\CollectionService;
 use Serenity\Service\VehicleService;
 use Serenity\Service\PageService;
 
@@ -24,17 +26,31 @@ class MarkdownEditorController extends AbstractController
     protected $pageService;
 
     /**
+     * @var CollectionService
+     */
+    protected $collectionService;
+
+    /**
      * @var MarkdownEditorForm
      */
     protected $markdownEditorForm;
 
+    /**
+     * @var ImageSelectorForm
+     */
+    protected $imageSelectorForm;
+
     public function __construct(MarkdownEditorForm $markdownEditorForm,
+                                ImageSelectorForm $imageSelectForm,
                                 VehicleService $vehicleService,
-                                PageService $pageService)
+                                PageService $pageService,
+                                CollectionService $collectionService)
     {
         $this->markdownEditorForm = $markdownEditorForm;
+        $this->imageSelectorForm = $imageSelectForm;
         $this->vehicleService = $vehicleService;
         $this->pageService = $pageService;
+        $this->collectionService = $collectionService;
     }
 
     public function editAction()
@@ -84,10 +100,27 @@ class MarkdownEditorController extends AbstractController
         }
 
         $viewModel = new ViewModel([
-            'section' => $section,
-            'form'    => $this->markdownEditorForm
+            'section'           => $section,
+            'form'              => $this->markdownEditorForm,
+            'imageSelectorForm' => $this->imageSelectorForm
         ]);
         $viewModel->setTemplate('view/markdown-editor/edit.phtml');
         return $viewModel;
+    }
+
+    public function collectionImageSelectorAjaxAction()
+    {
+        if ($this->request->getMethod() === Request::METHOD_GET) {
+            $ajax = $this->collectionService->getVehicleSelectorHtml(
+                $this->getRouteParam('collection_id')
+            );
+
+            $viewModel = new ViewModel([
+                'ajax' => $ajax
+            ]);
+            $viewModel->setTemplate('view/markdown-editor/collection-image-selector-ajax.phtml');
+            $this->getLayout()->setTemplate('view/layout/emptylayout.phtml');
+            return $viewModel;
+        }
     }
 }

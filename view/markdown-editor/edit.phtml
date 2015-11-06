@@ -6,8 +6,8 @@
 
 <form class="sl-form form-horizontal">
 <div class="form-group">
-<label for="element">
-<select id="element" name="element">
+<label for="element">Collection to use</label>
+<select id="element" name="element" class="form-control">
     <optgroup label="Text">
         <option value="text-normal">Normal Text</option>
         <option value="text-bold">Bold Text</option>
@@ -42,11 +42,12 @@
         <option value="markdown-table-two-by-two-with-header">2x2 Table grid with table header</option>
     </optgroup>
 </select>
-</label>
 </div>
 
 <script>
 $(function() {
+    collectionId = 2;
+
     var previous = $("#element").val();
     $("#element").focus(function() {
         previous = this.value;
@@ -55,8 +56,43 @@ $(function() {
         $("." + $(this).val()).show();
         previous = this.value;
     });
+
+    $('#sl-choose-image').click(function() {
+        $.ajax({
+            async: false,
+            data: null,
+            type: 'GET',
+            url: '/admin/markdown-editor/collection-image-selector-ajax/' + collectionId,
+            success: function(data) {
+                $("#sl-choose-image").data('bs.popover').options.content = data;
+            }
+        });
+    });
+
+    $('#sl-choose-image').popover({
+        content: 'Loading...',
+        html: true
+    }).parent().on('click', '.sl-selectable-image', function(e) {
+        var imageId = this.src.substring(this.src.lastIndexOf('/') + 1, this.src.lastIndexOf('_'));
+        $('#sl-markdown-text-to-use').text('![vehicle image](/images/vehicles/' + imageId + '_720.jpg)');
+        $('#sl-choose-image').popover('hide');
+        e.stopPropagation();
+    });
 });
 </script>
+
+<div class="form-group">
+<label for="collection-id">Collection to use</label>
+<?php
+    $collectionId = $imageSelectorForm->get('collection-id')
+                                      ->setAttribute('id', 'collection-id')
+                                      ->setAttribute('class', 'form-control');
+    echo $this->formSelect($collectionId);
+?>
+</div>
+
+
+<button id="sl-choose-image" type="button" class="btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus" title="Select an image">Click to toggle popover</button>
 
 <div id="sl-markdown-example-html" class="form-group">
     <div class="text-normal">
@@ -177,7 +213,7 @@ $(function() {
 <label for="example-text">Markdown text to use</label>
 
 <div class="text-normal">
-<textarea class="sl-markdown-example" name="example-text-normal" readonly="readonly">
+<textarea id="sl-markdown-text-to-use" class="sl-markdown-example" name="example-text-normal" readonly="readonly">
 This is normal text.
 </textarea>
 </div>

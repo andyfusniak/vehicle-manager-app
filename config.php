@@ -55,6 +55,7 @@ return array(
         // Forms
         'Serenity\Form\AdminSignInForm'      => 'Serenity\Factory\AdminSignInFormFactory',
         'Serenity\Form\CollectionForm'       => 'Serenity\Factory\CollectionFormFactory',
+        'Serenity\Form\ImageSelectorForm'    => 'Serenity\Factory\ImageSelectorFormFactory',
         'Serenity\Form\ImageUploadForm'      => 'Serenity\Factory\ImageUploadFormFactory',
         'Serenity\Form\MarkdownEditorForm'   => 'Serenity\Factory\MarkdownEditorFormFactory',
         'Serenity\Form\PageForm'             => 'Serenity\Factory\PageFormFactory',
@@ -155,6 +156,15 @@ return array(
             'path' => '/admin/markdown-editor/edit/{section}',
             'defaults' => [
                 '_controller' => 'MarkdownEditorController:editAction'
+            ]
+        ],
+        'admin_markdown_editor_vehicle_selector_ajax' => [
+            'path' => '/admin/markdown-editor/collection-image-selector-ajax/{collection_id}',
+            'defaults' => [
+                '_controller' => 'MarkdownEditorController:collectionImageSelectorAjaxAction'
+            ],
+            'requirements' => [
+                'collection_id' => '\d+'
             ]
         ],
         'admin_collection_add' => [

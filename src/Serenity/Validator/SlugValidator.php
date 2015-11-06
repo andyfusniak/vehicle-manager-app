@@ -31,7 +31,7 @@ class SlugValidator extends AbstractValidator
             $this->messages[self::SLUG_ENDS_WITH_HYPHEN] = 'Must not end with a hyphen character';
         }
 
-        $this->messages[self::SLUG_FORMAT_INVALID] = 'Must use lowercase a to z and the hypen character only';
+        $this->messages[self::SLUG_FORMAT_INVALID] = 'Must use lowercase a to z, 0-9 and the hypen character only';
         return false;
     }
 }

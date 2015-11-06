@@ -18,8 +18,10 @@ class MarkdownEditorControllerFactory implements FactoryInterface
     {
         return new MarkdownEditorController(
             $serviceLocator->get('Serenity\Form\MarkdownEditorForm'),
+            $serviceLocator->get('Serenity\Form\ImageSelectorForm'),
             $serviceLocator->get('Serenity\Service\VehicleService'),
-            $serviceLocator->get('Serenity\Service\PageService')
+            $serviceLocator->get('Serenity\Service\PageService'),
+            $serviceLocator->get('Serenity\Service\CollectionService')
         );
     }
 }
