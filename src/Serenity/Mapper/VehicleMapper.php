@@ -94,7 +94,7 @@ class VehicleMapper
                 meta_keywords, meta_desc, page_title, collection_id,
                 markdown, page_html, features, created, modified
             ) VALUES (
-                null, :type, :visible, :sold, :url, :new, featured, :price,
+                null, :type, :visible, :sold, :url, :new, :featured, :price,
                 :meta_keywords, :meta_desc, :page_title, :collection_id,
                 :markdown, :page_html, :features, NOW(), NOW()
             )
@@ -107,9 +107,9 @@ class VehicleMapper
         $statement->bindValue(':type', $data['type'], \PDO::PARAM_STR);
         $statement->bindValue(':visible', $data['visible'], \PDO::PARAM_INT);
         $statement->bindValue(':sold', $data['sold'], \PDO::PARAM_INT);
+        $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
         $statement->bindValue(':new', $data['new'], \PDO::PARAM_INT);
         $statement->bindValue(':featured', $data['featured'], \PDO::PARAM_INT);
-        $statement->bindValue(':url', $data['url'], \PDO::PARAM_STR);
         $statement->bindValue(':price', $data['price'], \PDO::PARAM_INT);
         $statement->bindValue(':meta_keywords', $data['meta_keywords'], \PDO::PARAM_STR);
         $statement->bindValue(':meta_desc', $data['meta_desc'], \PDO::PARAM_STR);
