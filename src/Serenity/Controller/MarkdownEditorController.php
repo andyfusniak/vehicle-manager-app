@@ -99,10 +99,20 @@ class MarkdownEditorController extends AbstractController
             $this->markdownEditorForm->get('markdown')->setValue($markdown);
         }
 
+        $valueOptions = $this->imageSelectorForm->get('collection-id')->getValueOptions();
+        if (!empty($valueOptions)) {
+            reset($valueOptions);
+            list($key, $value) = each($valueOptions);
+            $initialCollectionId = $key;
+        } else {
+            $initialCollectionId = null;
+        }
+
         $viewModel = new ViewModel([
-            'section'           => $section,
-            'form'              => $this->markdownEditorForm,
-            'imageSelectorForm' => $this->imageSelectorForm
+            'section'             => $section,
+            'form'                => $this->markdownEditorForm,
+            'imageSelectorForm'   => $this->imageSelectorForm,
+            'initialCollectionId' => $initialCollectionId
         ]);
         $viewModel->setTemplate('view/markdown-editor/edit.phtml');
         return $viewModel;

@@ -5,8 +5,9 @@
 <div class="container">
 
 <form class="sl-form form-horizontal">
+<input type="hidden" name="initial-collection-id" value="<?php echo $this->escapeHtml($initialCollectionId); ?>">
 <div class="form-group">
-<label for="element">Collection to use</label>
+<label for="element">Page Component</label>
 <select id="element" name="element" class="form-control">
     <optgroup label="Text">
         <option value="text-normal">Normal Text</option>
@@ -46,7 +47,7 @@
 
 <script>
 $(function() {
-    collectionId = 2;
+    collectionId = $('input[name=initial-collection-id]').val();
 
     var previous = $("#element").val();
     $("#element").focus(function() {
@@ -71,12 +72,25 @@ $(function() {
 
     $('#sl-choose-image').popover({
         content: 'Loading...',
+        animation: true,
         html: true
     }).parent().on('click', '.sl-selectable-image', function(e) {
         var imageId = this.src.substring(this.src.lastIndexOf('/') + 1, this.src.lastIndexOf('_'));
         $('#sl-markdown-text-to-use').text('![vehicle image](/images/vehicles/' + imageId + '_720.jpg)');
         $('#sl-choose-image').popover('hide');
-        e.stopPropagation();
+        //e.stopPropagation();
+    });
+
+    $('#collection-id').change(function() {
+        collectionId = parseInt(this.value);
+    });
+
+    $('html').on('mouseup', function(e) {
+        if(!$(e.target).closest('.popover').length) {
+            $('.popover').each(function(){
+                $(this.previousSibling).popover('hide');
+            });
+        }
     });
 });
 </script>
@@ -91,8 +105,9 @@ $(function() {
 ?>
 </div>
 
-
-<button id="sl-choose-image" type="button" class="btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus" title="Select an image">Click to toggle popover</button>
+<div class="form-group">
+    <button id="sl-choose-image" type="button" class="btn btn-primary btn-sm" title="Vehicles" data-toggle="popover">Select an image</button>
+</div>
 
 <div id="sl-markdown-example-html" class="form-group">
     <div class="text-normal">
