@@ -35,7 +35,6 @@ class VehicleFormHydrator extends AbstractFormHydrator
                ->setVisible(($data['visible'] === '1') ? true : false)
                ->setSold(($data['sold'] === '1') ? true : false)
                ->setNew(($data['new'] === '1' ? true : false))
-               ->setFeatured($data['featured'] === '1' ? true: false)
                ->setUrl($data['url'])
                ->setPrice((int) $data['price'])
                ->setMetaKeywords($data['meta-keywords'])
