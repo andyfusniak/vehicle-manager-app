@@ -173,7 +173,11 @@ class VehicleMapper
         ');
 
         $statement->execute();
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        $row = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($row === false) {
+            return null;
+        }
+        return $row;
     }
 
     /**
