@@ -72,7 +72,7 @@ $(function() {
 
     $('#sl-choose-image').popover({
         content: 'Loading...',
-        animation: true,
+        animation: false,
         html: true
     }).parent().on('click', '.sl-selectable-image', function(e) {
         var imageId = this.src.substring(this.src.lastIndexOf('/') + 1, this.src.lastIndexOf('_'));
