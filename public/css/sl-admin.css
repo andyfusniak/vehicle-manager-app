@@ -21,6 +21,17 @@
 #sl-markdown-example-html {
 }
 
+.popover{
+    max-width: 100%;
+}
+.popover-content {
+   max-height: 400px;
+   overflow-y: scroll;
+}
+.sl-image-selector-table td {
+    padding: 2px;
+}
+
 .center {
      float: none;
      margin-left: auto;

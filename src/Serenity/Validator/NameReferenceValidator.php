@@ -11,11 +11,10 @@ class NameReferenceValidator extends AbstractValidator
      * @var string
      */
     //protected $regEx = '/^[A-Za-z]+/';
-    protected $regEx = '/^[A-Za-z\- \']+$/';
+    protected $regEx = '/^[A-Za-z0-9\- \']+$/';
 
     public function isValid($value)
     {
-        var_dump($value);
         if (!is_string($value)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a string value',
