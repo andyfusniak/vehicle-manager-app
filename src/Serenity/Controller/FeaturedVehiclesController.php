@@ -39,6 +39,13 @@ class FeaturedVehiclesController extends AbstractController
                 $this->service->featureVehicle($data['featured-vehicle-id']);
                 return $this->redirectToRoute('admin_list_vehicles');
             }
+        } else {
+            $vehicleData = $this->service->fetchFeaturedVehicle();
+            if ($vehicleData !== null) {
+                $this->form->get('featured-vehicle-id')->setValue(
+                    (int) $vehicleData['vehicle_id']
+                );
+            }
         }
 
         $viewModel = new ViewModel([
