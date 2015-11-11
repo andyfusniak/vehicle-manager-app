@@ -3,4 +3,7 @@
 <?php $this->headMeta()->setMetaKeywords($page->getMetaKeywords())
                        ->setMetaDescription($page->getMetaDesc())
                        ->setTitle($page->getPageTitle()); ?>
-<?php echo $page->getPageHtml(); ?>
+
+<div class="sl-inner-whiteboard">
+    <?php echo $page->getPageHtml(); ?>
+</div>
