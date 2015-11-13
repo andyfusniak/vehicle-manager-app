@@ -180,6 +180,26 @@ class VehicleMapper
     }
 
     /**
+     * Fetch the new-in vehicles
+     * @return array associative array of vehicles
+     */
+    public function fetchFeaturedVehicle()
+    {
+        $statement = $this->pdo->prepare('
+            SELECT V.*, I.image_id
+            FROM vehicles AS V
+            LEFT JOIN (
+                SELECT image_id, collection_id
+                FROM images AS I
+                WHERE priority = 1
+            ) AS I
+            ON V.collection_id = I.collection_id
+            WHERE V.new = 1
+            LIMIT 2
+        ');
+    }
+
+    /**
      * Fetch the markdown only by vehicle id
      *
      * @param int $vehicleId the primary key
