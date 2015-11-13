@@ -1,13 +1,49 @@
 body {
-    background: url('/images/background_full.jpg') no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-attachment: fixed;
-
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
+}
+
+@media (min-width: 1200px) {
+    body {
+        background: url('/images/background_full_1920px.jpg') no-repeat;
+        -webkit-background-size: 100% auto;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        background-size: 100% auto;
+        background-attachment: fixed;
+    }
+}
+
+@media (max-width: 1199px) {
+    body {
+        background: url('/images/background_full_1200px.jpg') no-repeat;
+        -webkit-background-size: 100% auto;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        background-size: 100% auto;
+        background-attachment: fixed;
+    }
+}
+
+@media (max-width: 991px) {
+    body {
+        background: url('/images/background_full_992px.jpg') no-repeat;
+        -webkit-background-size: 100% auto;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        background-size: 100% auto;
+        background-attachment: fixed;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        background: url('/images/background_full_768px.jpg') no-repeat;
+        -webkit-background-size: 100% auto;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        background-attachment: fixed;
+    }
 }
 
 h1 {
