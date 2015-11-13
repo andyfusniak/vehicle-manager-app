@@ -13,20 +13,45 @@
 </div>
 <div class="col-lg-4">
 
+<div class="sl-vehicle-featured-box">
     <div class="sl-vehicle-container-header">
         FEATURED VEHICLE
     </div>
     <div class="sl-vehicle-container">
+        <div class="sl-vehicle-details">
+            <h1><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['page_title']); ?></a></h1>
+            <h2><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></h2>
+        </div>
         <a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtml($fv['image_id']); ?>_360.jpg" alt="<?php echo $this->escapeHtmlAttr($fv['page_title']); ?>"></a>
         <!--<span class="sl-price"><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></span>-->
         <?php if ($fv['sold'] === '1') : ?>
         <span class="label label-danger" style="font-size: 16px;" >SOLD</span>
         <?php endif ?>
         <div class="sl-vehicle-details">
-        <h1><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['page_title']); ?></a></h1>
-        <h2><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></h2>
-        <p><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['meta_desc']); ?></a></p>
+            <p><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['meta_desc']); ?></a></p>
+        </div>
+    </div>
+
+</div>
+
+<div class="sl-vehicle-new-in">
+    <div class="sl-vehicle-container-header">
+        MOTORHOMES - NEW IN!
+    </div>
+    <div class="sl-vehicle-new-in-container">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <a href="#"><img class="img-responsive" src="http://nuc.serenityleisure/images/vehicles/28_360.jpg"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h1><a href="#">2009 Lunar Roadstar 900</a></h1>
+                <h2>&pound;39,995</h2>
+            </div>
+        </div>
     </div>
 </div>
+
 </div>
+</div>
+
 <?php endif ?>
