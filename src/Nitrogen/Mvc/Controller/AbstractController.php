@@ -59,6 +59,11 @@ abstract class AbstractController
         return $default;
     }
 
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
     public function redirectToRoute($name, $params = [])
     {
         $url = $this->urlGenerator->generate($name, $params);

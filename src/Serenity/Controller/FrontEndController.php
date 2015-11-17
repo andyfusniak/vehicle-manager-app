@@ -84,6 +84,7 @@ class FrontEndController extends AbstractController
 
         $viewModel = new ViewModel();
         $viewModel->setTemplate('view/front-end/display.phtml');
+        $this->getResponse()->setStatusCode(404);
         return $viewModel;
     }
 }
