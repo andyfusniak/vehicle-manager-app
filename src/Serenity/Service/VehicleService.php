@@ -71,6 +71,15 @@ class VehicleService
     }
 
     /**
+     * Fetch new-in vehicles
+     * @return array of Vehicle instances
+     */
+    public function fetchNewVehicles()
+    {
+        return $this->mapper->fetchNewVehicles();
+    }
+
+    /**
      * @param string $url the url slug of the vehicle to fetch
      * @return Vehicle object
      */

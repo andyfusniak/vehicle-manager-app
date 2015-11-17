@@ -317,10 +317,11 @@ div.sl-vehicle-features ul {
 /* featured vehicle and vehicle category view */
 .sl-vehicle-new-in {
     margin: 0;
-    margin-right: 15px;
-    margin-bottom; 25px;
+    margin-bottom: 25px;
     max-width: 360px;
 }
+
+
 
 .sl-vehicle-new-in-container {
     background-color: white;
@@ -332,7 +333,7 @@ div.sl-vehicle-features ul {
     font-family: 'Open Sans', sans-serif;
     margin-top: -3px;
     line-height: 26px;
-    font-size: 20px!important;
+    font-size: 16px!important;
     font-weight: bold;
 }
 
@@ -358,6 +359,7 @@ div.sl-vehicle-features ul {
     margin: 0;
     margin-bottom: 25px;
     margin-right: 15px;
+    margin-left: 15px;
     max-width: 360px;
 }
 .sl-vehicle-container {
@@ -393,7 +395,6 @@ div.sl-vehicle-features ul {
 .sl-vehicle-container-header {
     margin: 0;
     padding: 0;
-    padding-left: 15px;
     border-radius: 4px 4px 0px 0px;
     background-color: #29306f;
     height: 32px;
@@ -403,8 +404,12 @@ div.sl-vehicle-features ul {
     letter-spacing: 0.1em;
     color: white;
 }
-
-
+.sl-vehicle-new-in .caravans {
+    background-color: #29306f;
+}
+.sl-vehicle-new-in .motorhomes {
+    background-color: #29306f;
+}
 
 .sl-price {
     position: absolute;
