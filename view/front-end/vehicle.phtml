@@ -2,57 +2,64 @@
                        ->setMetaDescription($vehicle->getMetaDesc())
                        ->setTitle($vehicle->getPageTitle()); ?>
 <div class="sl-inner-whiteboard">
-<h3><?php echo $this->escapeHtml($vehicle->getPageTitle()); ?></h3>
-<?php if ($hasImages) : ?>
-<div id="carousel-example-generic" class="carousel slide col-md-7" data-ride="carousel" data-interval="false" data-wrap="false">
 
-<!-- Indicators -->
-<ol class="carousel-indicators">
-<?php foreach ($images as $i) : ?>
-<?php $priority = $i->getPriority(); ?>
-    <li data-target="#carousel-example-generic" data-slide-to="<?php echo $this->escapeHtmlAttr($priority - 1); ?>"<?php echo ($priority === 1) ? ' class="active"' : '' ?>></li>
-<?php endforeach ?>
-</ol>
+<div class="row">
+    <div class="col-md-5 sl-vehicle-features">
+        <h2><?php echo $this->escapeHtml($vehicle->getPageTitle()); ?></h2>
+        <h3><?php echo $this->price($vehicle->getPrice(), 'GBP', ['decimal_places' => 0]); ?></h3>
+        <p><?php echo $this->escapeHtml($vehicle->getMetaDesc()); ?></p>
 
-<!-- Wrapper for slides -->
-<div class="carousel-inner sl-vehicle-full-container" role="listbox">
-<?php foreach ($images as $i) : ?>
-<?php $priority = $i->getPriority(); ?>
-    <div class="item<?php echo ($priority === 1) ? ' active' : '' ?>">
-        <img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($i->getImageId()) ?>_720.jpg" alt="...">
+        <div class="sl-feature-items">
+            <div class="row">
+        <?php foreach ($vehicle->getFeatures() as $feature) : ?>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sl-feature-item">
+            <?php echo $this->vehicleFeature($feature); ?>
+        </div>
+        <?php endforeach ?>
+            </div>
+        </div>
     </div>
-<?php endforeach ?>
-<span class="sl-price"><?php echo $this->price($vehicle->getPrice(), 'GBP', ['decimal_places' => 0]); ?></span>
-<?php if ($vehicle->getSold() === true) : ?>
-<span class="label label-danger" style="font-size: 16px;" >SOLD</span>
+
+    <?php if ($hasImages) : ?>
+    <div id="carousel-example-generic" class="carousel slide col-md-7" data-ride="carousel" data-interval="false" data-wrap="false">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+        <?php foreach ($images as $i) : ?>
+        <?php $priority = $i->getPriority(); ?>
+            <li data-target="#carousel-example-generic" data-slide-to="<?php echo $this->escapeHtmlAttr($priority - 1); ?>"<?php echo ($priority === 1) ? ' class="active"' : '' ?>></li>
+        <?php endforeach ?>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner sl-vehicle-full-container" role="listbox">
+        <?php foreach ($images as $i) : ?>
+        <?php $priority = $i->getPriority(); ?>
+            <div class="item<?php echo ($priority === 1) ? ' active' : '' ?>">
+                <img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($i->getImageId()) ?>_720.jpg" alt="...">
+            </div>
+        <?php endforeach ?>
+
+        <?php if ($vehicle->getSold() === true) : ?>
+            <span class="label label-danger" style="font-size: 16px;" >SOLD</span>
+        <?php endif ?>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
 <?php endif ?>
-</div>
-
-<!-- Controls -->
-<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-  <span class="sr-only">Previous</span>
-</a>
-<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-  <span class="sr-only">Next</span>
-</a>
-</div>
-<?php endif ?>
-
-<div class="col-md-5 sl-vehicle-features">
-
-    <ul>
-    <?php foreach ($vehicle->getFeatures() as $feature) : ?>
-    <li><span class="glyphicon glyphicon-ok success"></span> <?php echo $this->vehicleFeature($feature); ?></li>
-    <?php endforeach ?>
-    </ul>
-
-    <!--<h5 class="sl-summary-heading"><?php //echo $this->escapeHtml($vehicle->getMetaDesc()); ?></h5>-->
-    <p><?php echo $this->escapeHtml($vehicle->getMetaDesc()); ?></p>
-</div>
 
 <div class="clearfix visible-md-block visible-lg-block"></div>
+
+
 
 <div class="sl-vehicle-main">
     <?php echo $vehicle->getPageHtml(); ?>
@@ -64,3 +71,4 @@
 $(function() {
     $('.carousel').carousel();
 });
+</script>
