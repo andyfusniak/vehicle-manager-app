@@ -183,7 +183,7 @@ class VehicleMapper
      * Fetch the new-in vehicles
      * @return array associative array of vehicles
      */
-    public function fetchFeaturedVehicle()
+    public function fetchNewVehicles()
     {
         $statement = $this->pdo->prepare('
             SELECT V.*, I.image_id
@@ -194,9 +194,16 @@ class VehicleMapper
                 WHERE priority = 1
             ) AS I
             ON V.collection_id = I.collection_id
-            WHERE V.new = 1
+            WHERE V.new = 1 AND V.visible = 1
             LIMIT 2
         ');
+
+        $statement->execute();
+        $rows = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        if ($rows === false) {
+            return null;
+        }
+        return $rows;
     }
 
     /**

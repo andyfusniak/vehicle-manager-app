@@ -76,7 +76,7 @@ class VehicleService
      */
     public function fetchNewVehicles()
     {
-        return $this->mapper->fet
+        return $this->mapper->fetchNewVehicles();
     }
 
     /**

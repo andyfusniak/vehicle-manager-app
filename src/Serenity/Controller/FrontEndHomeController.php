@@ -30,7 +30,8 @@ class FrontEndHomeController extends AbstractController
         $viewModel = new ViewModel([
             'url'  => 'homepage',
             'page' => $this->pageService->fetchPageByUrl('homepage'),
-            'fv'   => $this->vehicleService->fetchFeaturedVehicle()
+            'fv'   => $this->vehicleService->fetchFeaturedVehicle(),
+            'nv'   => $this->vehicleService->fetchNewVehicles()
         ]);
         $viewModel->setTemplate('view/front-end/home.phtml');
         return $viewModel;
