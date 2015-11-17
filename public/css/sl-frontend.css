@@ -340,10 +340,12 @@ div.sl-vehicle-features ul {
 /* featured vehicle and vehicle category view */
 .sl-vehicle-new-in {
     margin: 0;
-    margin-bottom: 25px;
-    max-width: 360px;
+    /*max-width: 360px;*/
 }
 
+.sl-vehicle-new-in-outer {
+    margin-bottom: 25px;
+}
 
 
 .sl-vehicle-new-in-container {

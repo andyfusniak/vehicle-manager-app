@@ -11,10 +11,12 @@
         <?php echo $page->getPageHtml(); ?>
     </div>
 
-    <div class="col-lg-6">
+    <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <?php if ($nv) : ?>
         <?php if (isset($nv[0])) : ?>
         <?php $n = $nv[0]; ?>
+        <div class="sl-vehicle-new-in-outer">
         <div class="sl-vehicle-new-in">
             <div class="sl-vehicle-container-header <?php echo $this->escapeHtmlAttr($n['type']); ?>">
                 <?php echo $this->escapeHtml(strtoupper($n['type'])); ?> - NEW IN!
@@ -31,13 +33,16 @@
                 </div>
             </div>
         </div>
+        </div>
         <?php endif; ?>
         <?php endif; ?>
     </div>
-    <div class="col-lg-6">
+
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <?php if ($nv) : ?>
         <?php if (isset($nv[1])) : ?>
         <?php $n = $nv[1]; ?>
+        <div class="sl-vehicle-new-in-outer">
         <div class="sl-vehicle-new-in">
             <div class="sl-vehicle-container-header <?php echo $this->escapeHtmlAttr($n['type']); ?>">
                 <?php echo $this->escapeHtml(strtoupper($n['type'])); ?> - NEW IN!
@@ -54,34 +59,34 @@
                 </div>
             </div>
         </div>
+        </div>
         <?php endif; ?>
         <?php endif; ?>
     </div>
+    </div>
 </div>
+
 <div class="col-lg-4">
-
-<div class="sl-vehicle-featured-box">
-    <div class="sl-vehicle-container-header">
-        FEATURED VEHICLE
-    </div>
-    <div class="sl-vehicle-container">
-        <div class="sl-vehicle-details">
-            <h1><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['page_title']); ?></a></h1>
-            <h2><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></h2>
+    <div class="sl-vehicle-featured-box">
+        <div class="sl-vehicle-container-header">
+            FEATURED VEHICLE
         </div>
-        <a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtml($fv['image_id']); ?>_360.jpg" alt="<?php echo $this->escapeHtmlAttr($fv['page_title']); ?>"></a>
-        <!--<span class="sl-price"><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></span>-->
-        <?php if ($fv['sold'] === '1') : ?>
-        <span class="label label-danger" style="font-size: 16px;" >SOLD</span>
-        <?php endif ?>
-        <div class="sl-vehicle-details">
-            <p><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['meta_desc']); ?></a></p>
+        <div class="sl-vehicle-container">
+            <div class="sl-vehicle-details">
+                <h1><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['page_title']); ?></a></h1>
+                <h2><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></h2>
+            </div>
+            <a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtml($fv['image_id']); ?>_360.jpg" alt="<?php echo $this->escapeHtmlAttr($fv['page_title']); ?>"></a>
+            <!--<span class="sl-price"><?php echo $this->price($fv['price'], 'GBP', ['decimal_places' => 0]); ?></span>-->
+            <?php if ($fv['sold'] === '1') : ?>
+            <span class="label label-danger" style="font-size: 16px;" >SOLD</span>
+            <?php endif ?>
+            <div class="sl-vehicle-details">
+                <p><a href="/<?php echo $this->escapeHtmlAttr($fv['url']); ?>"><?php echo $this->escapeHtml($fv['meta_desc']); ?></a></p>
+            </div>
         </div>
     </div>
-
 </div>
 
 </div>
-</div>
-
 <?php endif ?>
