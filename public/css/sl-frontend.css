@@ -271,10 +271,35 @@ ul#sl-category-tabs {
     padding-right: 0px;
 }
 
-.sl-vehicle-features {
-    padding-left: 0px;
-    padding-right: 0px;
+.sl-feature-items {
+    margin-bottom: 15px;
 }
+
+.sl-vehicle-features {
+    margin: 0;
+    padding: 0;
+}
+
+.sl-feature-item {
+    padding: 0;
+    font-weight: 700;
+}
+
+.sl-vehicle-features h2 {
+    margin: 0;
+}
+
+.sl-vehicle-features h3 {
+    font-size: 34px;
+    font-weight: 800;
+    color: #e18734;
+    margin: 0;
+    margin-left: -3px;
+    padding-top: 15px;
+    padding-left: 2px;
+    margin-bottom: 10px;
+}
+
 div.sl-vehicle-features ul {
     list-style: none;
     padding-left: 0px;
@@ -285,12 +310,10 @@ div.sl-vehicle-features ul {
         margin-top: -3px;
     }
     .sl-vehicle-features {
-        padding-left: 40px;
+        padding-right: 40px;
     }
-}
-@media (min-width: 992px) {
-    .sl-vehicle-main {
-        padding-top: 20px;
+    .sl-feature-items {
+        margin-bottom: 0px;
     }
 }
 
@@ -487,7 +510,7 @@ div.sl-vehicle-features ul {
     top: -3px;
 }
 .sl-vehicle-full-container {
-    overflow: visible;
+    /*overflow: visible;*/
 }
 
 /* markdown */
