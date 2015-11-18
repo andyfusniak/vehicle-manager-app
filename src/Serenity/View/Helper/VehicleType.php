@@ -17,9 +17,6 @@ class VehicleType extends AbstractHelper
             case 'awningrange':
                 return 'Awning Range';
                 break;
-            case 'accessories':
-                return 'Accessories';
-                break;
             default:
                 return 'Unknown';
         }

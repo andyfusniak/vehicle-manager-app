@@ -44,9 +44,6 @@ class VehicleCategoryNav extends AbstractHelper
             case 'awningrange':
                 return 'Awning&nbsp;Range';
                 break;
-            case 'accessories':
-                return 'Accessories';
-                break;
             default:
                 return 'Unknown';
         }
