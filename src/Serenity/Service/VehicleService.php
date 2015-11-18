@@ -173,8 +173,7 @@ class VehicleService
         return [
             'caravans',
             'motorhomes',
-            'awningrange',
-            'accessories'
+            'awningrange'
         ];
     }
 

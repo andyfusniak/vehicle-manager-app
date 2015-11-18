@@ -1,7 +1,7 @@
 CREATE TABLE `vehicles` (
   `vehicle_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `collection_id` INT UNSIGNED NOT NULL,
-  `type` enum('caravans','motorhomes','awningrange','accessories') CHARACTER SET ascii NOT NULL,
+  `type` enum('caravans','motorhomes','awningrange') CHARACTER SET ascii NOT NULL,
   `visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `sold` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `new` tinyint(1) unsigned NOT NULL DEFAULT '0',
