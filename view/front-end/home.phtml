@@ -10,60 +10,6 @@
     <div class="sl-inner-whiteboard">
         <?php echo $page->getPageHtml(); ?>
     </div>
-
-    <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <?php if ($nv) : ?>
-        <?php if (isset($nv[0])) : ?>
-        <?php $n = $nv[0]; ?>
-        <div class="sl-vehicle-new-in-outer">
-        <div class="sl-vehicle-new-in">
-            <div class="sl-vehicle-container-header <?php echo $this->escapeHtmlAttr($n['type']); ?>">
-                <?php echo $this->escapeHtml(strtoupper($n['type'])); ?> - NEW IN!
-            </div>
-            <div class="sl-vehicle-new-in-container">
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($n['image_id']); ?>_360.jpg"></a>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <h1><a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><?php echo $this->escapeHtml($n['page_title']); ?></a></h1>
-                        <h2>&pound;<?php echo number_format($n['price'], 0, '.', ','); ?></h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <?php endif; ?>
-        <?php endif; ?>
-    </div>
-
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <?php if ($nv) : ?>
-        <?php if (isset($nv[1])) : ?>
-        <?php $n = $nv[1]; ?>
-        <div class="sl-vehicle-new-in-outer">
-        <div class="sl-vehicle-new-in">
-            <div class="sl-vehicle-container-header <?php echo $this->escapeHtmlAttr($n['type']); ?>">
-                <?php echo $this->escapeHtml(strtoupper($n['type'])); ?> - NEW IN!
-            </div>
-            <div class="sl-vehicle-new-in-container">
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($n['image_id']); ?>_360.jpg"></a>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <h1><a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><?php echo $this->escapeHtml($n['page_title']); ?></a></h1>
-                        <h2>&pound;<?php echo number_format($n['price'], 0, '.', ','); ?></h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <?php endif; ?>
-        <?php endif; ?>
-    </div>
-    </div>
 </div>
 
 <div class="col-lg-4">
@@ -86,6 +32,54 @@
             </div>
         </div>
     </div>
+
+    <?php if ($nv) : ?>
+    <?php if (isset($nv[0])) : ?>
+    <?php $n = $nv[0]; ?>
+    <div class="sl-vehicle-new-in-outer">
+    <div class="sl-vehicle-new-in">
+        <div class="sl-vehicle-container-header <?php echo $this->escapeHtmlAttr($n['type']); ?>">
+            <?php echo $this->escapeHtml(strtoupper($n['type'])); ?> - NEW IN!
+        </div>
+        <div class="sl-vehicle-new-in-container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($n['image_id']); ?>_360.jpg"></a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <h1><a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><?php echo $this->escapeHtml($n['page_title']); ?></a></h1>
+                    <h2>&pound;<?php echo number_format($n['price'], 0, '.', ','); ?></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if ($nv) : ?>
+    <?php if (isset($nv[1])) : ?>
+    <?php $n = $nv[1]; ?>
+    <div class="sl-vehicle-new-in-outer">
+    <div class="sl-vehicle-new-in">
+        <div class="sl-vehicle-container-header <?php echo $this->escapeHtmlAttr($n['type']); ?>">
+            <?php echo $this->escapeHtml(strtoupper($n['type'])); ?> - NEW IN!
+        </div>
+        <div class="sl-vehicle-new-in-container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><img class="img-responsive" src="/images/vehicles/<?php echo $this->escapeHtmlAttr($n['image_id']); ?>_360.jpg"></a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <h1><a href="/<?php echo $this->escapeHtmlAttr($n['url']); ?>"><?php echo $this->escapeHtml($n['page_title']); ?></a></h1>
+                    <h2>&pound;<?php echo number_format($n['price'], 0, '.', ','); ?></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <?php endif; ?>
+    <?php endif; ?>
 </div>
 
 </div>
