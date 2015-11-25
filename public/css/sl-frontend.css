@@ -415,7 +415,10 @@ div.sl-vehicle-features ul {
     margin-bottom: 10px;
 }
 
-
+.sl-vehicle-sold {
+    margin-left: 12px;
+    margin-top: 10px;
+}
 
 .sl-vehicle-container img {
     vertical-align: middle;
