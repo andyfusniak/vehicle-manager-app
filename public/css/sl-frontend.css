@@ -234,7 +234,7 @@ ul#sl-category-tabs {
     font-size: 12px;
     background-color: #fff;
     color: #000;
-    height: 80px;
+    height: 100px;
 }
 
 #sl-outer-chalk {
@@ -345,6 +345,9 @@ div.sl-vehicle-features ul {
 
 .sl-vehicle-new-in-outer {
     margin-bottom: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
+    max-width: 360px;
 }
 
 
