@@ -22,14 +22,6 @@
 
     <?php if ($hasImages) : ?>
     <div id="carousel-example-generic" class="carousel slide col-md-7" data-ride="carousel" data-interval="false" data-wrap="false">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-        <?php foreach ($images as $i) : ?>
-        <?php $priority = $i->getPriority(); ?>
-            <li data-target="#carousel-example-generic" data-slide-to="<?php echo $this->escapeHtmlAttr($priority - 1); ?>"<?php echo ($priority === 1) ? ' class="active"' : '' ?>></li>
-        <?php endforeach ?>
-        </ol>
-
         <!-- Wrapper for slides -->
         <div class="carousel-inner sl-vehicle-full-container" role="listbox">
         <?php foreach ($images as $i) : ?>
