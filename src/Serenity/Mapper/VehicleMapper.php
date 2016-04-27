@@ -423,6 +423,19 @@ class VehicleMapper
         $this->pdo->commit();
     }
 
+    /**
+     * Delete a vehicle
+     * @param int $vehicleId the vehicle to delete
+     */
+    public function deleteVehicle($vehicleId)
+    {
+        $statement = $this->pdo->prepare('
+            DELETE FROM vehicles
+            WHERE vehicle_id = :vehicle_id
+        ');
+        $statement->bindValue(':vehicle_id', (int) $vehicleId, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 
     // ORDER BY FIELD(noticeBy, 'all','auto','email','mobile','nothing')
     // ORDER BY FIELD(type, 'motorhomes', 'caravans', 'awningrange');

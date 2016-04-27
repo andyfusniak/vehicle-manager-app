@@ -246,4 +246,17 @@ class VehicleService
         }
         return $featureCheckboxes;
     }
+
+    public function deleteVehicle($vehicleId)
+    {
+        $vehicle = $this->fetchByVehicleId($vehicleId);
+        $collectionId = $vehicle->getCollectionId();
+        $this->mapper->deleteVehicle($vehicle->getVehicleId());
+        $this->collectionService->deleteCollectionAndImages($collectionId);
+    }
+
+    public function getCollectionService()
+    {
+        return $this->collectionService;
+    }
 }
