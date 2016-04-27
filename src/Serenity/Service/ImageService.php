@@ -182,7 +182,7 @@ class ImageService
             ));
         }
 
-        unlink($uploadDir . '/' . $imageId . '.jpg');
+        @unlink($uploadDir . '/' . $imageId . '.jpg');
         array_map('unlink', glob($webDir . '/' . $imageId . '_*.jpg'));
     }
 

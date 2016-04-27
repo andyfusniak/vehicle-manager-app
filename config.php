@@ -3,7 +3,7 @@ return array(
     // database
     'db' => [
         'hostname' => 'localhost',
-        'database' => 'serenity_nuc',
+        'database' => 'serenity_live',
         'username' => 'root',
         'password' => 'mysql'
     ],
@@ -83,6 +83,7 @@ return array(
         'AdminSignInController'      => 'Serenity\Factory\AdminSignInControllerFactory',
         'CollectionController'       => 'Serenity\Factory\CollectionControllerFactory',
         'DashboardController'        => 'Serenity\Factory\DashboardControllerFactory',
+        'DeleteVehicleController'    => 'Serenity\Factory\DeleteVehicleControllerFactory',
         'FeaturedVehiclesController' => 'Serenity\Factory\FeaturedVehiclesControllerFactory',
         'ImageUploadController'      => 'Serenity\Factory\ImageUploadControllerFactory',
         'ListVehiclesController'     => 'Serenity\Factory\ListVehiclesControllerFactory',
@@ -156,6 +157,27 @@ return array(
             'path' => '/admin/markdown-editor/edit/{section}',
             'defaults' => [
                 '_controller' => 'MarkdownEditorController:editAction'
+            ]
+        ],
+        'admin_delete_vehicle' => [
+            'path' => '/admin/delete-vehicle/{vehicle_id}',
+            'defaults' => [
+                '_controller' => 'DeleteVehicleController:confirmAction'
+            ],
+            'requirements' => [
+                'vehicle_id' => '\d+'
+            ]
+        ],
+        'admin_delete_vehicle_post' => [
+            'path' => '/admin/delete-vehicle',
+            'defaults' => [
+                '_controller' => 'DeleteVehicleController:deleteAction'
+            ]
+        ],
+        'admin_delete_vehicle_cancel_post' => [
+            'path' => '/admin/delete-vehicle-cancel',
+            'defaults' => [
+                '_controller' => 'DeleteVehicleController:cancelAction'
             ]
         ],
         'admin_markdown_editor_vehicle_selector_ajax' => [

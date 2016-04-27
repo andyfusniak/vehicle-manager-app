@@ -180,4 +180,14 @@ class CollectionService
     {
         $this->mapper->delete((int) $collectionId);
     }
+
+    public function deleteCollectionAndImages($collectionId)
+    {
+        $collection = $this->fetchCollection($collectionId);
+        $images = $collection->getImages();
+        foreach ($images as $i) {
+            $this->imageService->destroyImages($i->getImageId());
+        }
+        $this->deleteCollection($collectionId);
+     }
 }
