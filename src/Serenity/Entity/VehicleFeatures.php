@@ -36,6 +36,26 @@ class VehicleFeatures
     const SOLAR_PANEL              = 'solar-panel';
     const TV_AERIAL                = 'tv-aerial';
     const TV_POINT                 = 'tv-point';
+    const ZINOX                    = 'zinox';
+    const ZINOX_MEGAFRAME          = 'zinox-megaframe';
+    const ISACRYL                  = 'isacryl';
+    const LIGHT_ISACRYL            = 'light-isacryl';
+    const ISALITE                  = 'isaLite';
+    const PVC_POLYESTER            = 'pvc-polyester';
+    const COATED_POLYESTER         = 'coated-polyester';
+    const CARBONX                  = 'carbonx';
+    const MOSQUITO_NETS            = 'mosquito-nets';
+    const FRONT_DIVIDER            = 'front-divider';
+    const ANNEX_250                = 'annex-250';
+    const COSY_CORNER_II           = 'cosy-corner-ii';
+    const CORNER_DOOR              = 'corner-door';
+    const FOLD_DOWN_PANELS         = 'fold-down-panels';
+    const FROSTED_WINDOW_PANELS    = 'frosted-window-panels';
+    const INTEGRATED_VENTILATION   = 'integrated-ventilation';
+    const EXTERNAL_MUD_FLAP        = 'external-mud-flap';
+    const THREE_COLOUR             = 'three-colour';
+    const TWO_COLOUR               = 'two-colour';
+    const ONE_COLOUR               = 'one-colour';
 
     public static $titles = [
         self::TWO_BERTH                => '2 Berth',
@@ -70,6 +90,26 @@ class VehicleFeatures
         self::EXTERNAL_240V_SOCKET     => 'External 240v Socket',
         self::SOLAR_PANEL              => 'Solar Panel',
         self::TV_AERIAL                => 'TV Aerial',
-        self::TV_POINT                 => 'TV Point'
+        self::TV_POINT                 => 'TV Point',
+        self::ZINOX                    => 'Zinox',
+        self::ZINOX_MEGAFRAME          => 'Zinox MegaFrame',
+        self::ISACRYL                  => 'Isacryl',
+        self::LIGHT_ISACRYL            => 'Light Isacryl',
+        self::ISALITE                  => 'IsaLite',
+        self::PVC_POLYESTER            => 'PVC Polyester',
+        self::COATED_POLYESTER         => 'Coated Polyester',
+        self::CARBONX                  => 'CarbonX',
+        self::MOSQUITO_NETS            => 'Mosquito Nets',
+        self::FRONT_DIVIDER            => 'Front Divider',
+        self::ANNEX_250                => 'Annex 250',
+        self::COSY_CORNER_II           => 'Cosy Corner II',
+        self::CORNER_DOOR              => 'Corner Door',
+        self::FOLD_DOWN_PANELS         => 'Removable/fold down panels',
+        self::FROSTED_WINDOW_PANELS    => 'Frosted window panels',
+        self::INTEGRATED_VENTILATION   => 'Integrated Ventilation',
+        self::EXTERNAL_MUD_FLAP        => 'External mud flap',
+        self::THREE_COLOUR             => '3 Types of Colour',
+        self::TWO_COLOUR               => '2 Types of Colour',
+        self::ONE_COLOUR               => '1 Type of Colour'
     ];
 }
