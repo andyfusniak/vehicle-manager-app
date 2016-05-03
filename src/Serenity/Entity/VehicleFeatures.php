@@ -57,6 +57,15 @@ class VehicleFeatures
     const TWO_COLOUR               = 'two-colour';
     const ONE_COLOUR               = 'one-colour';
 
+    const ANNEX_220                = 'annex-220';
+    const ANNEX_300                = 'annex-300';
+    const IXL                      = 'ixl';
+    const PRENONX                  = 'prenox';
+    const TENCATE_POLYESTER        = 'tencate-polyester';
+    const ACYRL                    = 'acryl';
+    const LWEIGHT_FIBREGLASS       = 'lweight-fibreglass';
+
+
     public static $titles = [
         self::TWO_BERTH                => '2 Berth',
         self::FOUR_BERTH               => '4 Berth',
@@ -76,7 +85,7 @@ class VehicleFeatures
         self::DUAL_FUEL                => 'Dual Fuel',
         self::EXTRACTOR_FAN            => 'Extractor Fan',
         self::HEKI_SKYLIGHT            => 'Heki Skylight',
-        self::CARBON_MONOXIDE_DETECTOR => 'Carbon Monoxide Detector',
+        self::CARBON_MONOXIDE_DETECTOR => 'CO Detector',
         self::SMOKE_ALARM              => 'Smoke Alarm',
         self::PLEATED_BLINDS           => 'Pleated Blinds',
         self::FLYSCREENS               => 'Flyscreens',
@@ -104,12 +113,19 @@ class VehicleFeatures
         self::ANNEX_250                => 'Annex 250',
         self::COSY_CORNER_II           => 'Cosy Corner II',
         self::CORNER_DOOR              => 'Corner Door',
-        self::FOLD_DOWN_PANELS         => 'Removable/fold down panels',
+        self::FOLD_DOWN_PANELS         => 'Removable/fold Panels',
         self::FROSTED_WINDOW_PANELS    => 'Frosted window panels',
         self::INTEGRATED_VENTILATION   => 'Integrated Ventilation',
         self::EXTERNAL_MUD_FLAP        => 'External mud flap',
         self::THREE_COLOUR             => '3 Types of Colour',
         self::TWO_COLOUR               => '2 Types of Colour',
-        self::ONE_COLOUR               => '1 Type of Colour'
+        self::ONE_COLOUR               => '1 Type of Colour',
+        self::ANNEX_220                => 'Annex 220',
+        self::ANNEX_300                => 'Annex 300',
+        self::IXL                      => 'IXL',
+        self::PRENONX                  => 'Prenox',
+        self::TENCATE_POLYESTER        => 'Tencate Polyester',
+        self::ACYRL                    => 'Acrly',
+        self::LWEIGHT_FIBREGLASS       => 'Lweight Fibreglass'
     ];
 }
