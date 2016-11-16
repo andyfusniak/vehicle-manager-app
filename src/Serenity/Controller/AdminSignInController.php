@@ -63,8 +63,8 @@ class AdminSignInController extends AbstractController
     {
         $admin = new Admin();
         $admin->setAdminId(null)
-              ->setUsername('richard')
-              ->setPasswd('Corsair1');
+              ->setUsername('andy')
+              ->setPasswd('andy12345');
         $this->authService->addAdministrator($admin);
         $viewModel = new ViewModel([
             'form' => $this->form

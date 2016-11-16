@@ -3,7 +3,7 @@ CREATE TABLE `admins` (
   `username` varchar(255) DEFAULT NULL,
   `passwd` char(60) CHARACTER SET ascii NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified` timestamp NULL,
   KEY `admin_id` (`admin_id`),
   UNIQUE KEY `username` (`username`),
   KEY `passwd` (`passwd`),

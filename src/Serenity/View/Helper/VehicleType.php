@@ -9,7 +9,7 @@ class VehicleType extends AbstractHelper
     {
         switch ($value) {
             case 'caravans':
-                return 'Caravans';
+                return 'Used Caravans';
                 break;
             case 'motorhomes':
                 return 'Motorhomes';
@@ -17,6 +17,8 @@ class VehicleType extends AbstractHelper
             case 'awningrange':
                 return 'Awning Range';
                 break;
+            case 'newcaravans':
+                return 'New Caravans';
             default:
                 return 'Unknown';
         }

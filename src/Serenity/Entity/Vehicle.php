@@ -11,7 +11,8 @@ class Vehicle
     private static $validVehicleTypes = [
         'caravans',
         'motorhomes',
-        'awningrange'
+        'awningrange',
+        'newcaravans'
     ];
 
     /**
