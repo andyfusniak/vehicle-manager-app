@@ -1,7 +1,7 @@
 CREATE TABLE `vehicles` (
   `vehicle_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `collection_id` INT UNSIGNED NOT NULL,
-  `type` enum('caravans','motorhomes','awningrange') CHARACTER SET ascii NOT NULL,
+  `type` enum('caravans','motorhomes','awningrange','newcaravans') CHARACTER SET ascii NOT NULL,
   `visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `sold` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `new` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -15,7 +15,7 @@ CREATE TABLE `vehicles` (
   `page_html` text,
   `features` text,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified` timestamp NULL,
   PRIMARY KEY (`vehicle_id`),
   UNIQUE KEY `url` (`url`),
   KEY `collection_id` (`collection_id`),

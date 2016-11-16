@@ -36,7 +36,7 @@ class VehicleCategoryNav extends AbstractHelper
     {
         switch ($value) {
             case 'caravans':
-                return 'Caravans';
+                return 'Used&nbsp;Caravans';
                 break;
             case 'motorhomes':
                 return 'Motorhomes';
@@ -44,6 +44,8 @@ class VehicleCategoryNav extends AbstractHelper
             case 'awningrange':
                 return 'Awning&nbsp;Range';
                 break;
+            case 'newcaravans':
+                return 'New&nbsp;Caravans';
             default:
                 return 'Unknown';
         }

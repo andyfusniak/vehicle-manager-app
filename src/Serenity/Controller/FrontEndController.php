@@ -67,7 +67,7 @@ class FrontEndController extends AbstractController
     {
         $url = $this->getRouteParam('url');
 
-        // vehicle category e.g. 'awningrange', 'motorhomes'
+        // vehicle category e.g. 'awningrange', 'motorhomes', 'newcaravans'
         if (in_array($url, $this->vehicleService->fetchVehicleCategoriesArray())) {
             return $this->category($url);
         }

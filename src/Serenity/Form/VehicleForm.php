@@ -33,9 +33,10 @@ class VehicleForm extends Form
         // type
         $type = new Element\Select('type');
         $type->setValueOptions([
-            'caravans'    => 'Caravans',
+            'caravans'    => 'Used Caravans',
             'motorhomes'  => 'Motorhomes',
-            'awningrange' => 'Awning Range'
+            'awningrange' => 'Awning Range',
+            'newcaravans' => 'New Caravans'
         ])->setEmptyOption('--select--');
         $typeChain = new ValidatorChain($helperPluginManager);
         $typeChain->attach('validatornotempty');
