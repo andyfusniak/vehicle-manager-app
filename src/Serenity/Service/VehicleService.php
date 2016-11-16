@@ -171,10 +171,10 @@ class VehicleService
     public function fetchVehicleCategoriesArray()
     {
         return [
+            'newcaravans',
             'caravans',
             'motorhomes',
-            'awningrange',
-            'newcaravans'
+            'awningrange'
         ];
     }
 
