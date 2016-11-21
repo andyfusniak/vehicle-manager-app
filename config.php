@@ -3,7 +3,7 @@ return array(
     // database
     'db' => [
         'hostname' => 'localhost',
-        'database' => 'serenity_live',
+        'database' => 'serenity_nuc',
         'username' => 'root',
         'password' => 'mysql'
     ],
@@ -20,79 +20,79 @@ return array(
         'web_image_sizes'  => [150, 360, 720]
     ],
     'invokables' => [
-        'image'              => 'Serenity\View\Helper\Image',
-        'vehicletype'        => 'Serenity\View\Helper\VehicleType',
-        'vehiclefeature'     => 'Serenity\View\Helper\VehicleFeature',
-        'headmeta'           => 'Serenity\View\Helper\HeadMeta',
-        'pagelayoutposition' => 'Serenity\View\Helper\PageLayoutPosition'
+        'image'              => 'Vm\View\Helper\Image',
+        'vehicletype'        => 'Vm\View\Helper\VehicleType',
+        'vehiclefeature'     => 'Vm\View\Helper\VehicleFeature',
+        'headmeta'           => 'Vm\View\Helper\HeadMeta',
+        'pagelayoutposition' => 'Vm\View\Helper\PageLayoutPosition'
     ],
     'factories' => [
         // Database
-        'Pdo' => 'Serenity\Factory\PdoFactory',
+        'Pdo' => 'Vm\Factory\PdoFactory',
 
         // View Helpers (factory)
-        'vehicleCategoryNav' => 'Serenity\Factory\VehicleCategoryNavFactory',
-        'pageNav'            => 'Serenity\Factory\PageNavFactory',
-        'footerNav'          => 'Serenity\Factory\FooterNavFactory',
+        'vehicleCategoryNav' => 'Vm\Factory\VehicleCategoryNavFactory',
+        'pageNav'            => 'Vm\Factory\PageNavFactory',
+        'footerNav'          => 'Vm\Factory\FooterNavFactory',
 
         // Mappers
-        'Serenity\Mapper\AdminMapper'      => 'Serenity\Factory\AdminMapperFactory',
-        'Serenity\Mapper\CollectionMapper' => 'Serenity\Factory\CollectionMapperFactory',
-        'Serenity\Mapper\ImageMapper'      => 'Serenity\Factory\ImageMapperFactory',
-        'Serenity\Mapper\PageMapper'       => 'Serenity\Factory\PageMapperFactory',
-        'Serenity\Mapper\VehicleMapper'    => 'Serenity\Factory\VehicleMapperFactory',
+        'Vm\Mapper\AdminMapper'      => 'Vm\Factory\AdminMapperFactory',
+        'Vm\Mapper\CollectionMapper' => 'Vm\Factory\CollectionMapperFactory',
+        'Vm\Mapper\ImageMapper'      => 'Vm\Factory\ImageMapperFactory',
+        'Vm\Mapper\PageMapper'       => 'Vm\Factory\PageMapperFactory',
+        'Vm\Mapper\VehicleMapper'    => 'Vm\Factory\VehicleMapperFactory',
 
         // Hydrators
-        'Serenity\Hydrator\AdminDbHydrator'        => 'Serenity\Factory\AdminDbHydratorFactory',
-        'Serenity\Hydrator\CollectionDbHydrator'   => 'Serenity\Factory\CollectionDbHydratorFactory',
-        'Serenity\Hydrator\CollectionFormHydrator' => 'Serenity\Factory\CollectionFormHydratorFactory',
-        'Serenity\Hydrator\ImageDbHydrator'        => 'Serenity\Factory\ImageDbHydratorFactory',
-        'Serenity\Hydrator\PageDbHydrator'         => 'Serenity\Factory\PageDbHydratorFactory',
-        'Serenity\Hydrator\PageFormHydrator'       => 'Serenity\Factory\PageFormHydratorFactory',
-        'Serenity\Hydrator\VehicleDbHydrator'      => 'Serenity\Factory\VehicleDbHydratorFactory',
-        'Serenity\Hydrator\VehicleFormHydrator'    => 'Serenity\Factory\VehicleFormHydratorFactory',
+        'Vm\Hydrator\AdminDbHydrator'        => 'Vm\Factory\AdminDbHydratorFactory',
+        'Vm\Hydrator\CollectionDbHydrator'   => 'Vm\Factory\CollectionDbHydratorFactory',
+        'Vm\Hydrator\CollectionFormHydrator' => 'Vm\Factory\CollectionFormHydratorFactory',
+        'Vm\Hydrator\ImageDbHydrator'        => 'Vm\Factory\ImageDbHydratorFactory',
+        'Vm\Hydrator\PageDbHydrator'         => 'Vm\Factory\PageDbHydratorFactory',
+        'Vm\Hydrator\PageFormHydrator'       => 'Vm\Factory\PageFormHydratorFactory',
+        'Vm\Hydrator\VehicleDbHydrator'      => 'Vm\Factory\VehicleDbHydratorFactory',
+        'Vm\Hydrator\VehicleFormHydrator'    => 'Vm\Factory\VehicleFormHydratorFactory',
 
         // Forms
-        'Serenity\Form\AdminSignInForm'      => 'Serenity\Factory\AdminSignInFormFactory',
-        'Serenity\Form\CollectionForm'       => 'Serenity\Factory\CollectionFormFactory',
-        'Serenity\Form\ImageSelectorForm'    => 'Serenity\Factory\ImageSelectorFormFactory',
-        'Serenity\Form\ImageUploadForm'      => 'Serenity\Factory\ImageUploadFormFactory',
-        'Serenity\Form\MarkdownEditorForm'   => 'Serenity\Factory\MarkdownEditorFormFactory',
-        'Serenity\Form\PageForm'             => 'Serenity\Factory\PageFormFactory',
-        'Serenity\Form\VehicleForm'          => 'Serenity\Factory\VehicleFormFactory',
-        'Serenity\Form\FeaturedVehiclesForm' => 'Serenity\Factory\FeaturedVehiclesFormFactory',
+        'Vm\Form\AdminSignInForm'      => 'Vm\Factory\AdminSignInFormFactory',
+        'Vm\Form\CollectionForm'       => 'Vm\Factory\CollectionFormFactory',
+        'Vm\Form\ImageSelectorForm'    => 'Vm\Factory\ImageSelectorFormFactory',
+        'Vm\Form\ImageUploadForm'      => 'Vm\Factory\ImageUploadFormFactory',
+        'Vm\Form\MarkdownEditorForm'   => 'Vm\Factory\MarkdownEditorFormFactory',
+        'Vm\Form\PageForm'             => 'Vm\Factory\PageFormFactory',
+        'Vm\Form\VehicleForm'          => 'Vm\Factory\VehicleFormFactory',
+        'Vm\Form\FeaturedVehiclesForm' => 'Vm\Factory\FeaturedVehiclesFormFactory',
 
         // Validators
-        'Serenity\Validator\CollectionTagnameTakenValidator' => 'Serenity\Factory\CollectionTagnameTakenValidatorFactory',
-        'Serenity\Validator\NameReferenceValidator'          => 'Serenity\Factory\NameReferenceValidatorFactory',
-        'Serenity\Validator\PageUrlTakenValidator'           => 'Serenity\Factory\PageUrlTakenValidatorFactory',
-        'Serenity\Validator\SlugValidator'                   => 'Serenity\Factory\SlugValidatorFactory',
-        'Serenity\Validator\UsernameValidator'               => 'Serenity\Factory\UsernameValidatorFactory',
-        'Serenity\Validator\VehicleUrlTakenValidator'        => 'Serenity\Factory\VehicleUrlTakenValidatorFactory',
+        'Vm\Validator\CollectionTagnameTakenValidator' => 'Vm\Factory\CollectionTagnameTakenValidatorFactory',
+        'Vm\Validator\NameReferenceValidator'          => 'Vm\Factory\NameReferenceValidatorFactory',
+        'Vm\Validator\PageUrlTakenValidator'           => 'Vm\Factory\PageUrlTakenValidatorFactory',
+        'Vm\Validator\SlugValidator'                   => 'Vm\Factory\SlugValidatorFactory',
+        'Vm\Validator\UsernameValidator'               => 'Vm\Factory\UsernameValidatorFactory',
+        'Vm\Validator\VehicleUrlTakenValidator'        => 'Vm\Factory\VehicleUrlTakenValidatorFactory',
 
         // Services
-        'Serenity\Service\AuthService'       => 'Serenity\Factory\AuthServiceFactory',
-        'Serenity\Service\CollectionService' => 'Serenity\Factory\CollectionServiceFactory',
-        'Serenity\Service\ImageService'      => 'Serenity\Factory\ImageServiceFactory',
-        'Serenity\Service\PageService'       => 'Serenity\Factory\PageServiceFactory',
-        'Serenity\Service\VehicleService'    => 'Serenity\Factory\VehicleServiceFactory',
-        'Serenity\Service\SerenityParsedown' => 'Serenity\Factory\SerenityParsedownFactory',
+        'Vm\Service\AuthService'       => 'Vm\Factory\AuthServiceFactory',
+        'Vm\Service\CollectionService' => 'Vm\Factory\CollectionServiceFactory',
+        'Vm\Service\ImageService'      => 'Vm\Factory\ImageServiceFactory',
+        'Vm\Service\PageService'       => 'Vm\Factory\PageServiceFactory',
+        'Vm\Service\VehicleService'    => 'Vm\Factory\VehicleServiceFactory',
+        'Vm\Service\VmParsedown' => 'Vm\Factory\VmParsedownFactory',
 
         // Controllers (admin)
-        'AddEditVehicleController'   => 'Serenity\Factory\AddEditVehicleControllerFactory',
-        'AdminSignInController'      => 'Serenity\Factory\AdminSignInControllerFactory',
-        'CollectionController'       => 'Serenity\Factory\CollectionControllerFactory',
-        'DashboardController'        => 'Serenity\Factory\DashboardControllerFactory',
-        'DeleteVehicleController'    => 'Serenity\Factory\DeleteVehicleControllerFactory',
-        'FeaturedVehiclesController' => 'Serenity\Factory\FeaturedVehiclesControllerFactory',
-        'ImageUploadController'      => 'Serenity\Factory\ImageUploadControllerFactory',
-        'ListVehiclesController'     => 'Serenity\Factory\ListVehiclesControllerFactory',
-        'MarkdownEditorController'   => 'Serenity\Factory\MarkdownEditorControllerFactory',
-        'PageController'             => 'Serenity\Factory\PageControllerFactory',
-        'SettingsController'         => 'Serenity\Factory\SettingsControllerFactory',
+        'AddEditVehicleController'   => 'Vm\Factory\AddEditVehicleControllerFactory',
+        'AdminSignInController'      => 'Vm\Factory\AdminSignInControllerFactory',
+        'CollectionController'       => 'Vm\Factory\CollectionControllerFactory',
+        'DashboardController'        => 'Vm\Factory\DashboardControllerFactory',
+        'DeleteVehicleController'    => 'Vm\Factory\DeleteVehicleControllerFactory',
+        'FeaturedVehiclesController' => 'Vm\Factory\FeaturedVehiclesControllerFactory',
+        'ImageUploadController'      => 'Vm\Factory\ImageUploadControllerFactory',
+        'ListVehiclesController'     => 'Vm\Factory\ListVehiclesControllerFactory',
+        'MarkdownEditorController'   => 'Vm\Factory\MarkdownEditorControllerFactory',
+        'PageController'             => 'Vm\Factory\PageControllerFactory',
+        'SettingsController'         => 'Vm\Factory\SettingsControllerFactory',
         // Controllers (frontend)
-        'FrontEndController'       => 'Serenity\Factory\FrontEndControllerFactory',
-        'FrontEndHomeController'   => 'Serenity\Factory\FrontEndHomeControllerFactory'
+        'FrontEndController'       => 'Vm\Factory\FrontEndControllerFactory',
+        'FrontEndHomeController'   => 'Vm\Factory\FrontEndHomeControllerFactory'
     ],
     'routes' => [
         'admin_dashboard' => [

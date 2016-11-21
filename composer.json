@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Serenity\\": "src/Serenity/",
+            "Vm\\": "src/Vm/",
             "Nitrogen\\": "src/Nitrogen/"
         }
     }
